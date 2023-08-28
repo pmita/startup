@@ -1,3 +1,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+@layer components {
+  .navLink:hover {
+    opacity: 0.75;
+    cursor: pointer;
+
+  }
+  .primary-button {
+    padding: 0.5rem 1rem;
+    background: theme('colours.primary-black');
+    color: theme('colours.white');
+    border: 3px solid theme('colours.primary-black');
+    transition: all 0.3s ease-in-out;
+  }
+
+  .primary-button:hover {
+    cursor: pointer;
+    background: theme('colours.white');
+    color: theme('colours.primary-black');
+  }
+
+  .secondary-button {
+    padding: 1rem 2rem;
+    background: theme('colours.white');
+    color: theme('colours.primary-black');
+    border: 3px solid theme('colours.primary-black');
+    transition: all 0.3s ease-in-out;
+  }
+
+  .secondary-button:hover {
+    cursor: pointer;
+    background: theme('colours.primary-black');
+    color: theme('colours.white');
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+html{
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  font-family: var(--font-roboto), "sans-serif";
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 768px) {
+  html {
+    font-size: 13px;
+  }
+}
