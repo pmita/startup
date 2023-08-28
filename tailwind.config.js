@@ -9,11 +9,11 @@ module.exports = {
     colours: {
       transparent: 'transparent',
       'white': '#FFFFFF',
-      'primary-black': '#1E1E1E',
-      'secondary-black': '#2B2B2B',
-      'primary-baige': '#FFF6EA',
+      'black': '#1E1E1E',
+      'light-black': '#2B2B2B',
+      'baige': '#FFF6EA',
       'action': '#7BB9FA',
-      'grey-highlight': '#5F5F5F',
+      'grey': '#5F5F5F',
       'error': '#CE4C4C'
     },
     borderColor: theme => ({
