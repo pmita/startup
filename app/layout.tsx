@@ -1,9 +1,10 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import Navbar from '../components/Navbar';
+// COMPONENTS
+import Navbar from '@/components/Navbar';
+// Fonts
+import { roboto, poppins } from './font';
 
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Codaro.io - The easiest way to learn to code in Greek!',
@@ -16,8 +17,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={` ${roboto.variable} ${poppins.variable}`}>
+      <body>
         <Navbar />
         {children}
       </body>
