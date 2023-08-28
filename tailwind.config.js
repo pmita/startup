@@ -16,6 +16,10 @@ module.exports = {
       'grey-highlight': '#5F5F5F',
       'error': '#CE4C4C'
     },
+    borderColor: theme => ({
+      ...theme('colors'),
+      'primary-black': '#1E1E1E',
+    }),
     fontFamily: {
       'roboto': ["var(-roboto)", "sans-serif"],
       'poppins': ["var(--poppins)", "sans-serif"],

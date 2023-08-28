@@ -5,7 +5,37 @@
 
 
 @layer components {
-  
+  .navLink:hover {
+    opacity: 0.75;
+
+  }
+  .primary-button {
+    padding: 0.5rem 1rem;
+    background: theme('colours.primary-black');
+    color: theme('colours.white');
+    border: 3px solid theme('colours.primary-black');
+    transition: all 0.3s ease-in-out;
+  }
+
+  .primary-button:hover {
+    cursor: pointer;
+    background: theme('colours.white');
+    color: theme('colours.primary-black');
+  }
+
+  .secondary-button {
+    padding: 1rem 2rem;
+    background: theme('colours.white');
+    color: theme('colours.primary-black');
+    border: 3px solid theme('colours.primary-black');
+    transition: all 0.3s ease-in-out;
+  }
+
+  .secondary-button:hover {
+    cursor: pointer;
+    background: theme('colours.primary-black');
+    color: theme('colours.white');
+  }
 }
 
 * {
