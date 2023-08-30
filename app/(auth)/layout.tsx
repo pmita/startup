@@ -1,14 +1,17 @@
-
+import './style.css'
 interface AuthLayoutProps {
   children: React.ReactNode;
 }
 
 export default function AuthLayout({children}: AuthLayoutProps) {
   return (
-    <section className="flex flex-col min-h-[90vh]">
-      <main className="flex-1">
-        {children}
-      </main>
+    <section className="min-h-[90dvh] w-full flex justify-center items-stretch">
+      <div className="bg-black flex-1 div-left">
+        {/* Image to go here */}
+      </div>
+      <div className="bg-red flex-1 grid place-content-center z-10">
+          {children}
+      </div>
     </section>
   );
 }

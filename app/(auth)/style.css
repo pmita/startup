@@ -1,0 +1,16 @@
+.div-left{
+  background: red;
+  flex: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .div-left{
+    position: absolute;
+    width: 100%;
+    height: 90vh;
+    left: 0;
+    top: 10vh;
+  }
+  
+}
+
