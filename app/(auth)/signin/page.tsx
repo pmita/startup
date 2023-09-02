@@ -11,10 +11,19 @@ interface IFormInput {
 }
 
 export default function SignInPage(){
-  const { register, handleSubmit, formState: {errors } } = useForm<IFormInput>();
+  // HOOKS 
+  const { register, handleSubmit, formState: {errors } } = useForm<IFormInput>({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    defaultValues: {
+      email: '',
+      password: '',
+    }
+  });
 
   // EVENTS
   const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-xl sm:w-lg flex flex-col justify-center items-stretch gap-5">
       <h1 className="w-full">Welcome, please sign in!</h1>
