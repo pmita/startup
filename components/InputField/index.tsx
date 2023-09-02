@@ -4,10 +4,8 @@ import { InputFieldProps } from './types';
 
 export default function InputField({
   type,
-  // value,
   placeholder,
-  // change,
-  // ref,
+  error,
   ...rest
 }: InputFieldProps) : JSX.Element {
   return (
@@ -15,9 +13,9 @@ export default function InputField({
       <input
         type={type}
         placeholder={placeholder}
-        // ref={ref}
         {...rest}
       />
+      {error && <span>{error.message}</span>}
     </div>
   )
 }

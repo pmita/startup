@@ -1,7 +1,6 @@
+import { FieldError } from "react-hook-form";
 export interface InputFieldProps {
   type?: string;
-  // value: string;
   placeholder?: string;
-  // change: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // ref?: React.Ref<HTMLInputElement>;
+  error?: FieldError;
 }
