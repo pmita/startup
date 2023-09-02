@@ -4,20 +4,18 @@ import { InputFieldProps } from './types';
 
 export default function InputField({
   type,
-  value,
+  // value,
   placeholder,
-  change,
-  ref,
+  // change,
+  // ref,
   ...rest
 }: InputFieldProps) : JSX.Element {
   return (
     <div className="w-full">
       <input
         type={type}
-        value={value}
         placeholder={placeholder}
-        onChange={change}
-        ref={ref}
+        // ref={ref}
         {...rest}
       />
     </div>
