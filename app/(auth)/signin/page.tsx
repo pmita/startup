@@ -3,8 +3,14 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 // COMPONENTS
 import InputField from '@/components/InputField';
+import { signInInputs } from '@/utils/formInputs';
 
 interface SignInFormInput {
+  email: string;
+  password: string;
+}
+
+type FormErrors = {
   email: string;
   password: string;
 }
@@ -29,35 +35,17 @@ export default function SignInPage(){
       className="w-[350] p-2 flex flex-col justify-center items-stretch gap-5 text-center"
     >
       <h1 className="w-full">Welcome, please sign in!</h1>
-      <InputField
-        name="email"
-        type="email"
-        placeholder="Email"
-        register={register}
-        validationSchema={{
-          required: "Email is required",
-          pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: "Invalid email address",
-          }
-        }}
-        error={errors.email?.message}
-      />
-
-      <InputField
-        name="password"
-        type="password"
-        placeholder="Password"
-        register={register}
-        validationSchema={{
-          required: "Password is required",
-          pattern: {
-            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-            message: "Password must contain at least one uppercase letter, one lowercase letter and one number",
-          }
-        }}
-        error={errors.password?.message}
-      />
+      {signInInputs && signInInputs.map((input) => (
+        <InputField
+          key={input.id}
+          name={input.name}
+          type={input.type}
+          placeholder={input.placeholder}
+          register={register}
+          validationSchema={input.validationSchema}
+          error={errors[input.name as keyof FormErrors]?.message}
+        />
+      ))}
 
       <button className="button" type="submit">Log In</button>
     </form>
