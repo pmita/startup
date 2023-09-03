@@ -8,3 +8,16 @@ input{
 input::placeholder {
   font-family: 'Poppins', sans-serif;
 }
+
+/* Styles for Sign in Form component*/
+.formComponent {
+  width: 350px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 2rem;
+  outline: 3px solid yellow;
+  text-align: center;
+}

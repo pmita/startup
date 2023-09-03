@@ -33,20 +33,6 @@ export default function SignUpPage(){
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-xl sm:w-lg flex flex-col justify-center items-stretch gap-5">
       <h1 className="w-full">Welcome, please sign up!</h1>
-      <input 
-          type="email"
-          placeholder="Email"
-          className={`max-width-[100%] border-solid border-4 border-main-black p-2`}
-          {...register("email",{
-            required: "Email is required",
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Invalid email address",
-            }
-          })}
-        />
-      {errors.email && <span>{errors.email.message}</span>}
-
       <InputField
         name="email"
         type="email"

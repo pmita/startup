@@ -12,30 +12,30 @@
   }
   .button {
     padding: 0.5rem 1rem;
-    background: theme('colours.black');
-    color: theme('colours.white');
-    border: 3px solid theme('colours.black');
+    background: theme('colors.primary-black');
+    color: theme('colors.primary-white');
+    border: 3px solid theme('colors.primary-black');
     transition: all 0.3s ease-in-out;
   }
 
   .button:hover {
     cursor: pointer;
-    background: theme('colours.white');
-    color: theme('colours.black');
+    background: theme('colors.primary-white');
+    color: theme('colors.primary-black');
   }
 
   .secondary-button {
     padding: 1rem 2rem;
-    background: theme('colours.white');
-    color: theme('colours.black');
-    border: 3px solid theme('colours.black');
+    background: theme('colors.primary-white');
+    color: theme('colors.primary-black');
+    border: 3px solid theme('colors.primary-black');
     transition: all 0.3s ease-in-out;
   }
 
   .secondary-button:hover {
     cursor: pointer;
-    background: theme('colours.black');
-    color: theme('colours.white');
+    background: theme('colors.primary-black');
+    color: theme('colors.primary-white');
   }
 }
 
@@ -68,5 +68,17 @@ a {
 @media only screen and (max-width: 768px) {
   html {
     font-size: 13px;
+  }
+}
+
+@layer base {
+  /* This is not working currently */
+  :root {
+    --primary-black: 30 30 30;
+    --light-black: 43 43 43;
+    --baige: 255 246 234;
+    --action: 123 185 250;
+    --grey: 95 95 95;
+    --error: 206 76 76;
   }
 }

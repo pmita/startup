@@ -21,7 +21,7 @@ export default function InputField({
       )}
 
       <input
-        className="full-width border-solid border-4 border-black p-2"
+        className="w-full border-solid border-4 border-black p-2"
         id={name}
         placeholder={placeholder}
         type={type}
@@ -29,7 +29,9 @@ export default function InputField({
         {...rest}
       />
 
-      {error && <span className="text-black">{error}</span>}
+      {error && (
+        <span className="text-primary-error">{error}</span>
+      )}
     </div>
   )
 }

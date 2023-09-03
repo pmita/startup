@@ -26,7 +26,10 @@ export default function SignInPage(){
   const onSubmit: SubmitHandler<SignInFormInput> = (data) => console.log(data);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-xl sm:w-lg flex flex-col justify-center items-stretch gap-5">
+    <form 
+      onSubmit={handleSubmit(onSubmit)} 
+      className="w-[350] p-2 flex flex-col justify-center items-stretch gap-5"
+    >
       <h1 className="w-full">Welcome, please sign in!</h1>
       <InputField
         name="email"
