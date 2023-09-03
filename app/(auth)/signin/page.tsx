@@ -3,8 +3,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 // COMPONENTS
 import InputField from '@/components/InputField';
-// STYLES
-import './style.css';
 
 interface SignInFormInput {
   email: string;
@@ -28,7 +26,7 @@ export default function SignInPage(){
   return (
     <form 
       onSubmit={handleSubmit(onSubmit)} 
-      className="w-[350] p-2 flex flex-col justify-center items-stretch gap-5"
+      className="w-[350] p-2 flex flex-col justify-center items-stretch gap-5 text-center"
     >
       <h1 className="w-full">Welcome, please sign in!</h1>
       <InputField
