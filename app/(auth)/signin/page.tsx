@@ -29,43 +29,33 @@ export default function SignInPage(){
     <form onSubmit={handleSubmit(onSubmit)} className="w-xl sm:w-lg flex flex-col justify-center items-stretch gap-5">
       <h1 className="w-full">Welcome, please sign in!</h1>
       <InputField
-        error={errors.email}
+        name="email"
+        type="email"
         placeholder="Email"
-        {...register("email", {
-          required: {
-            value: true,
-            message: 'This Field is required'
-          },
-          maxLength: {
-            value: 25,
-            message: 'No more than 25 characters'
-          },
-          minLength: {
-            value: 5,
-            message: 'No less than 5 characters'
-          },
-          pattern: /^\S+@\S+$/i,
-        })}      
+        register={register}
+        validationSchema={{
+          required: "Email is required",
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: "Invalid email address",
+          }
+        }}
+        error={errors.email?.message}
       />
 
       <InputField
-        error={errors.password}
-        placeholder="pasword"
-        {...register("password", {
-          required: {
-            value: true,
-            message: 'This Field is required'
-          },
-          maxLength: {
-            value: 25,
-            message: 'No more than 25 characters'
-          },
-          minLength: {
-            value: 5,
-            message: 'No less than 5 characters'
-          },
-          pattern: /^\S+@\S+$/i,
-        })}
+        name="password"
+        type="password"
+        placeholder="Password"
+        register={register}
+        validationSchema={{
+          required: "Password is required",
+          pattern: {
+            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+            message: "Password must contain at least one uppercase letter, one lowercase letter and one number",
+          }
+        }}
+        error={errors.password?.message}
       />
 
       <button className="button" type="submit">Log In</button>

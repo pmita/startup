@@ -1,4 +1,4 @@
-import { FieldError, RegisterOptions, ValidateResult, UseFormRegister } from "react-hook-form";
+import { UseFormRegister } from "react-hook-form";
 export interface InputFieldProps {
   name: string;
   label?: string;
