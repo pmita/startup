@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 // COMPONENTS
 import Navbar from '@/components/Navbar';
+import { AuthContextProvider } from '@/context/AuthContext';
 // Fonts
 import { roboto, poppins } from './font';
 
@@ -19,8 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={` ${roboto.variable} ${poppins.variable}`}>
       <body>
-        <Navbar />
-        {children}
+        <AuthContextProvider>
+          <Navbar />
+          {children}
+        </AuthContextProvider>
       </body>
     </html>
   )
