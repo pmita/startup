@@ -1,30 +1,44 @@
-import { useState } from 'react';
-import { auth } from '../utils/firebase';
-import firebase from 'firebase';
+import { useState, useEffect } from 'react';
+// FIREBASE
+import { auth } from '@/utils/firebase';
+// HOOKS
+import { useAuthContext } from './useAuthContext';
+// TYPES
+import {  AuthActionTypes } from '@/types/AuthContextTypes';
 
 export const useSignIn = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null | string>(null);
-  const [user, setUser] = useState<firebase.User | null>(null);
+  const { dispatch } = useAuthContext();
+  // const [loading, setIsLoading] = useState(false);
+  // const [error, setError] = useState<Error | null | string>(null);
+  // const [user, setUser] = useState<firebase.User | null>(null);
+  const [isCancelled, setIsCancelled] = useState(false);
 
   const signIn = async (email: string, password: string) => {
-    setLoading(true);
+    dispatch({ type: AuthActionTypes.SIGN_IN_PENDING });
 
     try{
       const response = await auth.signInWithEmailAndPassword(email, password);
-
+      
       if (!response.user) {
         throw new Error('Something went wrong during sign in');
       }
 
-      setUser(response.user);
+      dispatch({ type: AuthActionTypes.SIGN_IN_SUCCESS, payload: response.user });
+
+      if (!isCancelled) {
+        dispatch({ type: AuthActionTypes.SING_IN_RESET })
+      }
 
     } catch(error) {
-      setError((error as Error).message);
-    } finally {
-      setLoading(false);
+      if (!isCancelled) {
+        dispatch({ type: AuthActionTypes.SING_IN_FAILED, payload: (error as Error).message});
+      }
     }
   }
 
-  return { signIn, loading, error, user}
+  useEffect(() => {
+    return () => setIsCancelled(true);
+  }, []);
+
+  return { signIn }
 }
