@@ -1,6 +1,6 @@
 import firebase from "firebase";
 
-export type AuthContextState = {
+export type AuthReducerInitialState = {
   user: firebase.User | null;
   isLoading: boolean;
   error: string | null | Error;
@@ -54,7 +54,7 @@ export type SIGN_UP_RESET_ACTION = {
   type: AuthActionTypes.SIGN_UP_RESET;
 }
 
-export type AuthContextAction = 
+export type AuthReducerActionsType = 
   | SIGN_IN_SUCCESS_ACTION
   | SIGN_IN_FAILED_ACTION
   | SIGN_IN_PENDING_ACTION
@@ -64,7 +64,7 @@ export type AuthContextAction =
   | SIGN_UP_PENDING_ACTION
   | SIGN_UP_RESET_ACTION;
 
-export type AuthContextType = {
+export type AuthReducerState = {
   user: firebase.User | null,
   authStateHasChanged: boolean,
   dispatch: React.Dispatch<any>

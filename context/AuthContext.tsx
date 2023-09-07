@@ -1,18 +1,17 @@
 'use client'
-
 import { createContext, useReducer, type FC } from 'react';
-import { type AuthContextState, AuthActionTypes, AuthContextAction, AuthContextType } from '@/types/AuthContextTypes';
+import { type AuthReducerInitialState, AuthActionTypes, type AuthReducerActionsType, type AuthReducerState } from '@/types/AuthContextTypes';
 
-export const AuthContext = createContext<AuthContextType | undefined | null>(null);
+export const AuthContext = createContext<AuthReducerState | undefined | null>(null);
 
-const initialState: AuthContextState = {
+const initialState: AuthReducerInitialState = {
   user: null,
   isLoading: false,
   error: null,
   authStateHasChanged: false,
 }
 
-const reducer = (state: AuthContextState, action: AuthContextAction): AuthContextState => {
+const reducer = (state: AuthReducerInitialState, action: AuthReducerActionsType): AuthReducerInitialState => {
   switch(action.type){
     case AuthActionTypes.SIGN_IN_PENDING:
     case AuthActionTypes.SIGN_UP_PENDING:
