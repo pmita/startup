@@ -1,8 +1,12 @@
 "use client" 
 
 import { SubmitHandler, useForm } from 'react-hook-form';
+// HOOKS
+import { useSignUp } from '@/hooks/useSignUp';
+import { useAuthContext } from '@/hooks/useAuthContext';
 // COMPONENTS
 import InputField from '@/components/InputField';
+// UTILS
 import { signUpInputs } from '@/utils/formInputs';
 
 interface SignUpFormInput {
@@ -19,6 +23,8 @@ type FormErrors = {
 
 export default function SignUpPage(){
   // HOOKS 
+  const { signUp, isLoading, error } = useSignUp();
+  const { user } = useAuthContext();
   const { register, handleSubmit, formState: {errors }, reset } = useForm<SignUpFormInput>({
     mode: 'onBlur',
     reValidateMode: 'onChange',
@@ -30,12 +36,9 @@ export default function SignUpPage(){
   });
 
   // EVENTS
-  const onSubmit: SubmitHandler<SignUpFormInput> = (data) => {
-    console.log('welcome from submit form');
-    reset();
+  const onSubmit: SubmitHandler<SignUpFormInput> = async ({ email, password, username}) => {
+    signUp(email, password, username);
   }
-
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-xl sm:w-lg flex flex-col justify-center items-stretch gap-5 text-center">
@@ -52,7 +55,10 @@ export default function SignUpPage(){
         />
       ))}
 
-      <button className="button" type="submit">Log In</button>
+      {isLoading 
+        ? <button className="button" type="submit" disabled>Loading ...</button>
+        : <button className="button" type="submit">Sign Up</button>
+      }
     </form>
   );
 }
