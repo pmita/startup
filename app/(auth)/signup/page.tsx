@@ -4,6 +4,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 // COMPONENTS
 import InputField from '@/components/InputField';
 import { signUpInputs } from '@/utils/formInputs';
+import { useSignUp } from '@/hooks/useSignUp';
+import { useAuthContext } from '@/hooks/useAuthContext';
 
 interface SignUpFormInput {
   email: string;
@@ -19,6 +21,8 @@ type FormErrors = {
 
 export default function SignUpPage(){
   // HOOKS 
+  const { signUp } = useSignUp();
+  const { user } = useAuthContext();
   const { register, handleSubmit, formState: {errors }, reset } = useForm<SignUpFormInput>({
     mode: 'onBlur',
     reValidateMode: 'onChange',
@@ -30,12 +34,9 @@ export default function SignUpPage(){
   });
 
   // EVENTS
-  const onSubmit: SubmitHandler<SignUpFormInput> = (data) => {
-    console.log('welcome from submit form');
-    reset();
+  const onSubmit: SubmitHandler<SignUpFormInput> = async ({ email, password, username}) => {
+    signUp(email, password, username);
   }
-
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-xl sm:w-lg flex flex-col justify-center items-stretch gap-5 text-center">
@@ -52,7 +53,7 @@ export default function SignUpPage(){
         />
       ))}
 
-      <button className="button" type="submit">Log In</button>
+      <button className="button" type="submit">Sign Up</button>
     </form>
   );
 }

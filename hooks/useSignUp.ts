@@ -1,20 +1,24 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 // FIREBASE
 import { auth, firestore } from '@/utils/firebase';
 // HOOKS
 import { useAuthContext } from './useAuthContext';
 // TYPES
 import {  AuthActionTypes } from '@/types/AuthContextTypes';
+import { set } from 'react-hook-form';
 
 export const useSignUp = () => {
   const { dispatch } = useAuthContext();
-  // const [loading, setIsLoading] = useState(false);
-  // const [error, setError] = useState<Error | null | string>(null);
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null | string>(null);
   // const [user, setUser] = useState<firebase.User | null>(null);
   const [isCancelled, setIsCancelled] = useState(false);
 
   const signUp = async (email: string, password: string, username: string) => {
-    dispatch({ type: AuthActionTypes.SIGN_UP_FAILED });
+    setIsLoading(false);
+    setError(null);
 
     try{
       // const response = await auth.signInWithEmailAndPassword(email, password);
@@ -36,12 +40,15 @@ export const useSignUp = () => {
       dispatch({ type: AuthActionTypes.SIGN_UP_SUCCESS, payload: response.user });
 
       if (!isCancelled) {
-        dispatch({ type: AuthActionTypes.SIGN_UP_RESET })
+        setIsLoading(false);
+        setError(null);
       }
-
+      
+      router.push('/');
     } catch(error) {
       if (!isCancelled) {
-        dispatch({ type: AuthActionTypes.SIGN_UP_FAILED, payload: (error as Error).message});
+        setIsLoading(false);
+        setError((error as Error).message);
       }
     }
   }
@@ -50,5 +57,5 @@ export const useSignUp = () => {
     return () => setIsCancelled(true);
   }, []);
 
-  return { signUp }
+  return { signUp, error ,isLoading }
 }

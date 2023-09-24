@@ -7,29 +7,24 @@ export const AuthContext = createContext<AuthReducerState | undefined | null>(nu
 
 const initialState: AuthReducerInitialState = {
   user: null,
-  isLoading: false,
-  error: null,
   authStateHasChanged: false,
 }
 
 const reducer = (state: AuthReducerInitialState, action: AuthReducerActionsType): AuthReducerInitialState => {
   switch(action.type){
     case AuthActionTypes.SIGN_IN_PENDING:
-    case AuthActionTypes.SIGN_UP_PENDING:
     case AuthActionTypes.AUTH_HAS_CHANGED_PENDING:
-      return { ...state, isLoading: true, error: null, user: null }
+      return { ...state, user: null }
     case AuthActionTypes.SING_IN_FAILED:
-    case AuthActionTypes.SIGN_UP_FAILED:
     case AuthActionTypes.AUTH_HAS_CHANGED_FAILED:
-      return { ...state, isLoading: false, error: action.payload, user: null }
+      return { ...state, user: null }
     case AuthActionTypes.SIGN_IN_SUCCESS:
     case AuthActionTypes.SIGN_UP_SUCCESS:
     case AuthActionTypes.AUTH_HAS_CHANGED_SUCCESS:
-      return { ...state, user:action.payload, error: null }
+      return { ...state, user:action.payload }
     case AuthActionTypes.SING_IN_RESET:
-    case AuthActionTypes.SIGN_UP_RESET:
     case AuthActionTypes.AUTH_HAS_CHANGED_RESET:
-      return { ...state, isLoading: false, error: null }
+      return { ...state }
     default: 
       return { ...state }
   }
