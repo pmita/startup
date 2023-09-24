@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 // FIREBASE
 import { auth } from '@/utils/firebase';
 // HOOKS
@@ -7,14 +8,17 @@ import { useAuthContext } from './useAuthContext';
 import {  AuthActionTypes } from '@/types/AuthContextTypes';
 
 export const useSignIn = () => {
-  const { dispatch } = useAuthContext();
-  // const [loading, setIsLoading] = useState(false);
-  // const [error, setError] = useState<Error | null | string>(null);
-  // const [user, setUser] = useState<firebase.User | null>(null);
+  // STATE
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null | string>(null);
   const [isCancelled, setIsCancelled] = useState(false);
+  // HOOKS
+  const { dispatch } = useAuthContext();
+  const router = useRouter();
 
   const signIn = async (email: string, password: string) => {
-    dispatch({ type: AuthActionTypes.SIGN_IN_PENDING });
+    setIsLoading(false);
+    setError(null);
 
     try{
       const response = await auth.signInWithEmailAndPassword(email, password);
@@ -26,12 +30,15 @@ export const useSignIn = () => {
       dispatch({ type: AuthActionTypes.SIGN_IN_SUCCESS, payload: response.user });
 
       if (!isCancelled) {
-        dispatch({ type: AuthActionTypes.SING_IN_RESET })
+        setIsLoading(false);
+        setError(null);
       }
 
+      router.push('/');
     } catch(error) {
       if (!isCancelled) {
-        dispatch({ type: AuthActionTypes.SING_IN_FAILED, payload: (error as Error).message});
+        setIsLoading(false);
+        setError((error as Error).message);
       }
     }
   }
@@ -40,5 +47,5 @@ export const useSignIn = () => {
     return () => setIsCancelled(true);
   }, []);
 
-  return { signIn }
+  return { signIn, error ,isLoading }
 }

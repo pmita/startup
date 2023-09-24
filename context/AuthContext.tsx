@@ -1,6 +1,8 @@
 'use client'
-import { createContext, useReducer, type FC, useEffect, useState } from 'react';
+import { createContext, useReducer, type FC, useEffect } from 'react';
+// TYPES
 import { type AuthReducerInitialState, AuthActionTypes, type AuthReducerActionsType, type AuthReducerState } from '@/types/AuthContextTypes';
+// UTILS
 import { auth } from '@/utils/firebase';
 
 export const AuthContext = createContext<AuthReducerState | undefined | null>(null);
@@ -12,19 +14,10 @@ const initialState: AuthReducerInitialState = {
 
 const reducer = (state: AuthReducerInitialState, action: AuthReducerActionsType): AuthReducerInitialState => {
   switch(action.type){
-    case AuthActionTypes.SIGN_IN_PENDING:
-    case AuthActionTypes.AUTH_HAS_CHANGED_PENDING:
-      return { ...state, user: null }
-    case AuthActionTypes.SING_IN_FAILED:
-    case AuthActionTypes.AUTH_HAS_CHANGED_FAILED:
-      return { ...state, user: null }
     case AuthActionTypes.SIGN_IN_SUCCESS:
     case AuthActionTypes.SIGN_UP_SUCCESS:
     case AuthActionTypes.AUTH_HAS_CHANGED_SUCCESS:
       return { ...state, user:action.payload }
-    case AuthActionTypes.SING_IN_RESET:
-    case AuthActionTypes.AUTH_HAS_CHANGED_RESET:
-      return { ...state }
     default: 
       return { ...state }
   }
@@ -37,8 +30,6 @@ export const AuthContextProvider: FC<{children: React.ReactNode}> = ({ children 
     const unsubscribe = auth.onAuthStateChanged(user => {
       if(user) {
         dispatch({ type: AuthActionTypes.AUTH_HAS_CHANGED_SUCCESS, payload: user })
-      } else {
-        dispatch({ type: AuthActionTypes.AUTH_HAS_CHANGED_FAILED, payload: 'Something went wrong' })
       }
     })
 

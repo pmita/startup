@@ -1,11 +1,13 @@
 "use client" 
 
 import { SubmitHandler, useForm } from 'react-hook-form';
-// COMPONENTS
-import InputField from '@/components/InputField';
-import { signUpInputs } from '@/utils/formInputs';
+// HOOKS
 import { useSignUp } from '@/hooks/useSignUp';
 import { useAuthContext } from '@/hooks/useAuthContext';
+// COMPONENTS
+import InputField from '@/components/InputField';
+// UTILS
+import { signUpInputs } from '@/utils/formInputs';
 
 interface SignUpFormInput {
   email: string;

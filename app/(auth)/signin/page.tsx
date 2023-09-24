@@ -1,9 +1,13 @@
 "use client" 
 
-import { SubmitHandler, useForm } from 'react-hook-form';
+// HOOKS
+import { useAuthContext } from '@/hooks/useAuthContext';
+import { useSignIn } from '@/hooks/useSignIn';
 // COMPONENTS
 import InputField from '@/components/InputField';
 import { signInInputs } from '@/utils/formInputs';
+// LIBRARIES
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 interface SignInFormInput {
   email: string;
@@ -16,7 +20,9 @@ type FormErrors = {
 }
 
 export default function SignInPage(){
-  // HOOKS 
+  // HOOKS
+  const { user } = useAuthContext();
+  const { signIn, isLoading, error } = useSignIn();
   const { register, handleSubmit, formState: {errors } } = useForm<SignInFormInput>({
     mode: 'onBlur',
     reValidateMode: 'onChange',
@@ -27,7 +33,11 @@ export default function SignInPage(){
   });
 
   // EVENTS
-  const onSubmit: SubmitHandler<SignInFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<SignInFormInput> = async ({ email, password}) => {
+    signIn(email, password);
+  }
+
+  console.log(error, user, isLoading )
 
   return (
     <form 

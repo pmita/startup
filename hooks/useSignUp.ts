@@ -6,22 +6,21 @@ import { auth, firestore } from '@/utils/firebase';
 import { useAuthContext } from './useAuthContext';
 // TYPES
 import {  AuthActionTypes } from '@/types/AuthContextTypes';
-import { set } from 'react-hook-form';
 
 export const useSignUp = () => {
-  const { dispatch } = useAuthContext();
-  const router = useRouter();
+  // STATE
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null | string>(null);
-  // const [user, setUser] = useState<firebase.User | null>(null);
   const [isCancelled, setIsCancelled] = useState(false);
+  // HOOKS
+  const { dispatch } = useAuthContext();
+  const router = useRouter();
 
   const signUp = async (email: string, password: string, username: string) => {
     setIsLoading(false);
     setError(null);
 
     try{
-      // const response = await auth.signInWithEmailAndPassword(email, password);
       const response = await auth.createUserWithEmailAndPassword(email, password);
       
       if (!response.user) {
