@@ -23,7 +23,7 @@ type FormErrors = {
 
 export default function SignUpPage(){
   // HOOKS 
-  const { signUp } = useSignUp();
+  const { signUp, isLoading, error } = useSignUp();
   const { user } = useAuthContext();
   const { register, handleSubmit, formState: {errors }, reset } = useForm<SignUpFormInput>({
     mode: 'onBlur',
@@ -55,7 +55,10 @@ export default function SignUpPage(){
         />
       ))}
 
-      <button className="button" type="submit">Sign Up</button>
+      {isLoading 
+        ? <button className="button" type="submit" disabled>Loading ...</button>
+        : <button className="button" type="submit">Sign Up</button>
+      }
     </form>
   );
 }

@@ -57,7 +57,10 @@ export default function SignInPage(){
         />
       ))}
 
-      <button className="button" type="submit">Log In</button>
+      {isLoading 
+        ? <button className="button" type="submit" disabled>Loading ...</button>
+        : <button className="button" type="submit">Log In</button>
+      }
     </form>
   );
 }
