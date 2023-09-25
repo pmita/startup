@@ -8,6 +8,7 @@ export type AuthReducerInitialState = {
 export enum AuthActionTypes {
   SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
   SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS',
+  SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS',
   AUTH_HAS_CHANGED_SUCCESS = 'AUTH_HAS_CHANGED_SUCCESS',
 }
 
@@ -26,9 +27,14 @@ export type SIGN_UP_SUCCESS_ACTION = {
   payload: firebase.User | null;
 }
 
+export type SIGN_OUT_SUCCESS_ACTION = {
+  type: AuthActionTypes.SIGN_OUT_SUCCESS;
+}
+
 export type AuthReducerActionsType = 
   | SIGN_IN_SUCCESS_ACTION
   | SIGN_UP_SUCCESS_ACTION
+  | SIGN_OUT_SUCCESS_ACTION
   | AUTH_HAS_CHANGED_SUCCESS_ACTION
   
 
