@@ -1,11 +1,14 @@
 "use client" 
 
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 // HOOKS
 import { useSignUp } from '@/hooks/useSignUp';
 import { useAuthContext } from '@/hooks/useAuthContext';
 // COMPONENTS
 import InputField from '@/components/InputField';
+// LIBRARIES
+import { SubmitHandler, useForm } from 'react-hook-form';
 // UTILS
 import { signUpInputs } from '@/utils/formInputs';
 
@@ -23,6 +26,7 @@ type FormErrors = {
 
 export default function SignUpPage(){
   // HOOKS 
+  const router = useRouter();
   const { signUp, isLoading, error } = useSignUp();
   const { user } = useAuthContext();
   const { register, handleSubmit, formState: {errors }, reset } = useForm<SignUpFormInput>({
@@ -39,6 +43,13 @@ export default function SignUpPage(){
   const onSubmit: SubmitHandler<SignUpFormInput> = async ({ email, password, username}) => {
     signUp(email, password, username);
   }
+
+  // USE EFFECTS
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [router, user]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-xl sm:w-lg flex flex-col justify-center items-stretch gap-5 text-center">

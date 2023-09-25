@@ -26,11 +26,6 @@ export default async function Navbar() {
             Classes
           </Link>
         </li>
-        {/* <li>
-          <button className="primary-button">
-            Login
-          </button>
-        </li> */}
         <NavbarAuthed />
       </ul>
     </nav>

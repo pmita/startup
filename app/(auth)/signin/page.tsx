@@ -1,13 +1,16 @@
 "use client" 
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 // HOOKS
 import { useAuthContext } from '@/hooks/useAuthContext';
 import { useSignIn } from '@/hooks/useSignIn';
 // COMPONENTS
 import InputField from '@/components/InputField';
-import { signInInputs } from '@/utils/formInputs';
 // LIBRARIES
 import { SubmitHandler, useForm } from 'react-hook-form';
+// UTILS
+import { signInInputs } from '@/utils/formInputs';
 
 interface SignInFormInput {
   email: string;
@@ -21,6 +24,7 @@ type FormErrors = {
 
 export default function SignInPage(){
   // HOOKS
+  const router = useRouter();
   const { user } = useAuthContext();
   const { signIn, isLoading, error } = useSignIn();
   const { register, handleSubmit, formState: {errors } } = useForm<SignInFormInput>({
@@ -37,7 +41,12 @@ export default function SignInPage(){
     signIn(email, password);
   }
 
-  console.log(error, user, isLoading )
+  // USE EFFECTS
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [router, user]);
 
   return (
     <form 
