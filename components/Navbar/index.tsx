@@ -1,8 +1,9 @@
 import Link from "next/link"
 // FONTS
 import { poppins } from "@/app/font"
+import NavbarAuthed from "../NavbarAuthed"
 
-export default function Navbar() {
+export default async function Navbar() {
   return (
     <nav className="min-h-10 w-screen p-10 md:p-8 flex justify-between items-center bg-white">
       <div className="flex justify-center items-center">
@@ -25,11 +26,12 @@ export default function Navbar() {
             Classes
           </Link>
         </li>
-        <li>
+        {/* <li>
           <button className="primary-button">
             Login
           </button>
-        </li>
+        </li> */}
+        <NavbarAuthed />
       </ul>
     </nav>
   )
