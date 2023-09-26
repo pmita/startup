@@ -2,6 +2,7 @@ import Link from "next/link"
 // FONTS
 import { poppins } from "@/app/font"
 import NavbarAuthed from "../NavbarAuthed"
+import Avatar from "../Avatar"
 
 export default async function Navbar() {
   return (
@@ -27,6 +28,7 @@ export default async function Navbar() {
           </Link>
         </li>
         <NavbarAuthed />
+        <Avatar />
       </ul>
     </nav>
   )

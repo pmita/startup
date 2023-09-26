@@ -4,23 +4,6 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 // HOOKS
 import { useAuthContext } from '@/hooks/useAuthContext';
-import { useSignIn } from '@/hooks/useSignIn';
-// COMPONENTS
-import InputField from '@/components/InputField';
-// LIBRARIES
-import { SubmitHandler, useForm } from 'react-hook-form';
-// UTILS
-import { signInInputs } from '@/utils/formInputs';
-
-interface SignInFormInput {
-  email: string;
-  password: string;
-}
-
-type FormErrors = {
-  email: string;
-  password: string;
-}
 
 export default function SignInPage(){
   // HOOKS
