@@ -18,6 +18,8 @@ const reducer = (state: AuthReducerInitialState, action: AuthReducerActionsType)
     case AuthActionTypes.SIGN_UP_SUCCESS:
     case AuthActionTypes.AUTH_HAS_CHANGED_SUCCESS:
       return { ...state, user:action.payload }
+    case AuthActionTypes.SIGN_OUT_SUCCESS:
+      return { ...state, user: null }
     default: 
       return { ...state }
   }
