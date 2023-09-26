@@ -2,8 +2,8 @@ import Link from "next/link"
 // FONTS
 import { poppins } from "@/app/font"
 // COMPONENTS
-import AuthedButtons from "./AuthedButtons"
-import Avatar from "../Avatar"
+import NavBarSignOut from "./NavBarSignOut"
+import NavBarAvatar from "./NavBarAvatar"
 
 export default async function Navbar() {
   return (
@@ -28,8 +28,8 @@ export default async function Navbar() {
             Classes
           </Link>
         </li>
-        <AuthedButtons />
-        <Avatar />
+        <NavBarAvatar />
+        <NavBarSignOut />
       </ul>
     </nav>
   )

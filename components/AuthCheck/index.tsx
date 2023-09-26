@@ -3,8 +3,8 @@
 // HOOKS
 import { useAuthContext } from '@/hooks/useAuthContext';
 
-export default function AuthCheck({ children }: { children: React.ReactNode }) {
+export default function AuthCheck(props: any) {
   const { user } = useAuthContext();
 
-  return user ? <>{children}</> : null;
+  return user ? <>{props.children}</> : props.fallback || null;
 }
