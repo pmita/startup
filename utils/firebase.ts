@@ -16,6 +16,11 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
+// AUTHENTICATION
 export const auth = firebase.auth();
+export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
+export const GithubAuthProvider = new firebase.auth.GithubAuthProvider();
+
+// FIRESTORE
 export const firestore = firebase.firestore();
 
