@@ -1,6 +1,7 @@
 "use client" 
 
 import { useEffect } from 'react';
+import { type Metadata } from 'next';
 import { useRouter } from 'next/navigation';
 // HOOKS
 import { useSignUp } from '@/hooks/useSignUp';
@@ -22,6 +23,12 @@ type FormErrors = {
   email: string;
   password: string;
   username: string;
+}
+
+export const MetaData: Metadata = {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://example.com'),
+    title: 'Sign Up',
+    description: 'Sign up for an account'
 }
 
 export default function SignUpPage(){

@@ -1,11 +1,18 @@
 "use client" 
 
+import { type Metadata } from 'next';
 // HOOKS
 import { useAuthContext } from '@/hooks/useAuthContext';
 // COMPONENTS
 import AuthCheck from '@/components/AuthCheck';
 import Avatar from '@/components/Avatar';
 import { SignInButton } from '@/components/Buttons';
+
+export const MetaData: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://example.com'),
+  title: 'Dashboard',
+  description: 'Welcome to your dashboard, manage your account here'
+}
 
 export default function SignInPage(){
   // HOOKS

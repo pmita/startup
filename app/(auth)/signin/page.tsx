@@ -1,6 +1,7 @@
 "use client" 
 
 import { useEffect } from 'react';
+import { type Metadata } from 'next';
 import { useRouter } from 'next/navigation';
 // HOOKS
 import { useAuthContext } from '@/hooks/useAuthContext';
@@ -21,6 +22,12 @@ interface SignInFormInput {
 type FormErrors = {
   email: string;
   password: string;
+}
+
+export const MetaData: Metadata = {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://example.com'),
+    title: 'Sign In',
+    description: 'Sign in to your account'
 }
 
 export default function SignInPage(){
