@@ -1,6 +1,7 @@
 "use client" 
 
 import { useEffect } from 'react';
+import { type Metadata } from 'next';
 import { useRouter } from 'next/navigation';
 // HOOKS
 import { useAuthContext } from '@/hooks/useAuthContext';
@@ -11,6 +12,7 @@ import InputField from '@/components/InputField';
 import { SubmitHandler, useForm } from 'react-hook-form';
 // UTILS
 import { signInInputs } from '@/utils/formInputs';
+import { useGoogleSignIn } from '@/hooks/useGoogleSignIn';
 
 interface SignInFormInput {
   email: string;
@@ -22,11 +24,18 @@ type FormErrors = {
   password: string;
 }
 
+export const MetaData: Metadata = {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://example.com'),
+    title: 'Sign In',
+    description: 'Sign in to your account'
+}
+
 export default function SignInPage(){
   // HOOKS
   const router = useRouter();
   const { user } = useAuthContext();
-  const { signIn, isLoading, error } = useSignIn();
+  const { signIn, isLoading } = useSignIn();
+  const { signInWithGoogle } = useGoogleSignIn();
   const { register, handleSubmit, formState: {errors } } = useForm<SignInFormInput>({
     mode: 'onBlur',
     reValidateMode: 'onChange',
@@ -70,6 +79,10 @@ export default function SignInPage(){
         ? <button className="button" type="submit" disabled>Loading ...</button>
         : <button className="button" type="submit">Log In</button>
       }
+
+      <button className="button" onClick={() => signInWithGoogle()}>
+        Google Sign In
+      </button>
     </form>
   );
 }

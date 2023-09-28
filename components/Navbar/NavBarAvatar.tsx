@@ -1,15 +1,26 @@
 "use client"
 
+// HOOKS
+import { useAuthContext } from "@/hooks/useAuthContext"
 // COMPONENTS
-import AuthCheck from "../AuthCheck"
 import { SignInButton } from "../Buttons"
+import Avatar from "../Avatar";
 
-export default function Avatar() {
+export default function NavbarAvatar() {
+  const { user } = useAuthContext();
+
   return (
-    <AuthCheck fallback={<SignInButton />}>
-      <div className="flex items-center justify-center">
-        <h3 className="ml-2">John Doe</h3>
-      </div>
-    </AuthCheck>
+  <>
+    {user 
+      ? (
+      <Avatar 
+        src={user?.photoURL} 
+        width={40} 
+        height={40} 
+        altText="John Doe" 
+      />)
+      : <SignInButton />
+    }
+  </>
   )
 }
