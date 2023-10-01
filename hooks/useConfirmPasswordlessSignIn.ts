@@ -7,17 +7,15 @@ import { auth, firestore } from '@/utils/firebase';
 // TYPES
 import { AuthActionTypes } from '@/types/AuthContextTypes';
 
-export const useConfirmEmailSignIn = () => {
+export const useConfirmPasswordlessSignIn = () => {
   // STATE
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null | string>(null);
   const [isCancelled, setIsCancelled] = useState(false);
   // HOOKS
   const { dispatch } = useAuthContext();
   const router = useRouter();
 
-  const signInWithEmailConfirmed = async (email: string) => {
-    setIsLoading(false);
+  const confirmEmailLink = async (email: string) => {
     setError(null);
 
     auth.signInWithEmailLink(email, window.location.href)
@@ -36,7 +34,6 @@ export const useConfirmEmailSignIn = () => {
         dispatch({ type: AuthActionTypes.SIGN_IN_SUCCESS, payload: result.user });
 
         if(!isCancelled) {
-          setIsLoading(false);
           setError(null);
         }
 
@@ -49,5 +46,5 @@ export const useConfirmEmailSignIn = () => {
     return () => setIsCancelled(true);
   }, []);
 
-  return { signInWithEmailConfirmed, error, isLoading };
+  return { confirmEmailLink, error };
 }

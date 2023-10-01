@@ -1,13 +1,13 @@
 "use client" 
 
-import { useEffect } from 'react';
 import { type Metadata } from 'next';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 // HOOKS
 import { useAuthContext } from '@/hooks/useAuthContext';
-import { useConfirmEmailSignIn } from '@/hooks/useConfirmEmailSignIn';
+import { useConfirmPasswordlessSignIn } from '@/hooks/useConfirmPasswordlessSignIn';
 import { useGoogleSignIn } from '@/hooks/useGoogleSignIn';
-import { useEmailSignIn } from '@/hooks/useEmailSignIn';
+import { usePasswordlessSignIn } from '@/hooks/usePasswordlessSignIn';
 // COMPONENTS
 import InputField from '@/components/InputField';
 // LIBRARIES
@@ -36,8 +36,8 @@ export default function SignInBPage(){
   // HOOKS
   const router = useRouter();
   const { user } = useAuthContext();
-  const { signInWithEmail, isLoading, hasEmailBeenSent } = useEmailSignIn();
-  const { signInWithEmailConfirmed, isLoading: isLoadingConfirmed } = useConfirmEmailSignIn();
+  const { sendEmailLink, isLoading, hasEmailBeenSent } = usePasswordlessSignIn();
+  const { confirmEmailLink } = useConfirmPasswordlessSignIn();
   const { signInWithGoogle } = useGoogleSignIn();
   const { register, handleSubmit, formState: {errors } } = useForm<SignInFormInput>({
     mode: 'onBlur',
@@ -49,7 +49,7 @@ export default function SignInBPage(){
 
   // EVENTS
   const onSubmit: SubmitHandler<SignInFormInput> = async ({ email }) => {
-    signInWithEmail(email);
+    sendEmailLink(email);
   }
 
   // USE EFFECTS
@@ -64,11 +64,11 @@ export default function SignInBPage(){
         }
 
         if(email) {
-          signInWithEmailConfirmed(email);
+          confirmEmailLink(email);
         }
       }
     }
-  }, [router, signInWithEmailConfirmed, user]);
+  }, [router, confirmEmailLink, user]);
 
   return (
     <form 
@@ -88,11 +88,16 @@ export default function SignInBPage(){
         />
       ))}
 
+      {hasEmailBeenSent && (
+        <p className="text-green-500">
+          Email has been sent! Please check your inbox.
+        </p>
+      )}
+      
       {isLoading 
         ? <button className="button" type="submit" disabled>Loading ...</button>
         : <button className="button" type="submit">Send Email</button>
       }
-
       <button className="button" onClick={() => signInWithGoogle()}>
         Google Sign In
       </button>
