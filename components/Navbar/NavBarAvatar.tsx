@@ -14,7 +14,7 @@ export default function NavbarAvatar() {
     {user 
       ? (
       <Avatar 
-        src={user?.photoURL} 
+        src={'/${user?.photoURL}'} 
         width={40} 
         height={40} 
         altText="John Doe" 

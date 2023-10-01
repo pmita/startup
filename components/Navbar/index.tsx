@@ -29,7 +29,6 @@ export default async function Navbar() {
           </Link>
         </li>
         <NavBarAvatar />
-        <NavBarSignOut />
       </ul>
     </nav>
   )

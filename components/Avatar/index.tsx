@@ -12,10 +12,10 @@ interface AvatarProps {
 
 export default function Avatar({src, ...rest}: AvatarProps) {
   return (
-    <div className="flex items-center justify-center">
+    <div className="rounded-full">
       <ImageWithFallback
         src={src}
-        fallbackSrc="/images/avatars/default.png"
+        fallbackSrc="/images/hacker.png"
         {...rest}
       />
     </div>
