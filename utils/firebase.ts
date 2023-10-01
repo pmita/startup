@@ -17,9 +17,14 @@ if (!firebase.apps.length) {
 }
 
 // AUTHENTICATION
-export const auth = firebase.auth();
+export const firebaseAuth = firebase.auth();
 export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
 export const GithubAuthProvider = new firebase.auth.GithubAuthProvider();
+
+export const actionCodeSettings: firebase.auth.ActionCodeSettings = {
+  url: process.env.NEXT_PUBLIC_FIREBASE_REDIRECT_URL || '',
+  handleCodeInApp: true,
+};
 
 // FIRESTORE
 export const firestore = firebase.firestore();

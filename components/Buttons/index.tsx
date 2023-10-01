@@ -6,7 +6,7 @@ import { useSignOut } from "@/hooks/useSignOut";
 
 export function SignInButton() {
   return(
-    <button className="primary-button">
+    <button className="button">
       <Link href={'/signin'}>
         Sign In
       </Link>
@@ -21,12 +21,12 @@ export function SignOutButton() {
     <>
       {isLoading
         ? (
-          <button className="primary-button" onClick={() => signOut()}>
+          <button className="button" onClick={() => signOut()}>
             Loading ...
           </button>
         )
         : (
-          <button className="primary-button" onClick={() => signOut()}>
+          <button className="button" onClick={() => signOut()}>
             Sign Out
           </button>
         )

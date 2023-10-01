@@ -1,10 +1,10 @@
 "use client"
 
 // HOOKS
-import { useAuthContext } from '@/hooks/useAuthContext';
+import { useAuthState } from '@/hooks/useAuthState';
 
 export default function AuthCheck(props: any) {
-  const { user } = useAuthContext();
+  const { user } = useAuthState();
 
   return user ? <>{props.children}</> : props.fallback || null;
 }

@@ -1,13 +1,13 @@
 "use client"
 
 // HOOKS
-import { useAuthContext } from "@/hooks/useAuthContext";
+import { useAuthState } from "@/hooks/useAuthState";
 // COMPONENTS
 import { SignOutButton } from "../Buttons";
 
 export default function NavBarSignOut() {
   // HOOKS
-  const { user } = useAuthContext();
+  const { user } = useAuthState();
 
   return user && <SignOutButton />;
 }
