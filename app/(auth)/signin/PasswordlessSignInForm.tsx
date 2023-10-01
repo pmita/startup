@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 // HOOKS
-import { useAuthContext } from '@/hooks/useAuthContext';
+import { useAuthState } from '@/hooks/useAuthState';
 import { useConfirmPasswordlessSignIn } from '@/hooks/useConfirmPasswordlessSignIn';
 import { useGoogleSignIn } from '@/hooks/useGoogleSignIn';
 import { usePasswordlessSignIn } from '@/hooks/usePasswordlessSignIn';
@@ -13,7 +13,7 @@ import InputField from '@/components/InputField';
 import { SubmitHandler, useForm } from 'react-hook-form';
 // UTILS
 import { signInBInputs } from '@/utils/formInputs';
-import { auth } from '@/utils/firebase';
+import { firebaseAuth } from '@/utils/firebase';
 
 interface FormInput {
   email: string;
@@ -26,7 +26,7 @@ type FormErrors = {
 export default function PasswordlessSignInForm(){
   // HOOKS
   const router = useRouter();
-  const { user } = useAuthContext();
+  const { user } = useAuthState();
   const { sendEmailLink, isLoading, hasEmailBeenSent } = usePasswordlessSignIn();
   const { confirmEmailLink } = useConfirmPasswordlessSignIn();
   const { signInWithGoogle } = useGoogleSignIn();
@@ -48,7 +48,7 @@ export default function PasswordlessSignInForm(){
     if (user) {
       router.push('/');
     } else {
-      if(auth.isSignInWithEmailLink(window.location.href)) {
+      if(firebaseAuth.isSignInWithEmailLink(window.location.href)) {
         let email = localStorage.getItem('emailForSignIn');
         if(!email) {
           email = window.prompt('Please provide your email for confirmation') as string;

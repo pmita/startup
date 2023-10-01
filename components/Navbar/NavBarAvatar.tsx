@@ -1,13 +1,13 @@
 "use client"
 
 // HOOKS
-import { useAuthContext } from "@/hooks/useAuthContext"
+import { useAuthState } from "@/hooks/useAuthState";
 // COMPONENTS
 import { SignInButton } from "../Buttons"
 import Avatar from "../Avatar";
 
 export default function NavbarAvatar() {
-  const { user } = useAuthContext();
+  const { user } = useAuthState();
 
   return (
   <>

@@ -3,7 +3,7 @@ import { createContext, useReducer, type FC, useEffect } from 'react';
 // TYPES
 import { type AuthReducerInitialState, AuthActionTypes, type AuthReducerActionsType, type AuthReducerState } from '@/types/AuthContextTypes';
 // UTILS
-import { auth } from '@/utils/firebase';
+import { firebaseAuth } from '@/utils/firebase';
 
 export const AuthContext = createContext<AuthReducerState | undefined | null>(null);
 
@@ -29,7 +29,7 @@ export const AuthContextProvider: FC<{children: React.ReactNode}> = ({ children 
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
       if(user) {
         dispatch({ type: AuthActionTypes.AUTH_HAS_CHANGED_SUCCESS, payload: user })
       }

@@ -1,9 +1,9 @@
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 // HOOKS
-import { useAuthContext } from './useAuthContext';
+import { useAuthState } from './useAuthState';
 // UTILS
-import { auth, firestore } from '@/utils/firebase';
+import { firebaseAuth, firestore } from '@/utils/firebase';
 // TYPES
 import { AuthActionTypes } from '@/types/AuthContextTypes';
 
@@ -12,13 +12,13 @@ export const useConfirmPasswordlessSignIn = () => {
   const [error, setError] = useState<Error | null | string>(null);
   const [isCancelled, setIsCancelled] = useState(false);
   // HOOKS
-  const { dispatch } = useAuthContext();
+  const { dispatch } = useAuthState();
   const router = useRouter();
 
   const confirmEmailLink = async (email: string) => {
     setError(null);
 
-    auth.signInWithEmailLink(email, window.location.href)
+    firebaseAuth.signInWithEmailLink(email, window.location.href)
       .then((result) => {
         result.additionalUserInfo?.isNewUser && result.user?.updateProfile({
           displayName: result.user.displayName

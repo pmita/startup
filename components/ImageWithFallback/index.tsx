@@ -2,14 +2,8 @@
 
 import Image from "next/image"
 import { useState } from "react"
-
-interface ImageWithFallbackProps {
-  src: string | null | undefined;
-  fallbackSrc: string;
-  width?: number;
-  height?: number;
-  altText?: string;
-}
+// TYPES
+import { ImageWithFallbackProps } from "./types"
 
 export default function ImageWithFallback({
   src,

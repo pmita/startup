@@ -2,7 +2,7 @@
 
 import { type Metadata } from 'next';
 // HOOKS
-import { useAuthContext } from '@/hooks/useAuthContext';
+import { useAuthState } from '@/hooks/useAuthState';
 // COMPONENTS
 import AuthCheck from '@/components/AuthCheck';
 import Avatar from '@/components/Avatar';
@@ -16,7 +16,7 @@ export const MetaData: Metadata = {
 
 export default function SignInPage(){
   // HOOKS
-  const { user } = useAuthContext();
+  const { user } = useAuthState();
 
   return (
     <section className="grid place-items-center gap-2">

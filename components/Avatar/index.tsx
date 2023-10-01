@@ -2,13 +2,8 @@
 
 // COMPONENTS
 import ImageWithFallback from "../ImageWithFallback";
-
-interface AvatarProps {
-  src: string | undefined | null;
-  width: number;
-  height: number;
-  altText?: string;
-}
+// TYPES
+import { AvatarProps } from "./types";
 
 export default function Avatar({src, ...rest}: AvatarProps) {
   return (

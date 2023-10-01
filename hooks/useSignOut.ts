@@ -4,7 +4,7 @@ import { AuthActionTypes } from '@/types/AuthContextTypes';
 // HOOKS
 import { useAuthContext } from './useAuthContext';
 // UTILS
-import { auth  } from '@/utils/firebase';
+import { fireAuth  } from '@/utils/firebase';
 
 export const useSignOut = () => {
     // STATE
@@ -19,7 +19,7 @@ export const useSignOut = () => {
       setError(null);
 
       try {
-        await auth.signOut();
+        await fireAuth.signOut();
 
         dispatch({ type: AuthActionTypes.SIGN_OUT_SUCCESS});
 
