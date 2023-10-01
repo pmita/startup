@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 // FIREBASE
 import { auth } from '@/utils/firebase';
 // HOOKS

@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 // UTILS
 import { auth, actionCodeSettings} from '@/utils/firebase';
 
-export const useEmailSignIn = (email: string, ) => {
+export const useEmailSignIn = () => {
   // STATE
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null | string>(null);
   const [isCancelled, setIsCancelled] = useState(false);
   const [hasEmailBeenSent, setHasEmailBeenSent] = useState(false);
 
-  const signInWithEmail = async () => {
+  const signInWithEmail = async (email: string) => {
     setIsLoading(false);
     setHasEmailBeenSent(false);
     setError(null);
