@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 // TYPES
 import { AuthActionTypes } from '@/types/AuthContextTypes';
 // HOOKS
-import { useAuthContext } from './useAuthContext';
+import { useAuthState } from './useAuthState';
 // UTILS
-import { fireAuth  } from '@/utils/firebase';
+import { firebaseAuth  } from '@/utils/firebase';
 
 export const useSignOut = () => {
     // STATE
@@ -12,14 +12,14 @@ export const useSignOut = () => {
     const [error, setError] = useState<Error | null | string>(null);
     const [isCancelled, setIsCancelled] = useState(false);
     // HOOKS
-    const { dispatch } = useAuthContext();
+    const { dispatch } = useAuthState();
 
     const signOut = async () => {
       setIsLoading(false);
       setError(null);
 
       try {
-        await fireAuth.signOut();
+        await firebaseAuth.signOut();
 
         dispatch({ type: AuthActionTypes.SIGN_OUT_SUCCESS});
 
