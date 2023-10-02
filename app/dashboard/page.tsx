@@ -26,13 +26,17 @@ export default function SignInPage(){
           <SignInButton />
         </>
       )}>
-        <h1>Welcome to you dashboard, {user?.displayName}</h1>
         <Avatar
           src={'/${user?.photoURL}'}
           width={250}
           height={250}
           altText={user?.displayName ?? 'John Doe'}
         />
+        <div className="flex flex-col justify-between items-start gap-2">
+          <p className="text-2xl">UID: {user?.uid}</p>
+          <p className="text-2xl">Pro Statur: coming soon...</p>
+          <p className="text-2xl">Account Email: {user?.email}</p>
+        </div>
         <SignOutButton />
       </AuthCheck>
     </section>
