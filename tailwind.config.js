@@ -22,6 +22,20 @@ module.exports = {
       'primary-grey': '#5F5F5F',
       'primary-error': '#CE4C4C',
     },
+    keyframes: {
+      left: {
+        '0%, 100%': { transform: 'rotateZ(10deg)' },
+        '50%': { transform: 'rotateZ(-15deg)' },
+      },
+      right: {
+        '0%, 100%': { transform: 'rotateZ(-10deg)' },
+        '50%': { transform: 'rotateZ(15deg)' },
+      },
+    },
+    animation: {
+      rotateLeft: 'left 9s ease-in-out infinite',
+      rotateRight: 'right 9s ease-in-out infinite',
+    },
     borderColor: theme => ({
       ...theme('colors'),
       'primary-black': '#1E1E1E',

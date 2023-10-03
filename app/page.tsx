@@ -1,7 +1,10 @@
-export default function Home() {
+// COMPONENTS
+import LandingBanner from "@/components/Banners/LandingBanner";
+
+export default async function Home() {
   return (
     <div>
-      <h1>Welcome to the very beginning of our application</h1>
+      <LandingBanner />
     </div>
   )
 }
