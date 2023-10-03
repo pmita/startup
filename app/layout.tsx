@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 // COMPONENTS
 import Navbar from '@/components/Navbar';
 import { AuthContextProvider } from '@/context/AuthContext';
-// Fonts
-import { roboto, poppins } from './font';
+// UTILS
+import { fontRoboto, fontPoppins } from '@/lib/font';
 
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={` ${roboto.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${fontRoboto.variable} ${fontPoppins.variable}`}>
       <body>
         <AuthContextProvider>
           <Navbar />

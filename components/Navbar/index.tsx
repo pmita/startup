@@ -1,6 +1,4 @@
 import Link from "next/link"
-// FONTS
-import { poppins } from "@/app/font"
 // COMPONENTS
 import NavBarAvatar from "./NavBarAvatar"
 
@@ -10,7 +8,7 @@ export default async function Navbar() {
       <div className="flex justify-center items-center">
         <Link href={"/"}>
           <h2 
-            className={`${poppins.className} font-[700]`}
+            className="font-poppins font-[700]"
           >
             Codaro.io
           </h2>
