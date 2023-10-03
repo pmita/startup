@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
 const { fontFamily } = require("tailwindcss/defaultTheme");
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
@@ -7,6 +8,10 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      roboto: ["var(--font-roboto)", ...fontFamily.sans],
+      poppins: ["var(--font-poppins)", ...fontFamily.sans],
+    },
     colors: {
       transparent: 'transparent',
       'primary-white': '#FFFFFF',
@@ -16,6 +21,20 @@ module.exports = {
       'primary-blue': '#7BB9FA',
       'primary-grey': '#5F5F5F',
       'primary-error': '#CE4C4C',
+    },
+    keyframes: {
+      left: {
+        '0%, 100%': { transform: 'rotateZ(10deg)' },
+        '50%': { transform: 'rotateZ(-15deg)' },
+      },
+      right: {
+        '0%, 100%': { transform: 'rotateZ(-10deg)' },
+        '50%': { transform: 'rotateZ(15deg)' },
+      },
+    },
+    animation: {
+      rotateLeft: 'left 9s ease-in-out infinite',
+      rotateRight: 'right 9s ease-in-out infinite',
     },
     borderColor: theme => ({
       ...theme('colors'),

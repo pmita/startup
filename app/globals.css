@@ -5,13 +5,8 @@
 
 
 @layer components {
-  .navLink:hover {
-    opacity: 0.75;
-    cursor: pointer;
-
-  }
   .button {
-    padding: 0.5rem 1rem;
+    padding: 1rem 2rem;
     background: theme('colors.primary-black');
     color: theme('colors.primary-white');
     border: 3px solid theme('colors.primary-black');

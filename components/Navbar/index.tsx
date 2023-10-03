@@ -1,6 +1,4 @@
 import Link from "next/link"
-// FONTS
-import { poppins } from "@/app/font"
 // COMPONENTS
 import NavBarAvatar from "./NavBarAvatar"
 
@@ -10,19 +8,19 @@ export default async function Navbar() {
       <div className="flex justify-center items-center">
         <Link href={"/"}>
           <h2 
-            className={`${poppins.className} font-[700]`}
+            className="text-2xl p-4 font-poppins font-bold"
           >
             Codaro.io
           </h2>
         </Link>
       </div>
       <ul className="flex-1 flex justify-end items-center gap-10 content-between">
-        <li className="navLink">
+        <li className="hover:scale-105 hover:text-primary-blue font-semibold">
           <Link href={"/pro"}>
             Pro
             </Link>
           </li>
-        <li className="navLink">
+        <li className="hover:scale-105 hover:text-primary-blue font-semibold">
           <Link href={"/classes"}>
             Classes
           </Link>

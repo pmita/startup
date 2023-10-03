@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 // UTILS
-import { auth, actionCodeSettings} from '@/utils/firebase';
+import { firebaseAuth, actionCodeSettings} from '@/utils/firebase';
 
 export const usePasswordlessSignIn = () => {
   // STATE
@@ -14,7 +14,7 @@ export const usePasswordlessSignIn = () => {
     setHasEmailBeenSent(false);
     setError(null);
 
-    auth.sendSignInLinkToEmail(email, actionCodeSettings)
+    firebaseAuth.sendSignInLinkToEmail(email, actionCodeSettings)
       .then(() => {
         if(!isCancelled) {
           localStorage.setItem('emailForSignIn', email);
