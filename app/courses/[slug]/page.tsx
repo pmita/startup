@@ -24,7 +24,7 @@ export default async function CoursesPage(props: Props) {
     <section>
     <h1>These are part of the courses page {props.params.slug}</h1>
     {data && data.map(doc => (
-      <h1>We got data from firestore {doc.content}</h1>)
+      <h1 key={doc.id}>We got data from firestore {doc.content}</h1>)
     )}
   </section>
   )

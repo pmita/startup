@@ -1,5 +1,6 @@
 import admin from "firebase-admin";
 import { serviceAccount } from "./serviceAccount";
+import { CourseDocument } from "@/types";
 
 try {
   admin.initializeApp({
@@ -46,11 +47,14 @@ export async function getCourseData(slug: string) {
   return courseData.data();
 }
 
-export async function getCollectionData(collection: string) {
-  const collectionData = await firestore.collection(collection).get();
-  return collectionData.docs.map((doc) => ({
-    slug: doc.id,
-    id: doc.id,
-    ...doc.data(),
-  }));
+export async function getCollectionData(collection: string): Promise<CourseDocument[]> {
+  const collectionData = await firestore.collection(collection).get()
+   .then((snapshot) => {
+    return snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+   })
+
+   return collectionData as CourseDocument[];
 }
