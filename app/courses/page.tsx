@@ -1,7 +1,8 @@
 export const dynamic = 'force-dynamic'
 
+import CourseCard from '@/components/CourseCard';
 // UTILS
-import { firestore } from '@/utils/admingFirebase';
+import { firestore, getCollectionData } from '@/utils/admingFirebase';
 
 export async function getFirestoreData() {
   const data = await firestore.collection('courses').get().then((snapshot) => {
@@ -23,11 +24,24 @@ export async function getFirestoreData() {
 
 export default async function Home() {
   const data = await getFirestoreData();
+  const collectionData = await getCollectionData('courses');
 
   return(
     <>
-      <h1>All Courses</h1>
-      {data && <h1>We got data</h1>}
+      <section className="flex flex-col justify-center items-center gap-5 bg-primary-blue">
+        <h1 className="text-4xl font-poppins font-bold uppercase">Courses</h1>
+        <p>Challenging project that teach you features</p>
+      </section>
+      <section className="p-5 grid gap-4 lg:grid-cols-4 md:col-span-4 grid-rows-[minmax(200px, 500px)]">
+        {collectionData.map((card) => (
+          <CourseCard
+            key={card.id}
+            title={card?.title}
+            description={card?.description}
+            hastags={card?.hastags}
+          />
+        ))}
+      </section>
     </>
   );
   }

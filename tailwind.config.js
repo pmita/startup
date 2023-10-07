@@ -8,6 +8,15 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    extend: {
+      gridTemplateColumns: {
+        'auto-fit': 'repeat(auto-fit, minmax(250px, 350px)',
+        'auto-fill': 'repeat(auto-fill, minmax(250px, 350px)',
+        '4-cols': 'repeat(4, minmax(0, 1fr))',
+        '3-cols': 'repeat(3, minmax(0, 1fr))',
+        '2-cols': 'repeat(2, minmax(0, 1fr))',
+        
+      },
     fontFamily: {
       roboto: ["var(--font-roboto)", ...fontFamily.sans],
       poppins: ["var(--font-poppins)", ...fontFamily.sans],
@@ -45,4 +54,5 @@ module.exports = {
     }
   },
   plugins: [],
-}
+  }
+};

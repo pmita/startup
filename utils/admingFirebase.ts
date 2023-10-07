@@ -46,10 +46,11 @@ export async function getCourseData(slug: string) {
   return courseData.data();
 }
 
-// export async function getCourseData(slug: string) {
-//   await import ('firebase/firestore');
-//   const firestore = firebase.firestore();
-
-//   const courseData = await firestore.collection("courses").doc(slug).get();
-//   return courseData.data();
-// }
+export async function getCollectionData(collection: string) {
+  const collectionData = await firestore.collection(collection).get();
+  return collectionData.docs.map((doc) => ({
+    slug: doc.id,
+    id: doc.id,
+    ...doc.data(),
+  }));
+}
