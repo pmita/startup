@@ -32,7 +32,7 @@ export default async function Home() {
         <h1 className="text-4xl font-poppins font-bold uppercase">Courses</h1>
         <p>Challenging project that teach you features</p>
       </section>
-      <section className="p-5 grid gap-4 lg:grid-cols-4 md:col-span-4 grid-rows-[minmax(200px, 500px)]">
+      <section className="p-5 grid grid-cols-[repeat(_auto-fit,minmax(320px,1fr))] auto-rows-[700px] gap-8">
         {collectionData.map((card) => (
           <CourseCard
             key={card.id}
