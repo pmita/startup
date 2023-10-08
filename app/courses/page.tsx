@@ -41,22 +41,6 @@ export default async function Home() {
             hastags={card?.hastags}
           />
         ))}
-        {collectionData.map((card) => (
-          <CourseCard
-            key={card.id}
-            title={card?.title}
-            description={card?.description}
-            hastags={card?.hastags}
-          />
-        ))}
-        {collectionData.map((card) => (
-          <CourseCard
-            key={card.id}
-            title={card?.title}
-            description={card?.description}
-            hastags={card?.hastags}
-          />
-        ))}
       </section>
     </>
   );

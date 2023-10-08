@@ -1,4 +1,6 @@
+// COMPONENTS
 import ImageWithFallback from "../ImageWithFallback";
+import Tag from "./Tag";
 
 type CourseCardProps = {
   title: string;
@@ -25,7 +27,7 @@ export default async function CourseCard({
         altText="John Doe"
       />
       <span
-        className="absolute right-[5%] top-[5%] whitespace-nowrap bg-primary-blue px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-primary-white">
+        className="absolute right-[5%] top-[5%] bg-primary-black px-2 py-1 text-center font-bold text-primary-white">
         New
       </span>
     </div>
@@ -38,13 +40,7 @@ export default async function CourseCard({
         {description}
       </p>
     <div className="flex justify-start items-center gap-2">
-      {hastags && hastags.map((hastag) => (
-        <span
-          key={hastag}
-          className="whitespace-nowrap bg-primary-blue px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-primary-white">
-          {hastag}
-        </span>
-      ))}
+      {hastags && hastags.map((hastag) => <Tag key={hastag} tag={hastag} /> )}
     </div>
     </div>
   </div>
