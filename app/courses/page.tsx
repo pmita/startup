@@ -28,11 +28,27 @@ export default async function Home() {
 
   return(
     <>
-      <section className="flex flex-col justify-center items-center gap-5 bg-primary-blue">
+      <section className="flex flex-col justify-center items-center gap-5">
         <h1 className="text-4xl font-poppins font-bold uppercase">Courses</h1>
         <p>Challenging project that teach you features</p>
       </section>
-      <section className="p-5 grid grid-cols-[repeat(_auto-fit,minmax(320px,1fr))] auto-rows-[700px] gap-8">
+      <section className="grid grid-cols-[repeat(auto-fit,minmax(375px,1fr))] auto-rows-[445px] gap-4 mx-0 my-4 p-4">
+        {collectionData.map((card) => (
+          <CourseCard
+            key={card.id}
+            title={card?.title}
+            description={card?.description}
+            hastags={card?.hastags}
+          />
+        ))}
+        {collectionData.map((card) => (
+          <CourseCard
+            key={card.id}
+            title={card?.title}
+            description={card?.description}
+            hastags={card?.hastags}
+          />
+        ))}
         {collectionData.map((card) => (
           <CourseCard
             key={card.id}

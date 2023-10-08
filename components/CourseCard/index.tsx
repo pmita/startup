@@ -12,42 +12,40 @@ export default async function CourseCard({
   hastags
 }: CourseCardProps) {
   return (
-  <div className="block rounded-lg bg-white shadow-2xl dark:bg-neutral-700 text-center">
-    <div className="w-full h-2/4 relative">
+  <div className="w-full h-full flex flex-col justify-start items-center gap-4 bg-primary-white shadow-xl rounded-[12px]">
+    <div className="w-full h-3/5 relative bg-primary-blue rounded-t-[25px]">
       <ImageWithFallback
         src={'/images/hacker.png'}
         fallbackSrc="/images/hacker.png"
         width={0}
         height={0}
         sizes="100vw"
-        style={{ width: "100%", height: "auto" }}
+        style={{ width: "100%", height: "100%" }}
+        objectFit="cover"
         altText="John Doe"
       />
-    </div>
-
-    <div className="border-b-2 border-neutral-100 px-6 py-4 dark:border-neutral-500">
       <span
-        className="inline-block whitespace-nowrap rounded-[0.27rem] bg-blue-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-blue-700">
+        className="absolute right-[5%] top-[5%] whitespace-nowrap bg-primary-blue px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-primary-white">
         New
       </span>
     </div>
 
-    <div className="p-6">
-      <h5 className="mb-2 text-xl font-bold tracking-wide text-neutral-800 dark:text-neutral-50">
+    <div className="w-full h-2/5 flex flex-col justify-start items-start p-4">
+    <h5 className="mb-2 text-xl tracking-wide text-primary-black font-poppins font-bold">
         {title}
       </h5>
-      <p className="mb-2 text-base text-neutral-500 dark:text-neutral-300">
+      <p className="mb-2 text-base text-primary-black font-roboto">
         {description}
       </p>
-    </div>
-    <div className="border-t-2 border-neutral-100 px-6 py-4 dark:border-neutral-500">
+    <div className="flex justify-start items-center gap-2">
       {hastags && hastags.map((hastag) => (
         <span
           key={hastag}
-          className="m-1 inline-block whitespace-nowrap rounded-[0.27rem] bg-gray-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-gray-700">
+          className="whitespace-nowrap bg-primary-blue px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-primary-white">
           {hastag}
         </span>
       ))}
+    </div>
     </div>
   </div>
   )
