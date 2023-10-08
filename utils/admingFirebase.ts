@@ -11,19 +11,10 @@ try {
   console.log('Firebase admin initialization error');
 }
 
-export default admin;
-
 // FIRESTORE
 export const firestore = admin.firestore();
 
-
-export async function getCourses() {
-  const courseSlugs = await firestore.collection("courses").get();
-  return courseSlugs.docs.map((doc) => ({
-    slug: doc.id
-  }));
-}
-
+// FUNCTIONS
 export async function getFirestoreData() {
   const data = await firestore.collection('courses').get().then((snapshot) => {
     if (!snapshot.empty){
@@ -42,8 +33,8 @@ export async function getFirestoreData() {
   return data;
 }
 
-export async function getCourseData(slug: string) {
-  const courseData = await firestore.collection("courses").doc(slug).get();
+export async function getCourseData(collection: string, slug: string) {
+  const courseData = await firestore.collection(collection).doc(slug).get();
   return courseData.data();
 }
 
