@@ -1,38 +1,36 @@
 export const dynamic = 'force-dynamic'
 
+// COMPONENTS
 import CourseCard from '@/components/CourseCard';
 // UTILS
-import { firestore, getCollectionData } from '@/utils/admingFirebase';
-
-export async function getFirestoreData() {
-  const data = await firestore.collection('courses').get().then((snapshot) => {
-    if (!snapshot.empty){
-      const results: any[] = [];
-      snapshot.forEach((doc) => {
-        if (doc.exists) {
-          results.push({
-            id: doc.id,
-            ...doc.data(),
-          });
-        }
-      });
-      return results;
-    }
-  });
-  return data;
-}
+import { getCollectionData } from '@/utils/admingFirebase';
 
 export default async function Home() {
-  const data = await getFirestoreData();
   const collectionData = await getCollectionData('courses');
 
   return(
-    <>
+    <div className='container'>
       <section className="flex flex-col justify-center items-center gap-5">
         <h1 className="text-4xl font-poppins font-bold uppercase">Courses</h1>
         <p>Challenging project that teach you features</p>
       </section>
-      <section className="grid grid-cols-[repeat(auto-fit,minmax(375px,1fr))] auto-rows-[445px] gap-4 mx-0 my-4 p-4">
+      <section className="grid lg:grid-cols-[repeat(4,minmax(0,1fr))] md:grid-cols-[repeat(2,minmax(0,1fr))] grid-cols-[repeat(1,minmax(0,375px))] auto-rows-[445px] gap-4 mx-0 my-4 p-4 justify-center">
+        {collectionData.map((card) => (
+          <CourseCard
+            key={card.id}
+            title={card?.title}
+            description={card?.description}
+            hastags={card?.hastags}
+          />
+        ))}
+        {collectionData.map((card) => (
+          <CourseCard
+            key={card.id}
+            title={card?.title}
+            description={card?.description}
+            hastags={card?.hastags}
+          />
+        ))}
         {collectionData.map((card) => (
           <CourseCard
             key={card.id}
@@ -42,6 +40,6 @@ export default async function Home() {
           />
         ))}
       </section>
-    </>
+    </div>
   );
   }
