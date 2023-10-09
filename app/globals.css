@@ -76,6 +76,44 @@ input::placeholder {
   }
 }
 
+.container{
+  max-width: 1536px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rowCenter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.columnCenter{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.columnTopCenter{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.columnCenterLeft{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.full {
+  width: 100%;
+  height: 100%;
+}
+
 @layer base {
   /* This is not working currently */
   :root {

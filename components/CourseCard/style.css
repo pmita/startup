@@ -1,0 +1,8 @@
+.cardImageBox {
+  position: relative;
+  overflow: hidden;
+}
+
+.cardImageBox:hover .detailsBox {
+  transform: translate(-0%, 200%);
+}

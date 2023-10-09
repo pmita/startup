@@ -8,6 +8,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    extend: {
     fontFamily: {
       roboto: ["var(--font-roboto)", ...fontFamily.sans],
       poppins: ["var(--font-poppins)", ...fontFamily.sans],
@@ -45,4 +46,5 @@ module.exports = {
     }
   },
   plugins: [],
-}
+  }
+};
