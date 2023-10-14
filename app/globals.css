@@ -88,6 +88,12 @@ input::placeholder {
   align-items: center;
 }
 
+.rowLeftCenter {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .columnCenter{
   display: flex;
   flex-direction: column;

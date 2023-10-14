@@ -1,8 +1,11 @@
-.cardImageBox {
-  position: relative;
-  overflow: hidden;
+.ImageContainer {
+  width: 100%;
+  height: 60%;
+  transition: all 0.5s ease-in-out;
 }
 
-.cardImageBox:hover .detailsBox {
-  transform: translate(-0%, 200%);
+.CardDetails {
+  width: 100%;
+  height: 40%;
+  border: 5px solid black;
 }
