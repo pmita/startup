@@ -1,13 +1,15 @@
 // COMPONENTS
 import Tag from "../CourseCard/Tag"
+import { NextSvg } from "../SVGs";
 
 type InfoCardProps = {
+  icon?: boolean;
   hastags?: string[];
   title: string;
   description: string;
 }
 
-export default async function InfoCard({ hastags, title, description }: InfoCardProps) {
+export default async function InfoCard({ icon, hastags, title, description }: InfoCardProps) {
   return (
     <>
       {hastags && hastags.length && (
@@ -15,9 +17,13 @@ export default async function InfoCard({ hastags, title, description }: InfoCard
           {hastags && hastags.map((hastag) => <Tag key={hastag} tag={hastag} /> )}
         </div>
       )}
+
+      {icon && (
+        <NextSvg width={48} height={48} fill={'#000'} />
+      )}
       
       {title && (
-        <h5 className="mb-2 text-xl tracking-wide text-primary-black font-poppins font-bold">
+        <h5 className="text-xl tracking-wide text-primary-black font-poppins font-bold">
           {title}
         </h5>
       )}
