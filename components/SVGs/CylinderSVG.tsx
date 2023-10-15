@@ -1,7 +1,12 @@
 import { SVGPropType } from "@/types";
 
-const CylinderSVG = ({ width, height, fill}: SVGPropType) => (
-  <svg
+export default async function CylinderSVG({
+  width,
+  height,
+  fill
+}: SVGPropType) {
+  return (
+    <svg
     width={width}
     height={height}
     fill={fill}
@@ -26,6 +31,5 @@ const CylinderSVG = ({ width, height, fill}: SVGPropType) => (
       />
     </defs>
   </svg>
-)
-
-export default CylinderSVG;
+  );
+}

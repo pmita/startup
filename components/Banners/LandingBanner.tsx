@@ -1,17 +1,12 @@
-"use client"
-
 import Link from 'next/link'
 // COMPONENTS
 import { CylinderSVG } from '../SVGs';
 import Header from '../Header';
 
-
-export const LandingBanner = () => {
+export default async function LandingBanner() {
   return(
     <div className="min-h-[90vh] flex justify-center items-center">
       <div className="relative isolate px-4 pt-14 lg:px-6">
-
-        {/* ----- Background SVGs ----- */}
         <div className="absolute -rotate-45 bottom-10 -z-10 blur-2xl transform-gpu overflow-hidden sm:bottom-10 -left-70 origin-bottom-left animate-rotateRight">
           <CylinderSVG  width="288" height='428' fill="none"/>
         </div>
@@ -22,7 +17,6 @@ export const LandingBanner = () => {
           <CylinderSVG  width="288" height='428' fill="none"/>
         </div>
 
-        {/* ----- CTA Banner ----- */}
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
             <Header 
@@ -48,5 +42,3 @@ export const LandingBanner = () => {
     </div>
   );
 }
-
-export default LandingBanner;
