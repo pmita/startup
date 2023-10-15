@@ -1,6 +1,6 @@
 import { SVGPropType } from "@/types";
 
-const BackgroundCylinder = ({ width, height, fill}: SVGPropType) => (
+const CylinderSVG = ({ width, height, fill}: SVGPropType) => (
   <svg
     width={width}
     height={height}
@@ -28,4 +28,4 @@ const BackgroundCylinder = ({ width, height, fill}: SVGPropType) => (
   </svg>
 )
 
-export default BackgroundCylinder;
+export default CylinderSVG;

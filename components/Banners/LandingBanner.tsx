@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 // COMPONENTS
-import BackgroundCylinder from '../SVGs/BackgroundCylinder';
+import { CylinderSVG } from '../SVGs';
 
 
 export const LandingBanner = () => {
@@ -12,13 +12,13 @@ export const LandingBanner = () => {
 
         {/* ----- Background SVGs ----- */}
         <div className="absolute -rotate-45 bottom-10 -z-10 blur-2xl transform-gpu overflow-hidden sm:bottom-10 -left-70 origin-bottom-left animate-rotateRight">
-          <BackgroundCylinder  width="288" height='428' fill="none"/>
+          <CylinderSVG  width="288" height='428' fill="none"/>
         </div>
         <div className="absolute -rotate-20 -top-10 -z-10 blur-2xl transform-gpu overflow-hidden sm:-top-10 left-20 origin-bottom-right animate-rotateLeft">
-          <BackgroundCylinder  width="288" height='428' fill="none"/>
+          <CylinderSVG  width="288" height='428' fill="none"/>
         </div>
         <div className="absolute -top-10 rotate-20 -z-10 blur-2xl transform-gpu overflow-hidden sm:-top-10 -right-20 origin-top-right animate-rotateLeft">
-          <BackgroundCylinder  width="288" height='428' fill="none"/>
+          <CylinderSVG  width="288" height='428' fill="none"/>
         </div>
 
         {/* ----- CTA Banner ----- */}
