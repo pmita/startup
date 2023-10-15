@@ -23,6 +23,7 @@ export default async function CoursesPage() {
         {collectionData.map((card) => (
           <CourseCard
             key={card.id}
+            slug={card?.id}
             image={
               <ImageWithFallback
                 src={'/images/hacker.png'}
