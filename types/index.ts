@@ -16,3 +16,11 @@ export type CourseDocument = {
   tags?: string[],
   published?: boolean;
 }
+
+export type CourseChapter = {
+  id: string;
+  title: string;
+  description: string;
+  content: string;
+  chapter?: number;
+}

@@ -8,7 +8,7 @@ export default async function Tag({ tag }: TagProps) {
 
   return (
     <span
-      className="whitespace-nowrap bg-primary-black font-bold leading-none text-primary-white px-2 py-1">
+      className="whitespace-nowrap bg-primary-black font-semibold leading-none text-primary-white px-2 py-1">
       {tag}
     </span>
   );
