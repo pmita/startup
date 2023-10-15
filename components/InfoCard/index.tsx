@@ -7,9 +7,20 @@ type InfoCardProps = {
   hastags?: string[];
   title: string;
   description: string;
+  price?: string;
+  frequency?: string;
+  sellingPoints?: string[];
 }
 
-export default async function InfoCard({ icon, hastags, title, description }: InfoCardProps) {
+export default async function InfoCard({ 
+  icon, 
+  hastags, 
+  title, 
+  description, 
+  price,
+  frequency,
+  sellingPoints
+}: InfoCardProps) {
   return (
     <>
       {hastags && hastags.length && (
@@ -32,6 +43,24 @@ export default async function InfoCard({ icon, hastags, title, description }: In
         <p className="text-base text-primary-black font-roboto">
           {description}
         </p>
+      )}
+
+      {price && (
+        <h3 className="text-xl tracking-wide -text-primary-black font-roboto font-semibold">
+          <span className="text-2xl">
+            ${price}
+          </span> {frequency}
+        </h3>
+      )}
+
+      {sellingPoints && sellingPoints.length && (
+        <ul className="flex flex-col justify-start items-start gap-2">
+          {sellingPoints.map((point) => (
+            <li key={point} className="text-base text-primary-black font-roboto">
+              {point}
+            </li>
+          ))}
+        </ul> 
       )}
     </>
   )
