@@ -1,6 +1,0 @@
-.coursesGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 300px));
-  grid-auto-rows: 450px;
-  gap: 2rem;
-}

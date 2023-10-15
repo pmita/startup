@@ -23,7 +23,7 @@ export default async function InfoCard({ hastags, title, description }: InfoCard
       )}
       
       {description && (
-        <p className="mb-2 text-base text-primary-black font-roboto">
+        <p className="text-base text-primary-black font-roboto">
           {description}
         </p>
       )}
