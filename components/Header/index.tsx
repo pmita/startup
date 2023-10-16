@@ -7,7 +7,7 @@ export default async function Header({ heading, subHeading, className, ...props 
   return (
     <>
       <div className={className} {...props}>
-        <h1 className="text-6xl font-poppins font-bold uppercase">
+        <h1 className="text-6xl font-poppins font-bold capitilize">
           {heading}
         </h1>
 
