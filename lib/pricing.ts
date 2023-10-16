@@ -5,8 +5,11 @@ export const pricing = [
     description: "Trying on a month to month basis and on your own scedule",
     price: '18.00',
     frequency: '/ month',
-    sellingPoints: [
+    sellingPoint: 'Work at your own pace',
+    bonuses: [
       "Unlimited access to Pro content",
+      "High quality videos",
+      "Access to github repos",
       "30-day moneyback guarenteee",
       "Access to discord"
     ]
@@ -17,9 +20,12 @@ export const pricing = [
     description: "For focused people who want to get started with a specific timeframe",
     price: '129.00',
     frequency: '/ yearly',
-    sellingPoints: [
+    sellingPoint: 'For dedicated users with a timeframe',
+    bonuses: [
       "All Pro tier benefits",
       "Single payment, lifetime access",
+      "High quality videos",
+      "Access to github repos",
       "30-day moneyback guarentee",
       "Special merch"
     ]
@@ -27,12 +33,14 @@ export const pricing = [
   {
     id: 3,
     title: 'Lifetime',
-    description: "Unlimited to all current and future content ",
+    description: "Jump in and out whenever you want",
     price: '250.00',
     frequency: '/ once',
-    sellingPoints: [
+    sellingPoint: 'Work at your own pace',
+    bonuses: [
       "All Pro tier benefits",
       "Single payment, lifetime access",
+      "High quality videos",
       "30-day moneyback guarentee",
       "Special merch",
       "Access to discord"
