@@ -25,4 +25,31 @@ export const Blog = defineDocumentType(() => ({
   },
 }))
 
-export default makeSource({ contentDirPath: './content', documentTypes: [ Blog]})
+export const Course = defineDocumentType(() => ({
+    name: 'Course',
+    filePathPattern: `courses/**/*.mdx`,
+    contentType: 'mdx',
+    fields: {
+      title: { type: 'string', required: true },
+      description: { type: 'string' },
+      draft: { type: 'boolean' },
+      vimeo: { type: 'string' },
+      youtube: { type: 'string' },
+      video_length: { type: 'number' },
+      date: { type: 'date', required: true },
+      lastmod: { type: 'date' },
+    },
+    computedFields: {
+      slug: {
+        type: 'string',
+        resolve: (doc) => `/${doc._raw.flattenedPath}`,
+      }, 
+      slugAsParams: {
+        type: 'string',
+        resolve: (doc) => doc._raw.flattenedPath.split('/').slice(1).join('/'),
+      }
+    }
+
+}))
+
+export default makeSource({ contentDirPath: './content', documentTypes: [Blog, Course]})
