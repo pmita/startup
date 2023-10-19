@@ -35,7 +35,7 @@ export const Course = defineDocumentType(() => ({
       draft: { type: 'boolean' },
       vimeo: { type: 'string' },
       youtube: { type: 'string' },
-      video_length: { type: 'number' },
+      video_length: { type: 'string' },
       date: { type: 'date', required: true },
       lastmod: { type: 'date' },
     },

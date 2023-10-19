@@ -1,6 +1,8 @@
 export const revalidate = 1200;
 
 import { notFound } from "next/navigation";
+// COMPONENTS
+import Header from "@/components/Header";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
 
@@ -48,8 +50,10 @@ export default async function ChapterPage({ params }: CoursePageProps) {
   
   return (
     <div>
-      <h1>Individual chapter page has kicked in here</h1>
-      <h2>{course?.title}</h2>
+      <Header
+        heading={course?.title}
+        subHeading={course?.description}
+      />
     </div>
   )
 }

@@ -1,3 +1,6 @@
+//COMPONENTS
+import ChaptersList from "@/components/ChaptersList";
+// LIBRARIES
 import { allCourses } from "@/.contentlayer/generated";
 
 interface CourseChapterLayoutProps {
@@ -13,13 +16,7 @@ export default function CourseChapterLayout({ children, params }: CourseChapterL
 
   return (
     <section className="flex flex-wrap flex-row justify-center items-stretch gap-16 w-full h-[90vh]">
-      <aside className="flex-[1_1_200px] self-stretch w-full order-2 sm:order-1">
-        {chapters.map((course, index) => (
-          <li key={index}>
-            <h1>{course.title}</h1>
-          </li>
-        ))}
-      </aside>
+      <ChaptersList chapters={chapters} />
       <section className="flex-[4_1_550px] self-stretch w-full bg-red-400 order-1 sm:order-2">
         {children}
       </section>
