@@ -26,8 +26,8 @@ export const Blog = defineDocumentType(() => ({
 }))
 
 export const Course = defineDocumentType(() => ({
-    name: 'Course',
-    filePathPattern: `course/**/*.mdx`,
+    name: 'Courses',
+    filePathPattern: `courses/**/*.mdx`,
     contentType: 'mdx',
     fields: {
       title: { type: 'string', required: true },

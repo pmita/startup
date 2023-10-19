@@ -1,21 +1,17 @@
+
 import { notFound } from "next/navigation";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
 
 interface CoursePageProps {
   params: {
-    slug: string[]
+    slug: string
   }
 }
 
 async function getDocFromParams(params: any) {
-  const slug = params?.slug?.join('/');
-  const course = allCourses.find((course) => {
-    console.log(course.slugAsParams);
-    if (course.slugAsParams === slug) {
-      return course;
-    }
-  })
+  const slug = params?.slug;
+  const course = allCourses.find((course) => course.slugAsParams === slug)
 
   if (!course) return null;
 
@@ -33,12 +29,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export async function generateStaticParams(): Promise<CoursePageProps["params"][]> {
-  return allCourses.map((course) => ({
-    slug: course.slugAsParams.split("/"),
-  }))
+  return allCourses.filter((course) => course?._raw.sourceFileName === 'index.mdx')
+   .map((course) => ({
+    slug: course.slugAsParams,
+   }))
 }
 
-export default async function CoursePage({ params }: CoursePageProps) {
+
+export default async function LessonPage({ params }: CoursePageProps) {
   const course = await getDocFromParams(params);
 
   if (!course) notFound();

@@ -8,7 +8,7 @@ import { allCourses } from "@/.contentlayer/generated"
 import { compareDesc } from "date-fns"
 
 
-export default async function CoursesPage() {
+export default async function LessonsPage() {
   console.log(allCourses);
   const courses = allCourses.filter((course) => course?._raw.sourceFileName === 'index.mdx')
   .sort((a, b) => {
