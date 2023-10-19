@@ -9,14 +9,13 @@ import { compareDesc } from "date-fns"
 
 
 export default async function LessonsPage() {
-  console.log(allCourses);
-  const courses = allCourses.filter((course) => course?._raw.sourceFileName === 'index.mdx')
-  .sort((a, b) => {
-    return compareDesc(new Date(a.date), new Date(b.date))
-  })
+  const courses = allCourses
+    .filter((course) => course?._raw.sourceFileName === 'index.mdx')
+    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
+    
   return (
-    <div className='container flex flex-col justify-center items-stretch gap-16'>
+    <>
       <Header 
         heading="All Courses" 
         subHeading="Built feature based projects and stop following step by step tutorials when coding"
@@ -48,6 +47,6 @@ export default async function LessonsPage() {
           />
         ))}
       </section>
-    </div>
+    </>
   );
 }
