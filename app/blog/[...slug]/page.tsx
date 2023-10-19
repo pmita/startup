@@ -1,3 +1,5 @@
+export const revalidate = 1200;
+
 import { notFound } from 'next/navigation';
 // LIBRARIES
 import { format, parseISO } from 'date-fns'
