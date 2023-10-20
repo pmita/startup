@@ -25,7 +25,13 @@ export default async function InfoCard({
     <>
       {hastags && hastags.length && (
         <div className="rowLeftCenter gap-1">
-          {hastags && hastags.map((hastag) => <Tag key={hastag} tag={hastag} /> )}
+          {hastags && hastags.map((hastag) => (
+            <Tag 
+              key={hastag} 
+              tag={hastag} 
+              className="bg-primary-green rounded-[6px]"
+            /> 
+          ))}
         </div>
       )}
 
