@@ -32,6 +32,7 @@ export const Course = defineDocumentType(() => ({
     fields: {
       title: { type: 'string', required: true },
       description: { type: 'string' },
+      weight: { type: 'number', required: true },
       draft: { type: 'boolean' },
       vimeo: { type: 'string' },
       youtube: { type: 'string' },
