@@ -15,9 +15,9 @@ export default function CourseChapterLayout({ children, params }: CourseChapterL
   const chapters = allCourses.filter((course) => course.slugAsParams.split("/")[0] === params.slug && course?._raw.sourceFileName !== 'index.mdx')
 
   return (
-    <section className="flex flex-wrap flex-row justify-center items-stretch gap-16 w-full h-[90vh]">
+    <section className="flex flex-wrap flex-row justify-center items-stretch w-full p-5 pb-0">
       <ChaptersList chapters={chapters} />
-      <section className="flex-[4_1_550px] self-stretch w-full bg-red-400 order-1 sm:order-2">
+      <section className="p-5 flex-[4_1_670px] self-stretch w-full bg-red-400 order-1 lg:order-2">
         {children}
       </section>
     </section>

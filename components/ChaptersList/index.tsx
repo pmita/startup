@@ -10,7 +10,7 @@ type ChapterListProps = {
 
 export default async function ChaptersList({ chapters }: ChapterListProps) {
   return (
-    <aside className="flex-[1_1_200px] self-stretch flex flex-col flex-start items-between gap-2 w-full order-2 sm:order-1">
+    <aside className="flex-[1_1_300px] self-stretch flex flex-col flex-start items-between gap-2 w-full order-2 lg:order-1 min-h-[90vh] overflow-scroll p-5">
       {chapters.map((course, index) => (
         <div className="flex justify-between items-center p-2" key={index}>
           <span className="flex justify-start items-center gap-2">
@@ -23,7 +23,7 @@ export default async function ChaptersList({ chapters }: ChapterListProps) {
             </AuthCheck>
             <h3>{course.title}</h3>
           </span>
-          <Tag tag={course?.video_length || ''} />
+          <Tag tag={course?.video_length || '1:01'} />
         </div>
       ))}
     </aside>
