@@ -12,7 +12,7 @@ export default async function CourseCard({
   return (
     <div className="full columnTopCenter gap-4 shadow-xl bg-primary-blue rounded-[12px]">
         <div className="w-full h-3/6 relative">
-          <Link href={`/${slug}`}>
+          <Link href={`/courses/${slug}`}>
             {image}
             <span
               className="absolute right-[5%] top-[5%] bg-primary-black px-2 py-1 text-center font-bold text-primary-white">
