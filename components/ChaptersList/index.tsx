@@ -19,9 +19,7 @@ export default async function ChaptersList({ chapters }: ChapterListProps) {
                 <div className="w-[20px] h-[20px] rounded-[50%] bg-primary-black opacity-75"></div>
               )}
             >
-              <div className="w-[20px] h-[20px] rounded-[50%] bg-primary-black opacity-75"></div>
               <div className="w-[20px] h-[20px] rounded-[50%] bg-primary-green"></div>
-
             </AuthCheck>
             <h3>{course.title}</h3>
           </span>
