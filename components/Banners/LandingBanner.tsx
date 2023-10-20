@@ -5,7 +5,7 @@ import Header from '../Header';
 
 export default async function LandingBanner() {
   return(
-    <div className="min-h-[90vh] flex justify-center items-center">
+    <div className="container min-h-[90vh] flex justify-center items-center">
       <div className="relative isolate px-4 pt-14 lg:px-6">
         <div className="absolute -rotate-45 bottom-10 -z-10 blur-2xl transform-gpu overflow-hidden sm:bottom-10 -left-70 origin-bottom-left animate-rotateRight">
           <CylinderSVG  width="288" height='428' fill="none"/>
