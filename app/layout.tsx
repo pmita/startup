@@ -1,10 +1,10 @@
-import './globals.css'
 import type { Metadata } from 'next'
 // COMPONENTS
 import Navbar from '@/components/Navbar';
 import { AuthContextProvider } from '@/context/AuthContext';
 // UTILS
 import { fontRoboto, fontPoppins } from '@/lib/font';
+import './globals.css'
 
 
 export const metadata: Metadata = {
