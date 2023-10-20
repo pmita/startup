@@ -1,4 +1,7 @@
+// NEXT
 import Link from "next/link"
+// COMPONENTS
+import Tag from "./Tag";
 
 type CourseCardProps = {
   info?: React.ReactNode;
@@ -14,10 +17,10 @@ export default async function CourseCard({
         <div className="w-full h-3/6 relative">
           <Link href={`/${slug}`}>
             {image}
-            <span
-              className="absolute right-[5%] top-[5%] bg-primary-black px-2 py-1 text-center font-bold text-primary-white">
-              New
-            </span>
+            <Tag
+              tag="New"
+              className="absolute right-[5%] top-[5%] bg-primary-black rounded-[6px] py-2"
+            />
           </Link>
         </div>
         

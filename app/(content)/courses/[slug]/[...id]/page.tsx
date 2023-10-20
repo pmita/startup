@@ -2,8 +2,6 @@ export const revalidate = 1200;
 
 // NEXT
 import { notFound } from "next/navigation";
-// REACT
-import { Suspense } from "react";
 // COMPONENTS
 import Header from "@/components/Header";
 // LIBRARIES
@@ -53,12 +51,10 @@ export default async function ChapterPage({ params }: CoursePageProps) {
   
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Header
-          heading={course?.title}
-          subHeading={course?.description}
-        />
-      </Suspense>
+      <Header
+        heading={course?.title}
+        subHeading={course?.description}
+      />
     </>
   )
 }

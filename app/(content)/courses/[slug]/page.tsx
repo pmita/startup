@@ -3,8 +3,6 @@ export const revalidate = 1200;
 // NEXT
 import Link from "next/link"
 import { notFound } from "next/navigation";
-// REACT
-import { Suspense } from "react";
 // COMPONENTS
 import Header from "@/components/Header";
 import InfoCard from "@/components/InfoCard";
@@ -57,25 +55,23 @@ export default async function LessonPage({ params }: CoursePageProps) {
   
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Header
-          heading={course?.title}
-          subHeading={course?.description}
-          className="flex flex-col justify-center items-center gap-6"
-        />
-        <section className="grid grid-cols-[repeat(auto-fill,minmax(240px,300px))] auto-rows-[150px] gap-8 mx-0 my-4 p-4 justify-center">
-          {chapters.map((chapter) => (
-            <div key={chapter.weight} className="w-full border-[5px] border-solid border-primary-black columnCenterLeft gap-1 rounded-b-[12px] bg-primary-white p-4 py-2">
-              <Link href={`/courses/${chapter.slugAsParams}`}>
-                <InfoCard
-                  title={chapter?.title}
-                  description={chapter?.description || ''}
-                />
-              </Link>
-            </div>
-          ))}
-          </section>
-      </Suspense>
+      <Header
+        heading={course?.title}
+        subHeading={course?.description}
+        className="flex flex-col justify-center items-center gap-6"
+      />
+      <section className="grid grid-cols-[repeat(auto-fill,minmax(240px,300px))] auto-rows-[150px] gap-8 mx-0 my-4 p-4 justify-center">
+        {chapters.map((chapter) => (
+          <div key={chapter.weight} className="w-full border-[5px] border-solid border-primary-black columnCenterLeft gap-1 rounded-b-[12px] bg-primary-white p-4 py-2">
+            <Link href={`/courses/${chapter.slugAsParams}`}>
+              <InfoCard
+                title={chapter?.title}
+                description={chapter?.description || ''}
+              />
+            </Link>
+          </div>
+        ))}
+        </section>
     </>
   )
 }
