@@ -1,16 +1,27 @@
 // COMPONENTS
 import Header from "@/components/Header"
-import InfoCard from "@/components/InfoCard"
+import Title from "@/components/Header/Title"
+import Description from "@/components/Header/Description"
 // UTILS
 import { pricing } from "@/lib/pricing"
 
 export default async function ProMembersPage() {
   return (
     <div className='container flex flex-col justify-center items-stretch gap-16'>
-      <Header 
-        heading="Become a Pro Member" 
-        subHeading="Learn the essential skills for modern FullStack web and app development "
+      <Header
         className="flex flex-col justify-center items-center gap-6"
+        headerTitle={
+          <Title 
+            title="Become a Pro Member"
+            className="capitalize"
+          />
+        }
+        headerDescription={
+          <Description
+            description="Learn the essential skills for modern FullStack web and app development"
+            className="capitilize"
+          />
+        }
       />
 
       <section className="grid grid-cols-[1fr] gap-4 justify-center">

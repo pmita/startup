@@ -4,6 +4,8 @@ export const revalidate = 1200;
 import { notFound } from "next/navigation";
 // COMPONENTS
 import Header from "@/components/Header";
+import Title from "@/components/Header/Title";
+import Description from "@/components/Header/Description";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
 
@@ -52,8 +54,19 @@ export default async function ChapterPage({ params }: CoursePageProps) {
   return (
     <>
       <Header
-        heading={course?.title}
-        subHeading={course?.description}
+        className="flex flex-col justify-center items-center gap-6"
+        headerTitle={
+          <Title 
+            title={course?.title}
+            className="capitalize"
+          />
+        }
+        headerDescription={
+          <Description
+            description={course?.description || ''}
+            className="capitilize"
+          />
+        }
       />
     </>
   )

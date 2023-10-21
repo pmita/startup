@@ -5,6 +5,8 @@ import Link from "next/link"
 import { notFound } from "next/navigation";
 // COMPONENTS
 import Header from "@/components/Header";
+import Title from "@/components/Header/Title";
+import Description from "@/components/Header/Description";
 import InfoCard from "@/components/InfoCard";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
@@ -56,9 +58,19 @@ export default async function LessonPage({ params }: CoursePageProps) {
   return (
     <>
       <Header
-        heading={course?.title}
-        subHeading={course?.description}
         className="flex flex-col justify-center items-center gap-6"
+        headerTitle={
+          <Title 
+            title={course?.title}
+            className="capitalize"
+          />
+        }
+        headerDescription={
+          <Description
+            description={course?.description || ''}
+            className="capitilize"
+          />
+        }
       />
       <section className="grid grid-cols-[repeat(auto-fill,minmax(240px,300px))] auto-rows-[150px] gap-8 mx-0 my-4 p-4 justify-center">
         {chapters.map((chapter) => (

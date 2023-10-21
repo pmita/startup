@@ -3,9 +3,11 @@ import Header from "@/components/Header"
 import CourseCard from "@/components/CourseCard"
 import ImageWithFallback from "@/components/ImageWithFallback"
 import InfoCard from "@/components/InfoCard"
+import Title from "@/components/Header/Title"
 // LIBRARIES
 import { allCourses } from "@/.contentlayer/generated"
 import { compareDesc } from "date-fns"
+import Description from "@/components/Header/Description"
 
 
 export default async function LessonsPage() {
@@ -16,10 +18,20 @@ export default async function LessonsPage() {
     
   return (
     <>
-      <Header 
-        heading="All Courses" 
-        subHeading="Built feature based projects and stop following step by step tutorials when coding"
+      <Header
         className="flex flex-col justify-center items-center gap-6"
+        headerTitle={
+          <Title 
+            title="All Courses"
+            className="capitalize"
+          />
+        }
+        headerDescription={
+          <Description
+            description="Built feature based projects and stop following step by step tutorials when coding"
+            className="capitilize"
+          />
+        }
       />
       <section className="grid grid-cols-[repeat(auto-fill,minmax(240px,300px))] auto-rows-[450px] gap-8 mx-0 my-4 p-4 justify-center">
         {courses.map((course, index) => (

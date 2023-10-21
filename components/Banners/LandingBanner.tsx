@@ -1,7 +1,10 @@
+// NEXT
 import Link from 'next/link'
 // COMPONENTS
-import { CylinderSVG } from '../SVGs';
 import Header from '../Header';
+import Title from '../Header/Title';
+import Description from '../Header/Description';  
+import { CylinderSVG } from '../SVGs';
 
 export default async function LandingBanner() {
   return(
@@ -19,10 +22,20 @@ export default async function LandingBanner() {
 
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
-            <Header 
-              heading="Data to enrich your online business"
-              subHeading="Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua."
-              className="flex flex-col justify-center items-center gap-6"            
+            <Header
+              className="flex flex-col justify-center items-center gap-6"
+              headerTitle={
+                <Title 
+                  title="Data to enrich your online business"
+                  className="capitalize"
+                />
+              }
+              headerDescription={
+                <Description
+                  description="Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua"
+                  className="capitilize"
+                />
+              }
             />
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <button className="button">
