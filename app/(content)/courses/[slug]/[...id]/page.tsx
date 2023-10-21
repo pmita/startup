@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Title from "@/components/Header/Title";
 import Description from "@/components/Header/Description";
+import { Mdx } from "@/components/MDX";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
 
@@ -68,6 +69,9 @@ export default async function ChapterPage({ params }: CoursePageProps) {
           />
         }
       />
+      <section className="container max-w-3xl py-6 lg:py-12">
+        <Mdx code={course.body.code} />
+      </section>
     </>
   )
 }
