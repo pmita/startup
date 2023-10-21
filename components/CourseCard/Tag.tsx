@@ -11,7 +11,7 @@ export default async function Tag({ tag, className }: TagProps) {
   return (
     <span
       className={cn(
-        "whitespace-nowrap font-semibold leading-none text-primary-white px-2 py-1",
+        "whitespace-nowrap font-semibold leading-none text-primary-white p-2",
         className
       )}
     >

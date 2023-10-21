@@ -40,6 +40,8 @@ export const Course = defineDocumentType(() => ({
       youtube: { type: 'string' },
       video_length: { type: 'string' },
       date: { type: 'date', required: true },
+      tags: { type: 'list', of: { type: 'string' } },
+      stack: { type: 'list', of: { type: 'string' } },
       lastmod: { type: 'date' },
     },
     computedFields: {

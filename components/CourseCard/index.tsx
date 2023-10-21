@@ -27,7 +27,7 @@ export default async function CourseCard({
             {image && image}
             <Tag
               tag="New"
-              className="absolute right-[5%] top-[5%] bg-primary-black rounded-[6px] py-2"
+              className="absolute right-[5%] top-[5%] bg-primary-black rounded-[6px]"
             />
           </Link>
         </div>

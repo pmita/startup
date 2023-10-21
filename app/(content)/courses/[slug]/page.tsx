@@ -74,7 +74,7 @@ export default async function LessonPage({ params }: CoursePageProps) {
       />
       <section className="grid grid-cols-[repeat(auto-fill,minmax(240px,300px))] auto-rows-[150px] gap-8 mx-0 my-4 p-4 justify-center">
         {chapters.map((chapter) => (
-          <div key={chapter.weight} className="w-full border-[5px] border-solid border-primary-black columnCenterLeft gap-1 rounded-b-[12px] bg-primary-white p-4 py-2">
+          <div key={chapter.weight} className="w-full border-[5px] border-solid border-primary-black hover:border-primary-green columnCenterLeft gap-2 rounded-[12px] bg-primary-white p-4 py-2">
             <Link href={`/courses/${chapter.slugAsParams}`}>
               <InfoCard
                 title={chapter?.title}

@@ -53,9 +53,10 @@ export default async function LessonsPage() {
             }
             info={
               <InfoCard 
-                className="rounded-b-[12px] bg-primary-white"
+                className="rounded-b-[12px] bg-primary-white h-3/6"
                 title={course?.title}
                 description={course?.description || ''}
+                hastags={course?.stack}
               />
             }
           />
