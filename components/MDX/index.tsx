@@ -1,4 +1,6 @@
 
+// NEXT
+import Image from "next/image";
 // LIBRARIES
 import { useMDXComponent } from "next-contentlayer/hooks";
 // LIB
@@ -62,7 +64,7 @@ const components = {
   a: ({ className, ...props}: { className?: string}) => (
     <a
       className={cn(
-        "font-medium underline underline-offset-4 text-blue-400",
+        "font-medium underline underline-offset-4 text-primary-green",
         className
       )}
       {...props}
@@ -77,6 +79,51 @@ const components = {
       {...props}
     />
   ),
+  ul: ({ className, ...props }: { className?: string}) => (
+    <ul 
+      className={cn(
+        "my-6 ml-6 list-disc", 
+        className
+      )} 
+      {...props} 
+    />
+  ),
+  ol: ({ className, ...props }: { className?: string }) => (
+    <ol className={cn(
+        "my-6 ml-6 list-decimal", 
+        className
+      )} 
+      {...props} 
+    />
+  ),
+  li: ({ className, ...props }: { className?: string }) => (
+    <li className={cn(
+        "mt-2", 
+        className
+      )} 
+      {...props} 
+    />
+  ),
+  blockquote: ({ className, ...props }: { className?: string }) => (
+    <blockquote
+      className={cn(
+        "mt-6 border-l-2 pl-6 italic [&>*]:text-muted-foreground",
+        className
+      )}
+      {...props}
+    />
+  ),
+  img: ({ className, alt, ...props}: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      className={cn(
+        "rounded border",
+        className
+      )}
+      alt={alt}
+      {...props}
+    />
+  ),
   code: ({ className, ...props }: { className?: string }) => (
     <code
       className={cn(
@@ -85,7 +132,8 @@ const components = {
       )}
       {...props}
     />
-  )
+  ),
+  Image
 }
 
 interface MDXProps {
@@ -98,7 +146,7 @@ export function Mdx({ code, className }: MDXProps) {
 
   return (
     <div className={cn(
-        "flex flex-col justify-center items-center gap-4",
+        "flex flex-col justify-center items-start gap-4",
         className
       )}
     >

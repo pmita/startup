@@ -55,7 +55,7 @@ export default async function ChapterPage({ params }: CoursePageProps) {
   return (
     <>
       <Header
-        className="flex flex-col justify-center items-center gap-6"
+        className="flex flex-col justify-center items-start gap-6"
         headerTitle={
           <Title 
             title={course?.title}
