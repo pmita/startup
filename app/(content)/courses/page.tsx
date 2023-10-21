@@ -37,6 +37,7 @@ export default async function LessonsPage() {
         {courses.map((course, index) => (
           <CourseCard
             key={index}
+            className="bg-blue-400 border-solid border-primary-black rounded-[12px]"
             slug={course?._raw.sourceFileDir}
             image={
               <ImageWithFallback
@@ -47,11 +48,12 @@ export default async function LessonsPage() {
                 sizes="100vw"
                 style={{ width: "100%", height: "100%" }}
                 objectFit="cover"
-                altText="John Doe"
+                altText={course?.title || ''}
               />
             }
             info={
               <InfoCard 
+                className="rounded-b-[12px] bg-primary-white"
                 title={course?.title}
                 description={course?.description || ''}
               />

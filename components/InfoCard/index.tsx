@@ -1,6 +1,8 @@
 // COMPONENTS
 import Tag from "../CourseCard/Tag"
 import { NextSvg } from "../SVGs";
+// LIB
+import { cn } from "@/lib/util";
 
 type InfoCardProps = {
   icon?: boolean;
@@ -10,6 +12,7 @@ type InfoCardProps = {
   price?: string;
   frequency?: string;
   sellingPoints?: string[];
+  className?: string;
 }
 
 export default async function InfoCard({ 
@@ -19,10 +22,15 @@ export default async function InfoCard({
   description, 
   price,
   frequency,
-  sellingPoints
+  sellingPoints,
+  className
 }: InfoCardProps) {
   return (
-    <>
+    <div className={cn(
+        "w-full h-3/6 columnCenterLeft gap-1 p-4 py-2",
+        className
+      )}
+    >
       {hastags && hastags.length && (
         <div className="rowLeftCenter gap-1">
           {hastags && hastags.map((hastag) => (
@@ -68,6 +76,6 @@ export default async function InfoCard({
           ))}
         </ul> 
       )}
-    </>
+    </div>
   )
 }
