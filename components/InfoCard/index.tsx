@@ -1,15 +1,15 @@
 // COMPONENTS
 import Tag from "../CourseCard/Tag"
 import { NextSvg } from "../SVGs";
+// LIB
+import { cn } from "@/lib/util";
 
 type InfoCardProps = {
   icon?: boolean;
   hastags?: string[];
   title: string;
   description: string;
-  price?: string;
-  frequency?: string;
-  sellingPoints?: string[];
+  className?: string;
 }
 
 export default async function InfoCard({ 
@@ -17,15 +17,23 @@ export default async function InfoCard({
   hastags, 
   title, 
   description, 
-  price,
-  frequency,
-  sellingPoints
+  className
 }: InfoCardProps) {
   return (
-    <>
+    <div className={cn(
+        "w-full columnCenterLeft gap-4 p-4 py-2",
+        className
+      )}
+    >
       {hastags && hastags.length && (
         <div className="rowLeftCenter gap-1">
-          {hastags && hastags.map((hastag) => <Tag key={hastag} tag={hastag} /> )}
+          {hastags && hastags.map((hastag) => (
+            <Tag 
+              key={hastag} 
+              tag={'# ' + hastag} 
+              className="bg-primary-green rounded-[6px]"
+            /> 
+          ))}
         </div>
       )}
 
@@ -44,24 +52,6 @@ export default async function InfoCard({
           {description}
         </p>
       )}
-
-      {price && (
-        <h3 className="text-xl tracking-wide -text-primary-black font-roboto font-semibold">
-          <span className="text-2xl">
-            ${price}
-          </span> {frequency}
-        </h3>
-      )}
-
-      {sellingPoints && sellingPoints.length && (
-        <ul className="flex flex-col justify-start items-start gap-2">
-          {sellingPoints.map((point) => (
-            <li key={point} className="text-base text-primary-black font-roboto">
-              {point}
-            </li>
-          ))}
-        </ul> 
-      )}
-    </>
+    </div>
   )
 }

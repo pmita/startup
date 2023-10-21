@@ -6,10 +6,11 @@
 
 @layer components {
   .button {
-    padding: 1rem 2rem;
+    padding: 0.5rem 1rem;
     background: theme('colors.primary-black');
     color: theme('colors.primary-white');
     border: 3px solid theme('colors.primary-black');
+    border-radius: 6px;
     transition: all 0.3s ease-in-out;
   }
 
@@ -19,17 +20,24 @@
     color: theme('colors.primary-black');
   }
 
-  .secondary-button {
-    padding: 1rem 2rem;
-    background: theme('colors.primary-white');
-    color: theme('colors.primary-black');
-    border: 3px solid theme('colors.primary-black');
-    transition: all 0.3s ease-in-out;
+  .primaryButton {
+    background: theme('colors.primary-green');
+    border-color: theme('colors.primary-green');
   }
 
-  .secondary-button:hover {
-    cursor: pointer;
-    background: theme('colors.primary-black');
+  .primaryButton:hover {
+    background: theme('colors.primary-white');
+    color: theme('colors.primary-green');
+  }
+
+  .secondaryButton {
+    background: theme('colors.primary-white');
+    color: theme('colors.primary-green');
+    border-color: theme('colors.primary-green');
+  }
+
+  .secondaryButton:hover {
+    background: theme('colors.primary-green');
     color: theme('colors.primary-white');
   }
 }

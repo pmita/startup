@@ -1,5 +1,7 @@
 // COMPONENTS
 import Header from "../Header";
+import Title from "../Header/Title";
+import Description from "../Header/Description";
 import InfoCard from "../InfoCard";
 // UTILS
 import { features } from "@/lib/features";
@@ -9,10 +11,21 @@ export default async function FeaturesBanner() {
   return (
     <section className="container flex flex-col justify-start items-stretch gap-16 h-[100vh]">
       <Header
-        heading="Features"
-        subHeading="Learn the latest web development trends with feature based project. We cover everything from authentication, UI/UX, database configuration, and many more"
         className="flex flex-col justify-center items-center gap-6"
+        headerTitle={
+          <Title 
+            title="Features"
+            className="capitalize"
+          />
+        }
+        headerDescription={
+          <Description
+            description="Learn the latest web development trends with feature based project. We cover everything from authentication, UI/UX, database configuration, and many more"
+            className="capitilize"
+          />
+        }
       />
+      
 
       <section className="grid grid-cols-[repeat(auto-fill,minmax(240px,300px))] auto-rows-[185px] gap-8 mx-0 my-4 p-4 justify-center">
         {features.map((feature) => (

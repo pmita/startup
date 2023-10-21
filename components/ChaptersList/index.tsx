@@ -25,7 +25,10 @@ export default async function ChaptersList({ chapters }: ChapterListProps) {
               </AuthCheck>
               <h3>{chapter.title}</h3>
             </span>
-            <Tag tag={chapter?.video_length || '1:01'} />
+            <Tag 
+              tag={chapter?.video_length || '1:01'} 
+              className="bg-primary-green rounded-[6px]"
+            />
           </div>
         </Link>
       ))}

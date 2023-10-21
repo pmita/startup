@@ -1,15 +1,23 @@
 "use client"
 
-import Link from "next/link";
+// NEXT
+import { useRouter } from "next/navigation";
 // HOOKS
 import { useSignOut } from "@/hooks/useSignOut";
+// LIB
+import { cn } from "@/lib/util";
 
-export function SignInButton() {
+export function SignInButton({ className }: { className?: string }) {
+  const router = useRouter();
   return(
-    <button className="button">
-      <Link href={'/signin'}>
-        Sign In
-      </Link>
+    <button 
+      className={cn(
+        "button",
+        "primaryButton"
+      )}
+      onClick={() => router.push('/signin')}
+    >
+      Sign In
   </button>
   )
 }
@@ -21,12 +29,12 @@ export function SignOutButton() {
     <>
       {isLoading
         ? (
-          <button className="button" onClick={() => signOut()}>
+          <button className={cn("button", "secondaryButton")} onClick={() => signOut()}>
             Loading ...
           </button>
         )
         : (
-          <button className="button" onClick={() => signOut()}>
+          <button className={cn("button", "secondaryButton")} onClick={() => signOut()}>
             Sign Out
           </button>
         )

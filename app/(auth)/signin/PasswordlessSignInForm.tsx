@@ -14,6 +14,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 // UTILS
 import { signInBInputs } from '@/utils/formInputs';
 import { firebaseAuth } from '@/utils/firebase';
+// LIB
+import { cn } from '@/lib/util';
 
 interface FormInput {
   email: string;
@@ -66,7 +68,7 @@ export default function PasswordlessSignInForm(){
       onSubmit={handleSubmit(onSubmit)} 
       className="w-[350] p-2 flex flex-col justify-center items-stretch gap-5 text-center"
     >
-      <h1 className="w-full">Welcome, please sign in!</h1>
+      <h1 className="w-full text-xl">Sign In</h1>
       {signInBInputs && signInBInputs.map((input) => (
         <InputField
           key={input.id}
@@ -80,7 +82,7 @@ export default function PasswordlessSignInForm(){
       ))}
 
       {hasEmailBeenSent && (
-        <p className="text-green-500">
+        <p className="text-primary-black">
           Email has been sent! Please check your inbox.
         </p>
       )}
@@ -89,7 +91,13 @@ export default function PasswordlessSignInForm(){
         ? <button className="button" type="submit" disabled>Loading ...</button>
         : <button className="button" type="submit">Send Email</button>
       }
-      <button className="button" onClick={() => signInWithGoogle()}>
+      <button 
+        className={cn(
+          "button",
+          "bg-primary-white border-primary-black text-primary-black hover:bg-primary-black hover:text-primary-white"
+        )}
+        onClick={() => signInWithGoogle()}
+      >
         Google Sign In
       </button>
     </form>

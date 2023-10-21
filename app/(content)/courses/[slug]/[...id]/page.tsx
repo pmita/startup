@@ -2,10 +2,11 @@ export const revalidate = 1200;
 
 // NEXT
 import { notFound } from "next/navigation";
-// REACT
-import { Suspense } from "react";
 // COMPONENTS
 import Header from "@/components/Header";
+import Title from "@/components/Header/Title";
+import Description from "@/components/Header/Description";
+import { Mdx } from "@/components/MDX";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
 
@@ -53,12 +54,24 @@ export default async function ChapterPage({ params }: CoursePageProps) {
   
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Header
-          heading={course?.title}
-          subHeading={course?.description}
-        />
-      </Suspense>
+      <Header
+        className="flex flex-col justify-center items-start gap-6"
+        headerTitle={
+          <Title 
+            title={course?.title}
+            className="capitalize"
+          />
+        }
+        headerDescription={
+          <Description
+            description={course?.description || ''}
+            className="capitilize"
+          />
+        }
+      />
+      <section className="container max-w-3xl py-6 lg:py-12">
+        <Mdx code={course.body.code} />
+      </section>
     </>
   )
 }
