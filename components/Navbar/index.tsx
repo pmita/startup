@@ -15,12 +15,12 @@ export default async function Navbar() {
         </Link>
       </div>
       <ul className="flex-1 flex justify-end items-center gap-10 content-between">
-        <li className="hover:scale-105 hover:text-primary-blue font-semibold">
+        <li className="hover:scale-105 hover:opacity-75 font-semibold">
           <Link href={"/pro"}>
             Pro
             </Link>
           </li>
-        <li className="hover:scale-105 hover:text-primary-blue font-semibold">
+        <li className="hover:scale-105 hover:opacity-75 font-semibold">
           <Link href={"/courses"}>
             Courses
           </Link>

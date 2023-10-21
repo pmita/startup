@@ -21,7 +21,7 @@ export default function InputField({
       )}
 
       <input
-        className="w-full"
+        className="w-full rounded-[6px]"
         id={name}
         placeholder={placeholder}
         type={type}

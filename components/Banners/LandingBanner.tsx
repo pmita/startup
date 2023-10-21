@@ -5,6 +5,8 @@ import Header from '../Header';
 import Title from '../Header/Title';
 import Description from '../Header/Description';  
 import { CylinderSVG } from '../SVGs';
+// LIB
+import { cn } from '@/lib/util';
 
 export default async function LandingBanner() {
   return(
@@ -38,13 +40,13 @@ export default async function LandingBanner() {
               }
             />
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <button className="button">
+              <button className={cn("button", "primaryButton")}>
                 <Link href={'/pro'}>
                   Get Started
                 </Link>
               </button>
-              <button className="secondary-button">
-                <Link href={'/classes'}>
+              <button className={cn("button", "secondaryButton")}>
+                <Link href={'/courses'}>
                   Learn More
                 </Link>
               </button>
