@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Title from "@/components/Header/Title";
 import Description from "@/components/Header/Description";
 import { Mdx } from "@/components/MDX";
+import { MarkComplete, MarkIncomplete } from "@/components/MarkComplete";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
 
@@ -54,6 +55,10 @@ export default async function ChapterPage({ params }: CoursePageProps) {
   
   return (
     <>
+      <div className="flex justify-center items-center gap-6">
+        <MarkComplete chapterSlug={course?.slugAsParams} />
+        <MarkIncomplete chapterSlug={course?.slugAsParams} />
+      </div>
       <Header
         className="flex flex-col justify-center items-start gap-6"
         headerTitle={
