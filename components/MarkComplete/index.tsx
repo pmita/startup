@@ -1,7 +1,7 @@
 "use client"
 
 // HOOKS
-import { useUpdateProgress } from "../../hooks/useFirestore";
+import { useUpdateProgress } from "@/hooks/useUpdateProgress";
 
 export function MarkComplete({ chapterSlug }: { chapterSlug: string}) {
   const { markComplete } = useUpdateProgress();
