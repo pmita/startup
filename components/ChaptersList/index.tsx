@@ -1,9 +1,9 @@
 import Link from "next/link"
 // COMPONENTS
-import AuthCheck from "../AuthCheck"
 import Tag from "../CourseCard/Tag"
 // LIBRARIES
 import { Courses } from "@/.contentlayer/generated"
+import CheckProgress from "./CheckProgress"
 
 type ChapterListProps = {
   chapters: Courses[]
@@ -16,13 +16,7 @@ export default async function ChaptersList({ chapters }: ChapterListProps) {
         <Link href={`/courses/${chapter.slugAsParams}`} key={chapter.weight} className="hover:text-primary-green">
           <div className="flex justify-between items-center p-2">
             <span className="flex justify-start items-center gap-2">
-              <AuthCheck
-                fallback={(
-                  <div className="w-[20px] h-[20px] rounded-[50%] bg-primary-black opacity-75"></div>
-                )}
-              >
-                <div className="w-[20px] h-[20px] rounded-[50%] bg-primary-green"></div>
-              </AuthCheck>
+              <CheckProgress chapterSlug={chapter.slugAsParams} />
               <h3>{chapter.title}</h3>
             </span>
             <Tag 
