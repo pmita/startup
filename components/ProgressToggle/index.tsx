@@ -1,12 +1,11 @@
 "use client"
 
-//REACT
-import { useCallback } from "react";
 // HOOKS
 import { useUpdateProgress } from "@/hooks/useUpdateProgress";
-import { useAuthState } from "@/hooks/useAuthState";
+import { useCheckProgress } from "@/hooks/useCheckProgress";
 
 export function MarkComplete({ chapterSlug }: { chapterSlug: string}) {
+  // HOOKS
   const { markComplete } = useUpdateProgress();
 
   return (
@@ -20,6 +19,7 @@ export function MarkComplete({ chapterSlug }: { chapterSlug: string}) {
 }
 
 export function MarkIncomplete({ chapterSlug }: { chapterSlug: string}) {
+  // HOOKS
   const { markIncomplete } = useUpdateProgress();
 
   return (
@@ -34,12 +34,7 @@ export function MarkIncomplete({ chapterSlug }: { chapterSlug: string}) {
 
 export default function ProgressToggle({ chapterId }: { chapterId?: string}) {
     // HOOKS
-    const { userProgress } = useAuthState();
-
-    // FUNCTIONS
-    const isCompleted = useCallback((itemId: string) => (
-       Object.keys(userProgress || {}).includes(itemId || '')
-    ), [userProgress]);
+    const { isCompleted } = useCheckProgress();
 
     if (!chapterId) return null;
 

@@ -1,19 +1,14 @@
 "use client";
 
-// REACT
-import { useCallback } from "react";
 // HOOKS
-import { useAuthState } from "@/hooks/useAuthState";
+import { useCheckProgress } from "@/hooks/useCheckProgress";
 
 
 export default function ChapterProgress({ chapterId }: { chapterId?: string }) {
   // HOOKS
-  const { userProgress } = useAuthState();
+  const { isCompleted } = useCheckProgress();
 
-  // FUNCTIONS
-  const isCompleted = useCallback((itemId: string) => (
-     Object.keys(userProgress || {}).includes(itemId || '')
-  ), [userProgress]);
+  if (!chapterId) return null;
 
   return (
     <>
