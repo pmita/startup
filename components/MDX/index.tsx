@@ -1,7 +1,7 @@
 
 // NEXT
 import Image from "next/image";
-// LIBRARIES
+// HOOKS
 import { useMDXComponent } from "next-contentlayer/hooks";
 // UTILS
 import { cn } from '@/utils/helpers';
