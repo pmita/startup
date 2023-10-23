@@ -2,7 +2,7 @@
 import Link from "next/link"
 // COMPONENTS
 import AuthCheck from "../AuthCheck"
-import DynamicChapter from "./DynamicChapter"
+import ChapterProgress from "./ChapterProgress"
 import Tag from "../CourseCard/Tag"
 // LIBRARIES
 import { Courses } from "@/.contentlayer/generated"
@@ -22,7 +22,7 @@ export default async function ChaptersList({ chapters }: ChapterListProps) {
                 <div className="w-[20px] h-[20px] rounded-[50%] bg-primary-black opacity-75"></div>
               
               )}>
-                <DynamicChapter chapterSlug={chapter.slugAsParams} />
+                <ChapterProgress chapterId={chapter.slugAsParams} />
               </AuthCheck>
               <h3>{chapter.title}</h3>
             </span>

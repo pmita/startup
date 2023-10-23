@@ -6,18 +6,18 @@ import { useCallback } from "react";
 import { useAuthState } from "@/hooks/useAuthState";
 
 
-export default function DynamicChapter({ chapterSlug }: { chapterSlug?: string }) {
+export default function ChapterProgress({ chapterId }: { chapterId?: string }) {
   // HOOKS
   const { userProgress } = useAuthState();
 
   // FUNCTIONS
-  const checkIsCompleted = useCallback((chapterSlug: string) => (
-     Object.keys(userProgress || {}).includes(chapterSlug || '')
+  const isCompleted = useCallback((itemId: string) => (
+     Object.keys(userProgress || {}).includes(itemId || '')
   ), [userProgress]);
 
   return (
     <>
-      {checkIsCompleted(chapterSlug || '') ? (
+      {isCompleted(chapterId || '') ? (
         <div className="w-[20px] h-[20px] rounded-[50%] bg-primary-green" />
       ) : (
         <div className="w-[20px] h-[20px] rounded-[50%] bg-primary-black opacity-75" />
