@@ -1,8 +1,8 @@
 // COMPONENTS
 import Tag from "../CourseCard/Tag"
 import { NextSvg } from "../SVGs";
-// LIB
-import { cn } from "@/lib/util";
+// UTILS
+import { cn } from '@/utils/helpers';
 
 type InfoCardProps = {
   icon?: boolean;

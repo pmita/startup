@@ -2,8 +2,8 @@
 import Header from "@/components/Header"
 import Title from "@/components/Header/Title"
 import Description from "@/components/Header/Description"
-// UTILS
-import { pricing } from "@/lib/pricing"
+// LIB
+import { pricing } from "@/config/pricing"
 
 export default async function ProMembersPage() {
   return (

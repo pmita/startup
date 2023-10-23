@@ -2,8 +2,8 @@
 import Link from "next/link"
 // COMPONENTS
 import Tag from "./Tag";
-// LIB
-import { cn } from "@/lib/util";
+// UTILS
+import { cn } from '@/utils/helpers';
 
 type CourseCardProps = {
   info?: React.ReactNode;

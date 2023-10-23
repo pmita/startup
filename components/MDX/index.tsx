@@ -3,8 +3,8 @@
 import Image from "next/image";
 // LIBRARIES
 import { useMDXComponent } from "next-contentlayer/hooks";
-// LIB
-import { cn } from "@/lib/util";
+// UTILS
+import { cn } from '@/utils/helpers';
 
 const components = {
   h1: ({ className, ...props}: { className?: string}) => (

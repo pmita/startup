@@ -3,7 +3,8 @@ import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar';
 import { AuthContextProvider } from '@/context/AuthContext';
 // UTILS
-import { fontRoboto, fontPoppins } from '@/lib/font';
+import { fontRoboto, fontPoppins } from '@/utils/font';
+// STLYES
 import './globals.css'
 
 
