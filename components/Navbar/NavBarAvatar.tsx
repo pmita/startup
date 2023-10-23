@@ -1,5 +1,7 @@
 "use client"
 
+// NEXT
+import Link from "next/link";
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
 // COMPONENTS
@@ -13,12 +15,15 @@ export default function NavbarAvatar() {
   <>
     {user 
       ? (
-      <Avatar 
-        src={'/${user?.photoURL}'} 
-        width={40} 
-        height={40} 
-        altText="John Doe" 
-      />)
+        <Link href="/dashboard">
+          <Avatar 
+            src={'/${user?.photoURL}'} 
+            width={40} 
+            height={40} 
+            altText="John Doe" 
+          />
+        </Link>
+      )
       : <SignInButton />
     }
   </>

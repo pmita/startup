@@ -4,8 +4,8 @@
 import { useRouter } from "next/navigation";
 // HOOKS
 import { useSignOut } from "@/hooks/useSignOut";
-// LIB
-import { cn } from "@/lib/util";
+// UTILS
+import { cn } from '@/utils/helpers';
 
 export function SignInButton({ className }: { className?: string }) {
   const router = useRouter();

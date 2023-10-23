@@ -1,4 +1,5 @@
-import { cn } from "@/lib/util";
+// UTILS
+import { cn } from '@/utils/helpers';
 
 type DescriptionProps = {
   description?: string;

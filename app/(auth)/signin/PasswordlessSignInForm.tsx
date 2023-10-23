@@ -12,10 +12,10 @@ import InputField from '@/components/InputField';
 // LIBRARIES
 import { SubmitHandler, useForm } from 'react-hook-form';
 // UTILS
-import { signInBInputs } from '@/utils/formInputs';
+import { signInInputs } from '@/config/forms';
 import { firebaseAuth } from '@/utils/firebase';
-// LIB
-import { cn } from '@/lib/util';
+// UTILS
+import { cn } from '@/utils/helpers';
 
 interface FormInput {
   email: string;
@@ -69,7 +69,7 @@ export default function PasswordlessSignInForm(){
       className="w-[350] p-2 flex flex-col justify-center items-stretch gap-5 text-center"
     >
       <h1 className="w-full text-xl">Sign In</h1>
-      {signInBInputs && signInBInputs.map((input) => (
+      {signInInputs && signInInputs.map((input) => (
         <InputField
           key={input.id}
           name={input.name}

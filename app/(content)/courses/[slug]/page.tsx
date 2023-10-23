@@ -51,8 +51,6 @@ export default async function LessonPage({ params }: CoursePageProps) {
     .filter((course) => course.slugAsParams.split("/")[0] === params.slug && course?._raw.sourceFileName !== 'index.mdx')
     .sort((a, b) => compareAsc(a.weight, b.weight));
 
-  console.log(chapters);
-
   if (!course) notFound();
   
   return (

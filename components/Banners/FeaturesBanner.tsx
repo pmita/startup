@@ -3,8 +3,8 @@ import Header from "../Header";
 import Title from "../Header/Title";
 import Description from "../Header/Description";
 import InfoCard from "../InfoCard";
-// UTILS
-import { features } from "@/lib/features";
+// LIB
+import { features } from "@/config/features";
 
 
 export default async function FeaturesBanner() {
