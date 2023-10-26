@@ -1,18 +1,20 @@
 export const revalidate = 1200;
 
+// NEXT
 import { notFound } from 'next/navigation';
+// COMPONENTS
+import { Mdx } from '@/components/MDX';
 // LIBRARIES
-import { format, parseISO } from 'date-fns'
 import { allBlogs } from 'contentlayer/generated'
 
 interface BlogPageProps {
   params: {
-    slug: string[]
+    slug: string
   }
 }
 
 async function getPostFromParams(params: any) {
-  const slug = params?.slug?.join('/');
+  const slug = params?.slug;
   const blog = allBlogs.find((blog) => blog.slugAsParams === slug)
 
   if(!blog) return null;
@@ -22,12 +24,13 @@ async function getPostFromParams(params: any) {
 
 export async function generateStaticParams(): Promise<BlogPageProps["params"][]> {
   return allBlogs.map((blog) => ({
-    slug: blog.slugAsParams.split("/"),
+    slug: blog.slugAsParams,
   }))
 }
 
 export const generateMetadata = ({ params }: { params: { slug: string } }) => {
   const blog = allBlogs.find((blog) => blog.slugAsParams === params.slug)
+  
   if (!blog) return {};
 
   return { 
@@ -43,10 +46,7 @@ const BlogPage = async ({ params }: BlogPageProps) => {
   return (
     <article className="mx-auto max-w-xl py-8">
       <div className="mb-8 text-center">
-        <time dateTime={blog.date} className="mb-1 text-xs text-gray-600">
-          {format(parseISO(blog.date), 'LLLL d, yyyy')}
-        </time>
-        <h1 className="text-3xl font-bold">{blog.title}</h1>
+        <Mdx code={blog.body.code} />
       </div>
     </article>
   )

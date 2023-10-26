@@ -21,6 +21,11 @@ export default async function Navbar() {
             </Link>
           </li>
         <li className="hover:scale-105 hover:opacity-75 font-semibold">
+          <Link href={"/blog"}>
+            Blog
+            </Link>
+          </li>
+        <li className="hover:scale-105 hover:opacity-75 font-semibold">
           <Link href={"/courses"}>
             Courses
           </Link>
