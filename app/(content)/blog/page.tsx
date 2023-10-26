@@ -1,3 +1,5 @@
+// NEXT
+import { type Metadata } from "next";
 // COMPONENTS
 import Header from "@/components/Header";
 import Title from "@/components/Header/Title";
@@ -6,8 +8,14 @@ import ImageWithFallback from "@/components/ImageWithFallback";
 import Tag from "@/components/CourseCard/Tag";
 // LIBARIRES
 import { allBlogs } from "@/.contentlayer/generated";
-import { compareDesc, parse, parseISO } from "date-fns";
+import { compareDesc, parseISO } from "date-fns";
 import { format } from "date-fns/fp";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://example.com/blog'),
+  title: 'Blog',
+  description: 'Insights about coding, entrepreneurship, tools, and the in-betweens'
+}
 
 export default async function BlogPage() {
   const blogs = allBlogs.sort((a, b) => (
@@ -31,10 +39,10 @@ export default async function BlogPage() {
           />
         }
       />
-      <section className="grid grid-cols-[1fr] gap-4 justify-center">
+      <section className="grid grid-cols-[1fr] grid-rows-[300px] gap-4 justify-center">
         {blogs.map((blog, index) => (
-          <div key={index} className="bg-primary-white mx-auto max-w-2xl border-[5px] border-solid border-primary-black rounded-[12px] lg:mx-0 lg:flex lg:max-w-none">
-            <div className="p-8 sm:p-10 lg:flex-auto flex flex-col justify-center items-start">
+          <div key={index} className="bg-primary-white mx-auto max-w-2xl lg:mx-0 lg:flex lg:max-w-none">
+            <div className="p-8 sm:p-10 lg:flex-auto flex flex-col justify-center items-start gap-4">
               <div className="flex justify-start items-center gap-4">
                 {blog?.tags?.map((tag, index) => (
                   <Tag 
@@ -51,10 +59,9 @@ export default async function BlogPage() {
                 )}
               </div>
               <h3 className="text-2xl font-bold tracking-tight text-gray-900">{blog.title}</h3>
-              <p className="mt-6 text-base leading-7 text-gray-600">{blog.description}</p>
+              <p className="text-base leading-7 text-primary-black">{blog.description}</p>
             </div>
-            <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-              <div className="rounded-2xl bg-primary-green-light py-10 text-center lg:flex lg:flex-col lg:justify-center lg:py-16">
+              <div className="flex justify-center items-center rounded-2xl bg-primary-green-light mx-auto max-w-xs px-8">
                 <div className="mx-auto max-w-xs px-8">
                 <ImageWithFallback
                   src={'/images/hacker.png'}
@@ -68,7 +75,6 @@ export default async function BlogPage() {
                 />
                 </div>
               </div>
-            </div>
           </div>
         ))}
       </section>
