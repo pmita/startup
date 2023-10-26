@@ -1,5 +1,6 @@
 // NEXT
 import { type Metadata } from "next";
+import Link from "next/link";
 // COMPONENTS
 import Header from "@/components/Header";
 import Title from "@/components/Header/Title";
@@ -63,16 +64,18 @@ export default async function BlogPage() {
             </div>
               <div className="flex justify-center items-center rounded-2xl bg-primary-green-light mx-auto max-w-xs px-8">
                 <div className="mx-auto max-w-xs px-8">
-                <ImageWithFallback
-                  src={'/images/hacker.png'}
-                  fallbackSrc="/images/hacker.png"
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{ width: "100%", height: "100%" }}
-                  objectFit="cover"
-                  altText={blog?.title || ''}
-                />
+                <Link href={`/${blog?._raw.flattenedPath}`}>
+                  <ImageWithFallback
+                    src={'/images/hacker.png'}
+                    fallbackSrc="/images/hacker.png"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{ width: "100%", height: "100%" }}
+                    objectFit="cover"
+                    altText={blog?.title || ''}
+                  />
+                </Link>
                 </div>
               </div>
           </div>
