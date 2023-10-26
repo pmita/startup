@@ -45,7 +45,7 @@ export default async function BlogPage() {
           <div key={index} className="bg-primary-white mx-auto max-w-2xl lg:mx-0 lg:flex lg:max-w-none">
             <div className="p-8 sm:p-10 lg:flex-auto flex flex-col justify-center items-start gap-4">
               <div className="flex justify-start items-center gap-4">
-                {blog?.tags?.map((tag, index) => (
+                {blog?.tags?.map((tag) => (
                   <Tag 
                     key={tag} 
                     tag={'# ' + tag}
@@ -62,22 +62,20 @@ export default async function BlogPage() {
               <h3 className="text-2xl font-bold tracking-tight text-gray-900">{blog.title}</h3>
               <p className="text-base leading-7 text-primary-black">{blog.description}</p>
             </div>
-              <div className="flex justify-center items-center rounded-2xl bg-primary-green-light mx-auto max-w-xs px-8">
-                <div className="mx-auto max-w-xs px-8">
-                <Link href={`/${blog?._raw.flattenedPath}`}>
-                  <ImageWithFallback
-                    src={'/images/hacker.png'}
-                    fallbackSrc="/images/hacker.png"
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    style={{ width: "100%", height: "100%" }}
-                    objectFit="cover"
-                    altText={blog?.title || ''}
-                  />
-                </Link>
-                </div>
-              </div>
+            <div className="flex justify-center items-center rounded-2xl bg-primary-green-light">
+              <Link href={`/${blog?._raw.flattenedPath}`}>
+                <ImageWithFallback
+                  src={'/images/hacker.png'}
+                  fallbackSrc="/images/hacker.png"
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{ width: "100%", height: "100%" }}
+                  objectFit="cover"
+                  altText={blog?.title || ''}
+                />
+              </Link>
+            </div>
           </div>
         ))}
       </section>
