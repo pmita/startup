@@ -30,6 +30,7 @@ export async function generateStaticParams(): Promise<BlogPageProps["params"][]>
 
 export const generateMetadata = ({ params }: { params: { slug: string } }) => {
   const blog = allBlogs.find((blog) => blog.slugAsParams === params.slug)
+  
   if (!blog) return {};
 
   return { 
