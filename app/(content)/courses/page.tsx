@@ -1,13 +1,16 @@
+// NEXT
+import Link from "next/link"
 // COMPONENTS
 import Header from "@/components/Header"
 import CourseCard from "@/components/CourseCard"
 import ImageWithFallback from "@/components/ImageWithFallback"
+import Tag from "@/components/CourseCard/Tag"
 import InfoCard from "@/components/InfoCard"
 import Title from "@/components/Header/Title"
+import Description from "@/components/Header/Description"
 // LIBRARIES
 import { allCourses } from "@/.contentlayer/generated"
 import { compareDesc } from "date-fns"
-import Description from "@/components/Header/Description"
 
 
 export default async function LessonsPage() {
@@ -40,20 +43,35 @@ export default async function LessonsPage() {
             className="bg-blue-400 border-solid border-primary-black rounded-[12px]"
             slug={course?._raw.sourceFileDir}
             image={
-              <ImageWithFallback
-                src={'/images/hacker.png'}
-                fallbackSrc="/images/hacker.png"
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{ width: "100%", height: "100%" }}
-                objectFit="cover"
-                altText={course?.title || ''}
-              />
+              <div className="w-full h-[55%] relative">
+                <Link href={`/${course?._raw.sourceFileDir}`}>
+                  <ImageWithFallback
+                    src={'/images/hacker.png'}
+                    fallbackSrc="/images/hacker.png"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{ width: "100%", height: "100%" }}
+                    objectFit="cover"
+                    altText={course?.title || ''}
+                  />
+                    {course?.tags?.length && (
+                      <div className="absolute right-[5%] top-[5%] flex justify-end items-center gap-1">
+                        {course?.tags?.map((tag) => (
+                          <Tag 
+                            key={tag} 
+                            tag={'# ' + tag}
+                            className="bg-primary-green rounded-[6px] border-[2px] border-solid border-primary-green text-primary-white"
+                          /> 
+                        ))}
+                      </div>
+                    )}
+                </Link>
+              </div>
             }
             info={
               <InfoCard 
-                className="rounded-b-[12px] bg-primary-white h-3/6"
+                className="rounded-b-[8px] bg-primary-white h-[45%]"
                 title={course?.title}
                 description={course?.description || ''}
                 hastags={course?.stack}

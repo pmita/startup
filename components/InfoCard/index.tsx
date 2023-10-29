@@ -21,25 +21,14 @@ export default async function InfoCard({
 }: InfoCardProps) {
   return (
     <div className={cn(
-        "w-full columnCenterLeft gap-4 p-4 py-2",
+        "w-full flex flex-col justify-start item-start gap-4 p-4 py-2",
         className
       )}
     >
-      {hastags && hastags.length && (
-        <div className="rowLeftCenter gap-1">
-          {hastags && hastags.map((hastag) => (
-            <Tag 
-              key={hastag} 
-              tag={'# ' + hastag} 
-              className="bg-primary-green rounded-[6px]"
-            /> 
-          ))}
-        </div>
-      )}
 
       {icon && (
         <NextSvg width={48} height={48} fill={'#000'} />
-      )}
+        )}
       
       {title && (
         <h5 className="text-xl tracking-wide text-primary-black font-poppins font-bold">
@@ -51,6 +40,18 @@ export default async function InfoCard({
         <p className="text-base text-primary-black font-roboto">
           {description}
         </p>
+      )}
+
+      {hastags && hastags.length && (
+        <div className="rowLeftCenter gap-1">
+          {hastags && hastags.map((hastag) => (
+            <Tag 
+              key={hastag} 
+              tag={'# ' + hastag} 
+              className="bg-primary-black rounded-[6px]"
+            /> 
+          ))}
+        </div>
       )}
     </div>
   )
