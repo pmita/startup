@@ -2,6 +2,7 @@
 import { type Metadata } from "next";
 import Link from "next/link";
 // COMPONENTS
+import Banner from "@/components/Banner";
 import Header from "@/components/Header";
 import Title from "@/components/Header/Title";
 import Description from "@/components/Header/Description";
@@ -25,11 +26,23 @@ export default async function BlogPage() {
 
   return (
     <>
+      <Banner
+        className="rounded-[12px] min-h-[505px] w-full bg-primary-black text-primary-white flex flex-col justify-center items-start gap-10 p-10"
+        bannerTitle={(
+          <h3 className="text-2xl font-bold tracking-tight text-primary-white">👋 Hello</h3>
+        )}
+        bannerDescription={
+          <Title 
+            title="Insights about coding, entrepreneurship, tools, and the in-betweens"
+            className="capitalize"
+          />
+        }
+      />
       <Header
         className="flex flex-col justify-center items-center gap-6"
         headerTitle={
           <Title 
-            title="All Blogs"
+            title="All Blog Articles"
             className="capitalize"
           />
         }
