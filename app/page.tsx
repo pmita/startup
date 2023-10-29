@@ -16,7 +16,8 @@ export default async function Home() {
   return (
     <div>
       <LandingBanner />
-      <Banner 
+      {/* Not Ready Yet, Need to troubleshoot animation in the background */}
+      {/* <Banner 
         bannerTitle={
           <Header
             className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 text-center flex flex-col justify-center items-center gap-6"
@@ -48,7 +49,7 @@ export default async function Home() {
           </button>
         </div>
         }
-      />
+      /> */}
       <Banner 
         className="container flex flex-col justify-start items-stretch gap-16 h-[100vh]"
         bannerTitle={
