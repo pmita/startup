@@ -53,7 +53,7 @@ export default async function BlogPage() {
           />
         }
       />
-      <section className="grid grid-cols-[1fr] grid-rows-[300px] gap-4 justify-center">
+      <section className="grid grid-cols-[1fr] grid-auto-rows gap-4 justify-center">
         {blogs.map((blog, index) => (
           <div key={index} className="bg-primary-white mx-auto max-w-2xl lg:mx-0 lg:flex lg:max-w-none">
             <div className="p-8 sm:p-10 lg:flex-auto flex flex-col justify-center items-start gap-4">
