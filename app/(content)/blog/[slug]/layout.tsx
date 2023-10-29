@@ -22,8 +22,8 @@ export default function BlogPageLayout({ children, params }: BlogPageLayoutProps
       <Banner
         className="rounded-[12px] min-h-[505px] w-full bg-primary-black text-primary-white flex flex-col justify-center items-start gap-10 p-10"
         bannerTags={
-          <div className="flex justify-start items-center gap-4">
-          {blog?.tags?.map((tag, index) => (
+          <div className="flex justify-start items-center gap-1">
+          {blog?.tags?.map((tag) => (
             <Tag 
               key={tag} 
               tag={'# ' + tag}
