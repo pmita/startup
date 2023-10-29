@@ -4,7 +4,6 @@ import Link from "next/link";
 import Banner from "@/components/Banner";
 import Title from "@/components/Header/Title";
 import Description from "@/components/Header/Description";
-import FeaturesBanner from "@/components/Banners/FeaturesBanner";
 import LandingBanner from "@/components/Banners/LandingBanner";
 import Header from "@/components/Header";
 import InfoCard from "@/components/InfoCard";
