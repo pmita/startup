@@ -15,7 +15,7 @@ export default async function CourseCard({
   return (
     <div 
       className={cn(
-        "full columnTopCenter gap-4 shadow-xl border-[5px]",
+        "full columnTopCenter shadow-xl border-[5px]",
         className
       )}
       >

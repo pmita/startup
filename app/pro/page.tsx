@@ -27,7 +27,7 @@ export default async function ProMembersPage() {
       <section className="grid grid-cols-[1fr] gap-4 justify-center">
         {pricing.map((price) => (
           <div className="bg-white" key={price.id}>
-            <div className="mx-auto max-w-7xl" key={price.id}>
+            <div className="mx-auto max-w-7xl">
               <div className="mx-auto max-w-2xl border-[5px] border-solid border-primary-black rounded-[12px] lg:mx-0 lg:flex lg:max-w-none">
                 <div className="p-8 sm:p-10 lg:flex-auto">
                   <h3 className="text-2xl font-bold tracking-tight text-gray-900">{price.title}</h3>
@@ -48,7 +48,7 @@ export default async function ProMembersPage() {
                   </ul>
                 </div>
                 <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-                  <div className="rounded-2xl bg-primary-green-light py-10 text-center lg:flex lg:flex-col lg:justify-center lg:py-16">
+                  <div className="rounded-[8px] bg-primary-green-light py-10 text-center lg:flex lg:flex-col lg:justify-center lg:py-16">
                     <div className="mx-auto max-w-xs px-8">
                       <p className="text-base font-semibold text-gray-600">{price.sellingPoint}</p>
                       <p className="mt-6 flex items-baseline justify-center gap-x-2">
