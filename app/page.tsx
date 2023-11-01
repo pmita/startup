@@ -1,5 +1,3 @@
-// NEXT
-import Link from "next/link";
 // COMPONENTS
 import Banner from "@/components/Banner";
 import Title from "@/components/Header/Title";
@@ -7,8 +5,6 @@ import Description from "@/components/Header/Description";
 import LandingBanner from "@/components/Banners/LandingBanner";
 import Header from "@/components/Header";
 import InfoCard from "@/components/InfoCard";
-// UTILS
-import { cn } from "@/utils/helpers";
 // CONFIG
 import { features } from "@/config/features";
 
