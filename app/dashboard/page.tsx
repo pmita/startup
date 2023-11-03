@@ -1,5 +1,6 @@
 "use client" 
 
+// NEXT
 import { type Metadata } from 'next';
 // HOOKS
 import { useAuthState } from '@/hooks/useAuthState';
