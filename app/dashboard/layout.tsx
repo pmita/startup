@@ -15,10 +15,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <aside className="flex-[1_1_300px] self-stretch flex flex-col flex-start items-between gap-2 w-full order-2 lg:order-1 min-h-[90vh] scroll-auto p-5">
         <div className="flex flex-col justify-start items-start gap-2 bg-red-400">
           <Link 
-            href="/dashboard/account" 
+            href="/dashboard" 
             className={cn(
               "font-poppins font-bold text-primary-black",
-              pathname === '/dashboard/account' && 'text-opacity-50'
+              pathname === '/dashboard' && 'text-opacity-50'
             )}
           >
             Account
