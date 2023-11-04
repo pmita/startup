@@ -17,6 +17,16 @@ export type CourseDocument = {
   published?: boolean;
 }
 
+// Nav
+export type NavItem = {
+  title: string;
+  href: string;
+  disabled?: boolean;
+  external?: boolean;
+  icon?: React.ReactNode;
+}
+
+// Courses
 export type CourseChapter = {
   id: string;
   title: string;
