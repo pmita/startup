@@ -1,5 +1,5 @@
 // STRIPE
-import { stripe } from "./stripe";
+import { stripe } from "@/utils/stripe";
 // TYPES
 import Stripe from "stripe";
 import { ProductPurchaseType } from "@/types";

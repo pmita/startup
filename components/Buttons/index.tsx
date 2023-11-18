@@ -8,6 +8,7 @@ import { useCallback, useState, useEffect } from "react";
 import { useSignOut } from "@/hooks/useSignOut";
 // UTILS
 import { cn, fetchFromApi } from '@/utils/helpers';
+import { getStripe } from "@/utils/stripe-client";
 // TYPES
 import Stripe from "stripe";
 import { ProductPurchaseType} from "@/types/index";
@@ -107,8 +108,10 @@ export function SubscribeButton({
       body
     });
 
+    const stripe = await getStripe();
     if (session) {
       window.location.href = session.url;
+      stripe?.redirectToCheckout({ sessionId: session.id });
     }
   }, [product, purchaseType]);
 

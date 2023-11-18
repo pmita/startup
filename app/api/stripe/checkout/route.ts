@@ -9,6 +9,7 @@ export async function POST(req: Request, res: Response) {
 
     if (stripeSession) {
       return new Response(JSON.stringify({ 
+        sessionId: stripeSession.id,
         url: stripeSession.url 
       }), {status: 200 });
     } else {
