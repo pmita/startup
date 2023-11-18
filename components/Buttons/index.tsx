@@ -2,10 +2,12 @@
 
 // NEXT
 import { useRouter } from "next/navigation";
+// REACT
+import { useCallback} from "react";
 // HOOKS
 import { useSignOut } from "@/hooks/useSignOut";
 // UTILS
-import { cn } from '@/utils/helpers';
+import { cn, fetchFromApi } from '@/utils/helpers';
 
 export function SignInButton({ className }: { className?: string }) {
   const router = useRouter();
@@ -13,7 +15,8 @@ export function SignInButton({ className }: { className?: string }) {
     <button 
       className={cn(
         "button",
-        "primaryButton"
+        "primaryButton",
+        className
       )}
       onClick={() => router.push('/signin')}
     >
@@ -22,23 +25,64 @@ export function SignInButton({ className }: { className?: string }) {
   )
 }
 
-export function SignOutButton() {
+export function SignOutButton({ className }: { className?: string}) {
   const { signOut, isLoading } = useSignOut();
 
   return (
     <>
-      {isLoading
+      {/* {isLoading
         ? (
-          <button className={cn("button", "secondaryButton")} onClick={() => signOut()}>
+          <button className={cn("button", "secondaryButton", className)} disabled={true} onClick={() => signOut()}>
             Loading ...
           </button>
         )
         : (
-          <button className={cn("button", "secondaryButton")} onClick={() => signOut()}>
+          <button className={cn("button", "secondaryButton", className)} onClick={() => signOut()}>
             Sign Out
           </button>
         )
-      }
+      } */}
+      
+      <button 
+        className={cn("button", "secondaryButton", className)}
+        onClick={signOut}
+        disabled={isLoading}
+      >
+        {isLoading ? 'Loading ...' : 'Sign Out'}
+      </button>
     </>
+  )
+}
+
+export function UpgradeToProButton({ className }: { className?: string}) {
+  const handleClick = useCallback(async () => {
+    const session = await fetchFromApi('/api/stripe/checkout', {
+      method: 'POST',
+      body: {
+        line_items: [
+          {
+            price: 'price_1OCT9XGIIdUaTAvR68bhsZMp',
+            quantity: 1,
+          }
+        ]
+      },
+    });
+
+    if (session) {
+      window.location.href = session.url;
+    }
+  }, []);
+
+  return (
+    <button 
+      className={cn(
+        "button",
+        "primaryButton",
+        className 
+      )}
+      onClick={handleClick}
+    >
+      Upgrade to PRO
+    </button>
   )
 }
