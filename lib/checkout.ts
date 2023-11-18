@@ -1,19 +1,35 @@
 // STRIPE
 import { stripe } from "./stripe";
+// TYPES
 import Stripe from "stripe";
+import { ProductPurchaseType } from "@/types";
 
 export async function createStripeCheckoutSession(
+  type: ProductPurchaseType,
   line_items: Stripe.Checkout.SessionCreateParams.LineItem[]
 ){
-  const session = await stripe.checkout.sessions.create({
-    success_url: 'http://localhost:3000/dashboard/billing',
-    cancel_url: 'http://localhost:3000/dashboard/billing',
-    payment_method_types: ['card'],
-    customer_email: 'panos@example.com',
-    mode: "subscription",
-    billing_address_collection: "auto",
-    line_items
-  });
+  let session;
+  if (type === ProductPurchaseType.RECURRING) {
+    session = await stripe.checkout.sessions.create({
+      success_url: 'http://localhost:3000/pro',
+      cancel_url: 'http://localhost:3000/pro',
+      payment_method_types: ['card'],
+      customer_email: 'test@test.com',
+      mode: 'subscription',
+      billing_address_collection: 'required',
+      line_items
+    })
+  } else if (type === ProductPurchaseType.ONE_TIME) {
+    session = await stripe.checkout.sessions.create({
+      success_url: 'http://localhost:3000/pro',
+      cancel_url: 'http://localhost:3000/pro',
+      payment_method_types: ['card'],
+      customer_email: 'test@test.com',
+      mode: 'payment',
+      billing_address_collection: 'required',
+      line_items
+    })
+  }
 
   return session;
 }

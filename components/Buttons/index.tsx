@@ -10,6 +10,7 @@ import { useSignOut } from "@/hooks/useSignOut";
 import { cn, fetchFromApi } from '@/utils/helpers';
 // TYPES
 import Stripe from "stripe";
+import { ProductPurchaseType} from "@/types/index";
 
 export function SignInButton({ className }: { className?: string }) {
   const router = useRouter();
@@ -77,16 +78,20 @@ export function UpgradeToProButton({ className }: { className?: string}) {
 export type SubscribeButtonProps = {
   className?: string;
   stripeProduct: Stripe.Checkout.SessionCreateParams.LineItem;
+  purchaseType: ProductPurchaseType;
   children: React.ReactNode;
 }
 
 export function SubscribeButton({ 
   className, 
   stripeProduct, 
+  purchaseType= ProductPurchaseType.ONE_TIME,
   children 
 }: SubscribeButtonProps) {
+  // STATE
   const [product, setProduct] = useState({});
 
+  // EFFECTS
   useEffect(() => {
     setProduct({
       quantity:  stripeProduct.quantity,
@@ -94,9 +99,9 @@ export function SubscribeButton({
     })
   }, [stripeProduct.price, stripeProduct.quantity]);
 
+  // EVENTS
   const handleClick = useCallback(async () => {
-    const body = { line_items: [product]}
-    console.log(body);
+    const body = { type: purchaseType, line_items: [product]}
     const session = await fetchFromApi('/api/stripe/checkout', {
       method: 'POST',
       body
@@ -105,7 +110,7 @@ export function SubscribeButton({
     if (session) {
       window.location.href = session.url;
     }
-  }, [product]);
+  }, [product, purchaseType]);
 
   return (
     <button 

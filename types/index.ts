@@ -34,3 +34,9 @@ export type CourseChapter = {
   content: string;
   chapter?: number;
 }
+
+// STRIPE
+export enum ProductPurchaseType {
+  RECURRING = 'recurring',
+  ONE_TIME = 'one-time'
+}

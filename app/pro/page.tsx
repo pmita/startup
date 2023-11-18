@@ -59,6 +59,7 @@ export default async function ProMembersPage() {
                       <SubscribeButton 
                         className="mt-10 w-full bg-primary-black px-3 py-2 text-center text-sm font-semibold text-white border-primary-black shadow-sm hover:bg-indigo-500 hover:border-indigo-500 hover:text-primary-white"
                         stripeProduct={{ quantity: 1, price: price.stripePriceId }}
+                        purchaseType={price.purchaseType}
                       >
                         Buy Now
                       </SubscribeButton>

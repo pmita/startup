@@ -1,3 +1,6 @@
+// TYPES
+import { ProductPurchaseType } from "@/types"
+
 export const pricing = [
   {
     id: 1,
@@ -13,6 +16,7 @@ export const pricing = [
       "30-day moneyback guarenteee",
       "Access to discord"
     ],
+    purchaseType: ProductPurchaseType.RECURRING,
     stripePriceId: process.env.NEXT_PUBLIC_STRIPE_MOTHLY_SUBSCRIPTION_PRICE_ID || ""
   },
   {
@@ -30,6 +34,7 @@ export const pricing = [
       "30-day moneyback guarentee",
       "Special merch"
     ],
+    purchaseType: ProductPurchaseType.RECURRING,
     stripePriceId: process.env.NEXT_PUBLIC_STRIPE_QUARTERLY_SUBSCRIPTION_PRICE_ID || ""
   },
   {
@@ -47,6 +52,7 @@ export const pricing = [
       "Special merch",
       "Access to discord"
     ],
+    purchaseType: ProductPurchaseType.ONE_TIME,
     stripePriceId: process.env.NEXT_PUBLIC_STRIPE_YEARLY_SUBSCRIPTION_PRICE_ID || ""
   },
 ]
