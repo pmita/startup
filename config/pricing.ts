@@ -3,7 +3,7 @@ export const pricing = [
     id: 1,
     title: 'Monthly',
     description: "Trying on a month to month basis and on your own scedule",
-    price: '18.00',
+    price: '25',
     frequency: '/ month',
     sellingPoint: 'Work at your own pace',
     bonuses: [
@@ -12,13 +12,14 @@ export const pricing = [
       "Access to github repos",
       "30-day moneyback guarenteee",
       "Access to discord"
-    ]
+    ],
+    stripePriceId: process.env.NEXT_PUBLIC_STRIPE_MOTHLY_SUBSCRIPTION_PRICE_ID || ""
   },
   {
     id: 2,
-    title: 'Yearly',
+    title: 'Quarterly',
     description: "For focused people who want to get started with a specific timeframe",
-    price: '129.00',
+    price: '50',
     frequency: '/ yearly',
     sellingPoint: 'For dedicated users with a timeframe',
     bonuses: [
@@ -28,13 +29,14 @@ export const pricing = [
       "Access to github repos",
       "30-day moneyback guarentee",
       "Special merch"
-    ]
+    ],
+    stripePriceId: process.env.NEXT_PUBLIC_STRIPE_QUARTERLY_SUBSCRIPTION_PRICE_ID || ""
   },
   {
     id: 3,
-    title: 'Lifetime',
+    title: 'Yearly',
     description: "Jump in and out whenever you want",
-    price: '250.00',
+    price: '165',
     frequency: '/ once',
     sellingPoint: 'Work at your own pace',
     bonuses: [
@@ -44,6 +46,7 @@ export const pricing = [
       "30-day moneyback guarentee",
       "Special merch",
       "Access to discord"
-    ]
+    ],
+    stripePriceId: process.env.NEXT_PUBLIC_STRIPE_YEARLY_SUBSCRIPTION_PRICE_ID || ""
   },
 ]

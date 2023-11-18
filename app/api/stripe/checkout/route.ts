@@ -4,7 +4,7 @@ import { createStripeCheckoutSession } from "@/lib/checkout";
 
 export async function POST(req: Request, res: Response) {
   const { line_items } = await req.json();
-  console.log(line_items)
+  const { price, quantity } = line_items[0];
   try {
     const stripeSession = await createStripeCheckoutSession(line_items);
 
