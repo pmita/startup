@@ -28,29 +28,14 @@ export function SignInButton({ className }: { className?: string }) {
 export function SignOutButton({ className }: { className?: string}) {
   const { signOut, isLoading } = useSignOut();
 
-  return (
-    <>
-      {/* {isLoading
-        ? (
-          <button className={cn("button", "secondaryButton", className)} disabled={true} onClick={() => signOut()}>
-            Loading ...
-          </button>
-        )
-        : (
-          <button className={cn("button", "secondaryButton", className)} onClick={() => signOut()}>
-            Sign Out
-          </button>
-        )
-      } */}
-      
-      <button 
-        className={cn("button", "secondaryButton", className)}
-        onClick={signOut}
-        disabled={isLoading}
-      >
-        {isLoading ? 'Loading ...' : 'Sign Out'}
-      </button>
-    </>
+  return (      
+    <button 
+      className={cn("button", "secondaryButton", className)}
+      onClick={signOut}
+      disabled={isLoading}
+    >
+      {isLoading ? 'Loading ...' : 'Sign Out'}
+    </button>
   )
 }
 
