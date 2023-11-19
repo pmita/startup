@@ -1,11 +1,15 @@
 
 // LIBS
 import { createStripeCheckoutSession } from "@/lib/checkout";
+import { validateUser } from "@/lib/auth-admin";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const { line_items, type } = await req.json();
+  // check if user is authenticated
+  const user = await validateUser(req);
+
   try {
-    const stripeSession = await createStripeCheckoutSession(type, line_items);
+    const stripeSession = await createStripeCheckoutSession(user, type, line_items);
 
     if (stripeSession) {
       return new Response(JSON.stringify({ 

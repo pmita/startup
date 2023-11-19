@@ -18,6 +18,10 @@ const relavantEvents = new Set([
 ]);
 
 export async function POST(req: Request) {
+  /*
+    Instead of using micro to buffer the body, simply use await req.text() to convert the raw body to a string, 
+    then pass the string to stripe.webhooks.constructEvent.
+  */
   const body = await req.text();
   const signature = req.headers.get('Stripe-Signature') as string;
   let event: Stripe.Event;

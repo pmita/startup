@@ -14,21 +14,17 @@ export function cn(...inputs: ClassValue[]) {
 export async function fetchFromApi(endpoint: string, options: FetchFromApiOptions = {}) {
   const { method, body } = { method: 'POST', body: null, ...options };
 
-  // authenticated requests
+  // grab user's uid from frontend and send it our http requests
   const user = firebaseAuth.currentUser;
   const authenticationToken = user && (await user.getIdToken());
 
   const response = await fetch(endpoint, {
     method,
     ...(body && { body: JSON.stringify(body) }),
-    // headers: {
-    //   'Content-Type': 'application/json',
-    //   Authorization: `Bearer ${authenticationToken}`,
-    // },
-    headers: new Headers({ 
+    headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${authenticationToken}`
-    })
+      Authorization: `Bearer ${authenticationToken}`,
+    },
   });
 
   return response.json();
