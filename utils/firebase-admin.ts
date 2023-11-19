@@ -1,15 +1,17 @@
+// FIREBASE ADMIN
 import admin from "firebase-admin";
-// import { serviceAccount } from "./serviceAccount";
 
-try {
+if (!admin.apps.length) {
   admin.initializeApp({
-    // credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
-    credential: admin.credential.cert(process.env.FIREBASE_SERVICE_ACCOUNT as admin.ServiceAccount),
-
-  });
-} catch(error) {
-  console.log('Firebase admin initialization error');
+    credential: admin.credential.cert({
+      client_email: process.env.NEXT_PUBLIC_FIREBASE_ADMIN_CLIENT_EMAIL,
+      private_key: process.env.NEXT_PUBLIC_FIREBASE_ADMIN_PRIVATE_KEY,
+      project_id: process.env.NEXT_PUBLIC_FIREBASE_ADMIN_PROJECT_ID
+    } as admin.ServiceAccount),
+    databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
+  })
 }
 
-// FIRESTORE
+// SERVICES
 export const firestore = admin.firestore();
+export const firebaseAuth = admin.auth();

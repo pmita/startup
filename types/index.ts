@@ -20,3 +20,9 @@ export enum ProductPurchaseType {
   RECURRING = 'recurring',
   ONE_TIME = 'one-time'
 }
+
+// API
+export interface FetchFromApiOptions {
+  method?: string;
+  body?: any;
+}
