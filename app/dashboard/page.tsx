@@ -1,5 +1,6 @@
 "use client" 
 
+// NEXT
 import { type Metadata } from 'next';
 // HOOKS
 import { useAuthState } from '@/hooks/useAuthState';
@@ -14,7 +15,7 @@ export const MetaData: Metadata = {
   description: 'Welcome to your dashboard, manage your account here'
 }
 
-export default function SignInPage(){
+export default function AccountPage(){
   // HOOKS
   const { user } = useAuthState();
 

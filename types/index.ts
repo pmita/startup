@@ -1,3 +1,4 @@
+// SVG
 export type SVGPropType = {
   width?: string | number;
   height?: string | number;
@@ -5,22 +6,23 @@ export type SVGPropType = {
   onClick?: () => void;
 }
 
-// FIREBASE
-export type CourseDocument = {
-  id: string;
-  slug: string;
+// Nav
+export type NavItem = {
   title: string;
-  description: string;
-  image?: string;
-  hastags?: string[];
-  tags?: string[],
-  published?: boolean;
+  href: string;
+  disabled?: boolean;
+  external?: boolean;
+  icon?: React.ReactNode;
 }
 
-export type CourseChapter = {
-  id: string;
-  title: string;
-  description: string;
-  content: string;
-  chapter?: number;
+// STRIPE
+export enum ProductPurchaseType {
+  RECURRING = 'recurring',
+  ONE_TIME = 'one-time'
+}
+
+// API
+export interface FetchFromApiOptions {
+  method?: string;
+  body?: any;
 }
