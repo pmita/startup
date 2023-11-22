@@ -1,7 +1,10 @@
+// NEXT
+import { headers } from 'next/headers';
 // STRIPE
 import { stripe } from '@/utils/stripe';
-// TYPES
 import Stripe from 'stripe';
+// UTILS
+import { updateProductOnFirestore} from '@/utils/firebase-admin';
 
 const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET || '';
 
@@ -18,12 +21,8 @@ const relavantEvents = new Set([
 ]);
 
 export async function POST(req: Request) {
-  /*
-    Instead of using micro to buffer the body, simply use await req.text() to convert the raw body to a string, 
-    then pass the string to stripe.webhooks.constructEvent.
-  */
   const body = await req.text();
-  const signature = req.headers.get('Stripe-Signature') as string;
+  const signature = headers().get('Stripe-Signature') as string;
   let event: Stripe.Event;
 
   try {
@@ -39,12 +38,16 @@ export async function POST(req: Request) {
       switch(event.type) {
         case StripeWebhookEvents.PRODUCT_CREATED:
         case StripeWebhookEvents.PRODUCT_UPDATED:
-          console.log('hurray');
+          await updateProductOnFirestore(event.data.object as Stripe.Product);
           break;
-        case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_CREATED:
-          console.log('default');
-          await ManageSubscriptionStatus(event.data.object as Stripe.Subscription);
-          break;
+        // case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_CREATED:
+        //   const subscription = event.data.object as Stripe.Subscription;
+        //   await manageSubscriptionStatusChange(
+        //     subscription.id,
+        //     subscription.customer as string,
+        //     event.type === StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_CREATED
+        //   )
+        //   break;
         default: 
           throw new Error('Unhandled relevant event');
       }
@@ -55,9 +58,5 @@ export async function POST(req: Request) {
       })
     }
   }
-}
-
-export async function ManageSubscriptionStatus(data: Stripe.Subscription) {
-  console.log(data.customer);
-  console.log('hurray we got this event to fire through our webhooks')
+  return new Response(JSON.stringify({ received: true }), { status: 200 });
 }

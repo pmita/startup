@@ -14,7 +14,7 @@ export function cn(...inputs: ClassValue[]) {
 export async function fetchFromApi(endpoint: string, options: FetchFromApiOptions = {}) {
   const { method, body } = { method: 'POST', body: null, ...options };
 
-  // grab user's uid from frontend and send it our http requests
+  // grab authentication token from frontend and send it our http requests
   const user = firebaseAuth.currentUser;
   const authenticationToken = user && (await user.getIdToken());
 
