@@ -1,7 +1,7 @@
 
-// LIBS
-import { createStripeCheckoutSession } from "@/lib/checkout";
-import { validateUser } from "@/lib/auth-admin";
+// UTILS
+import { validateUser } from "@/utils/helpers-sever";
+import { createStripeCheckoutSession } from "@/utils/helpers-stripe";
 
 export async function POST(req: Request) {
   const { line_items, type } = await req.json();
@@ -9,14 +9,18 @@ export async function POST(req: Request) {
   const user = await validateUser(req);
 
   try {
+    // create a new stripe checkout
     const stripeSession = await createStripeCheckoutSession(user, type, line_items);
 
     if (stripeSession) {
+      // if user is authenticated we return the stripe checkout url
+      // we use this in our front end to re-direct the user 
       return new Response(JSON.stringify({ 
         sessionId: stripeSession.id,
         url: stripeSession.url 
       }), {status: 200 });
     } else {
+      // if user un-authed simply return an error
       return new Response(JSON.stringify({ 
         error: { 
           statusCode: 500, 

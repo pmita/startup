@@ -4,7 +4,7 @@ import { headers } from 'next/headers';
 import { stripe } from '@/utils/stripe';
 import Stripe from 'stripe';
 // UTILS
-import { updateProductOnFirestore} from '@/utils/firebase-admin';
+import { updateProductOnFirestore } from '@/utils/helpers-sever';
 
 const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET || '';
 

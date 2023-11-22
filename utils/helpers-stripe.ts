@@ -1,7 +1,7 @@
 // STRIPE
 import { stripe } from "@/utils/stripe";
-// TYPES
 import Stripe from "stripe";
+// TYPES
 import { ProductPurchaseType } from "@/types";
 
 export async function createStripeCheckoutSession(
