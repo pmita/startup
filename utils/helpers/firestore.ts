@@ -1,53 +1,13 @@
 // FIREBASE ADMIN
-import { get } from "http";
-import { firebaseAuth, firestore, fromMillis } from "./firebase-admin";
+import { firestore, fromMillis } from "../firebase-admin";
 // STRIPE
-import { stripe } from "./stripe";
+import { stripe } from "../stripe";
 import Stripe from "stripe";
+// UTILS
+import { getOrCreateCustomer } from "./auth";
 
-/* ----------USER & AUTHENTICATION --------------*/
-export async function validateUser(req: Request) {
-  // grab auth token from http headers
-  const headers = new Headers(req.headers);
-  const bearerToken = headers.get('authorization')?.split('Bearer ')[1] || '';
 
-  // look up the user on firebase
-  const decodedToken = await firebaseAuth.verifyIdToken(bearerToken);
-  const user = { uid: decodedToken.uid, email: decodedToken.email };
-
-  // if nothing shows up, user doesn't exist and we should throw an error
-  if (!user.uid) {
-    throw new Error('You must be logged in to make this request');
-  }
-
-  return user;
-}
-
-export async function getOrCreateCustomer(uid: string, params?: Stripe.CustomerCreateParams) {
-  // extract user info
-  const userDocument = await firestore.collection('users').doc(uid).get();
-  const { stripeCustomerId, email } = userDocument.data() ?? {};
-
-  if (!stripeCustomerId) {
-    // create new stripe customer if their details don't exist on firestore
-    const customer = await stripe.customers.create({
-      email: email,
-      metadata: {
-        firebaseUID: uid
-      },
-      ...params
-    })
-
-    await userDocument.ref.update({stripeCustomerId: customer.id });
-    return customer;
-  } else {
-    // otherwise, retrieve customer with firebaseUID
-    return await stripe.customers.retrieve(stripeCustomerId);
-  }
-}
-
-/* --------------- Firestore --------------*/
-export async function updateProductOnFirestore(product: Stripe.Product) {
+export async function updateProduct(product: Stripe.Product) {
   // extract details from incoming product object and update firestore fields
   const { id, active, name, description, metadata } = product;
   const response = await firestore.collection('products').doc(id).set({
@@ -66,10 +26,10 @@ export async function updateProductOnFirestore(product: Stripe.Product) {
   console.log(`Inserted/updated product [${id}]`)
 }
 
-export async function insertPriceRecord(price: Stripe.Price) {
+export async function updateProductPrice(price: Stripe.Price) {
+  // extract productStripeId and priceId from incoming event and update firestore fields
   const { product, id } = price;
-
-  await firestore
+  const response = await firestore
     .collection('products')
     .doc(product as string)
     .collection('prices')
@@ -89,6 +49,10 @@ export async function insertPriceRecord(price: Stripe.Price) {
       metadata: price.metadata,
     }, { merge: true });
 
+    // throw error if response is null
+    if (!response) throw new Error('Failed to create price on firestore');
+
+    // log success
     console.log(`Inserted/updated price [${id}] for product [${product}]`);
 }
 
@@ -181,8 +145,4 @@ export async function manageSubscriptionStatusChange(subscriptionId: string, str
       subscriptionDetailsFromStripe.default_payment_method as Stripe.PaymentMethod
     );
   }
-}
-
-export function randomFunction() {
-  console.log('random function');
 }

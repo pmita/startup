@@ -15,8 +15,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { signInInputs } from '@/config/forms';
 import { firebaseAuth } from '@/utils/firebase';
 // UTILS
-import { cn } from '@/utils/helpers';
-
+import { cn } from '@/utils/helpers/client';
 interface FormInput {
   email: string;
 }

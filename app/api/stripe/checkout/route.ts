@@ -1,7 +1,7 @@
 
 // UTILS
-import { validateUser } from "@/utils/helpers-sever";
-import { createStripeCheckoutSession } from "@/utils/helpers-stripe";
+import { validateUser } from "@/utils/helpers/auth";
+import { createStripeCheckoutSession } from "@/utils/helpers/stripe";
 
 export async function POST(req: Request) {
   const { line_items, type } = await req.json();

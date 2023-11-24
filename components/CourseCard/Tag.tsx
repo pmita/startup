@@ -1,5 +1,5 @@
 // UTILS
-import { cn } from '@/utils/helpers';
+import { cn } from "@/utils/helpers/client";
 interface TagProps {
   tag: string;
   className?: string;

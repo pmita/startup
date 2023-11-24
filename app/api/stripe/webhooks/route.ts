@@ -4,8 +4,7 @@ import { headers } from 'next/headers';
 import { stripe } from '@/utils/stripe';
 import Stripe from 'stripe';
 // UTILS
-import { updateProductOnFirestore, manageSubscriptionStatusChange, insertPriceRecord } from '@/utils/helpers-sever';
-
+import { updateProduct, updateProductPrice, manageSubscriptionStatusChange } from '@/utils/helpers/firestore';
 const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET || '';
 
 export enum StripeWebhookEvents {
@@ -46,12 +45,12 @@ export async function POST(req: Request) {
       switch(event.type) {
         case StripeWebhookEvents.PRODUCT_CREATED:
         case StripeWebhookEvents.PRODUCT_UPDATED:
-          await updateProductOnFirestore(event.data.object as Stripe.Product);
+          await updateProduct(event.data.object as Stripe.Product);
           break;
         case StripeWebhookEvents.PRICE_CREATED:
         case StripeWebhookEvents.PRICE_UPDATED:
           const price = event.data.object as Stripe.Price;
-          await insertPriceRecord(price);
+          await updateProductPrice(price);
           break;
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_CREATED:
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_UPDATED:

@@ -1,5 +1,5 @@
 // UTILS
-import { cn } from '@/utils/helpers';
+import { cn } from "@/utils/helpers/client"
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   headerTitle?: React.ReactNode;

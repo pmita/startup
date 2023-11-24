@@ -7,7 +7,7 @@ import { useCallback, useState, useEffect } from "react";
 // HOOKS
 import { useSignOut } from "@/hooks/useSignOut";
 // UTILS
-import { cn, fetchFromApi } from '@/utils/helpers';
+import { cn, fetchFromApi } from "@/utils/helpers/client";
 import { getStripe } from "@/utils/stripe-client";
 // TYPES
 import Stripe from "stripe";
