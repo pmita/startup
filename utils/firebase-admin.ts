@@ -15,3 +15,6 @@ if (!admin.apps.length) {
 // SERVICES
 export const firestore = admin.firestore();
 export const firebaseAuth = admin.auth();
+
+// HELPERS
+export const fromMillis = admin.firestore.Timestamp.fromMillis;
