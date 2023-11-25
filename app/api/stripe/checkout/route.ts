@@ -1,20 +1,20 @@
 
 // UTILS
-import { validateUser } from "@/utils/helpers/auth";
+import { validateUser, getOrCreateCustomer } from "@/utils/helpers/auth";
 import { createStripeCheckoutSession } from "@/utils/helpers/stripe";
 
 export async function POST(req: Request) {
   const { line_items, type } = await req.json();
-  // check if user is authenticated
+  // check if user is authenticated and then check their stripe cusnomer id
   const user = await validateUser(req);
+  const customer = await getOrCreateCustomer(user.uid);
 
   try {
     // create a new stripe checkout
-    const stripeSession = await createStripeCheckoutSession(user, type, line_items);
+    const stripeSession = await createStripeCheckoutSession(customer.id, user, type, line_items);
 
     if (stripeSession) {
       // if user is authenticated we return the stripe checkout url
-      // we use this in our front end to re-direct the user 
       return new Response(JSON.stringify({ 
         sessionId: stripeSession.id,
         url: stripeSession.url 

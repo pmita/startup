@@ -1,10 +1,12 @@
 // FIREBASE ADMIN
+import admin from "firebase-admin";
 import { firestore, fromMillis } from "../firebase-admin";
 // STRIPE
 import { stripe } from "../stripe";
 import Stripe from "stripe";
 // UTILS
 import { getOrCreateCustomer } from "./auth";
+
 
 
 export async function updateProduct(product: Stripe.Product) {
@@ -93,56 +95,55 @@ export async function copyBillingDetailsToCustomerDoc(
 
 export async function manageSubscriptionStatusChange(subscriptionId: string, stripeId: string, isNewSubscription: boolean) {
   // finde corresponding user from firebase based on stripe customer ID
-  const userDocument= await firestore.collection('users').where('stripeCustomerId', '==', stripeId).get();
-  const { uid: firebaseUID } = userDocument.docs[0].data() ?? {};
+ const userDocument= await firestore.collection('users').where('stripeCustomerId', '==', stripeId).get();
+  const { uid } = userDocument?.docs[0]?.data() ?? {};
 
   // if no user exist with this stripe customer ID, throw an error
-  if (!firebaseUID) throw new Error('No user found with this customer ID');
+  if (!uid) throw new Error('No user found with this customer ID');
 
   // check if user exist or not and get back the stripe details for the subscription that triggered this webhook
-  const customerDetailsFromStripe = await getOrCreateCustomer(firebaseUID);
   const subscriptionDetailsFromStripe = await stripe.subscriptions.retrieve(subscriptionId, {
     expand: ['default_payment_method']
   });
 
   // update user's subcollection of subscriptions under the unique customer ID
-  const response = await firestore.collection('users').doc(firebaseUID).collection('subscriptions').doc(subscriptionId).set({
-    id: subscriptionId,
-    firebaseUID,
+  const response = await firestore.collection('users').doc(uid).collection('subscriptions').doc(subscriptionId).set({
+    subscriptionUID: subscriptionId,
+    firebaseUID: uid,
     metadata: subscriptionDetailsFromStripe.metadata,
     status: subscriptionDetailsFromStripe.status,
     price_id: subscriptionDetailsFromStripe.items.data[0].price.id,
     cancel_at_period_end: subscriptionDetailsFromStripe.cancel_at_period_end,
     cancel_at: subscriptionDetailsFromStripe.cancel_at
-      ? fromMillis(subscriptionDetailsFromStripe.cancel_at)
+      ? fromMillis(subscriptionDetailsFromStripe.cancel_at * 1000)
       : null,
     canceled_At: subscriptionDetailsFromStripe.canceled_at
-      ? fromMillis(subscriptionDetailsFromStripe.canceled_at)
+      ? fromMillis(subscriptionDetailsFromStripe.canceled_at * 1000)
       : null,
     currect_period_start: subscriptionDetailsFromStripe.current_period_start
-      ? fromMillis(subscriptionDetailsFromStripe.current_period_start)
+      ? fromMillis(subscriptionDetailsFromStripe.current_period_start * 1000)
       : null,
     currect_period_end: subscriptionDetailsFromStripe.current_period_end
-      ? fromMillis(subscriptionDetailsFromStripe.current_period_end)
+      ? fromMillis(subscriptionDetailsFromStripe.current_period_end * 1000)
       : null,
     created: subscriptionDetailsFromStripe.created
-      ? fromMillis(subscriptionDetailsFromStripe.created)
+      ? fromMillis(subscriptionDetailsFromStripe.created * 1000)
       : null,
     ended_at: subscriptionDetailsFromStripe.ended_at 
-      ? fromMillis(subscriptionDetailsFromStripe.ended_at)
+      ? fromMillis(subscriptionDetailsFromStripe.ended_at * 1000)
       : null,
   }, { merge: true });
 
   // throw error if response is null
   if (!response) throw new Error('Failed to create subscription on firestore');
 
-  console.log(`Inserted/updated subscription [${subscriptionId}] for user ${firebaseUID}`);
+  console.log(`Inserted/updated subscription [${subscriptionId}] for user ${uid}`);
 
   // if this is a new subscription, copy billing details from stripe to user doc on firestore
-  if (isNewSubscription && subscriptionDetailsFromStripe.default_payment_method && firebaseUID) {
-    await copyBillingDetailsToCustomerDoc(
-      firebaseUID, 
-      subscriptionDetailsFromStripe.default_payment_method as Stripe.PaymentMethod
-    );
-  }
+  // if (isNewSubscription && subscriptionDetailsFromStripe.default_payment_method && firebaseUID) {
+  //   await copyBillingDetailsToCustomerDoc(
+  //     firebaseUID, 
+  //     subscriptionDetailsFromStripe.default_payment_method as Stripe.PaymentMethod
+  //   );
+  // }
 }
