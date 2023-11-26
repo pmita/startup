@@ -21,6 +21,28 @@ export enum ProductPurchaseType {
   ONE_TIME = 'one-time'
 }
 
+export enum StripeWebhookEvents {
+  PRODUCT_CREATED = 'product.created',
+  PRODUCT_UPDATED = 'product.updated',
+  PRICE_CREATED = 'price.created',
+  PRICE_UPDATED = 'price.updated',
+  CUSTOMER_SUBSCRIPTION_CREATED = 'customer.subscription.created',
+  CUSTOMER_SUBSCRIPTION_UPDATED = 'customer.subscription.updated',
+  CUSTOMER_SUBSCRIPTION_DELETED = 'customer.subscription.deleted',
+  INVOICE_PAID = 'invoice.paid',
+  INVOICE_PAYMENT_SUCCEEDED = 'invoice.payment_succeeded',
+  INVOICE_PAYMENT_FAILED = 'invoice.payment_failed',
+  INVOICE_UPCOMING = 'invoice.upcoming',
+  INVOICE_MARKED_UNCOLLECTIBLE = 'invoice.marked_uncollectible',
+  INVOICE_PAYMENT_ACTION_REQUIRED = 'invoice.payment_action_required',
+}
+
+export enum StripeWebhookSubscirptionEvents {
+  CUSTOMER_SUBSCRIPTION_CREATED = 'customer.subscription.created',
+  CUSTOMER_SUBSCRIPTION_UPDATED = 'customer.subscription.updated',
+  CUSTOMER_SUBSCRIPTION_DELETED = 'customer.subscription.deleted',
+}
+
 // API
 export interface FetchFromApiOptions {
   method?: string;

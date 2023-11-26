@@ -1,8 +1,10 @@
 // FIREBASE ADMIN
-import { firestore, fromMillis } from "../firebase-admin";
+import { firestore, fromMillis, arrayUnion, arrayRemove } from "../firebase-admin";
 // STRIPE
 import { stripe } from "../stripe";
 import Stripe from "stripe";
+// TYPES
+import { StripeWebhookSubscirptionEvents } from "@/types";
 
 export async function updateProduct(product: Stripe.Product) {
   // extract details from incoming product object and update firestore fields
@@ -120,9 +122,13 @@ export async function copyBillingDetailsToCustomerDoc(
   if (!response) throw new Error('Failed to update user billing details');
 }
 
-export async function manageSubscriptionStatusChange(subscriptionId: string, stripeId: string, isNewSubscription: boolean) {
+export async function manageSubscriptionStatusChange(
+  subscriptionId: string, 
+  stripeId: string, 
+  eventType: StripeWebhookSubscirptionEvents
+  ) {
   // finde corresponding user from firebase based on stripe customer ID
- const userDocument= await firestore.collection('users').where('stripeCustomerId', '==', stripeId).get();
+  const userDocument= await firestore.collection('users').where('stripeCustomerId', '==', stripeId).get();
   const { uid } = userDocument?.docs[0]?.data() ?? {};
 
   // if no user exist with this stripe customer ID, throw an error
@@ -133,8 +139,11 @@ export async function manageSubscriptionStatusChange(subscriptionId: string, str
     expand: ['default_payment_method']
   });
 
-  // update user's subcollection of subscriptions under the unique customer ID
-  const response = await firestore.collection('users').doc(uid).collection('subscriptions').doc(subscriptionId).set({
+  const batch = firestore.batch();
+
+  const subscriptionRef = userDocument.docs[0].ref.collection('subscriptions').doc(subscriptionId);
+
+  batch.set(subscriptionRef, {
     subscriptionUID: subscriptionId,
     firebaseUID: uid,
     metadata: subscriptionDetailsFromStripe.metadata,
@@ -160,17 +169,25 @@ export async function manageSubscriptionStatusChange(subscriptionId: string, str
       ? fromMillis(subscriptionDetailsFromStripe.ended_at * 1000)
       : null,
   }, { merge: true });
+  batch.set(userDocument.docs[0].ref, { activePlans: arrayUnion(subscriptionDetailsFromStripe.items.data[0].plan.id) }, { merge: true });
+  
+  switch(eventType) {
+    case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_CREATED:
+    case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
+      batch.update(userDocument.docs[0].ref, { status: 'PRO', activePlans: arrayUnion(subscriptionDetailsFromStripe.items.data[0].plan.id) });
+      break;
+    case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_DELETED:
+      batch.update(userDocument.docs[0].ref, { status: 'BASIC', activePlans: arrayRemove(subscriptionDetailsFromStripe.items.data[0].plan.id) });
+      break;
+    default: 
+      break;
+  }
 
-  // throw error if response is null
-  if (!response) throw new Error('Failed to create subscription on firestore');
+  const responseBatch = await batch.commit();
 
-  console.log(`Inserted/updated subscription [${subscriptionId}] for user ${uid}`);
-
-  // if this is a new subscription, copy billing details from stripe to user doc on firestore
-  // if (isNewSubscription && subscriptionDetailsFromStripe.default_payment_method && firebaseUID) {
-  //   await copyBillingDetailsToCustomerDoc(
-  //     firebaseUID, 
-  //     subscriptionDetailsFromStripe.default_payment_method as Stripe.PaymentMethod
-  //   );
-  // }
+  if (!responseBatch) {
+    throw new Error('Batch write failed on firestore');
+  } else {
+    console.log(`Inserted/updated subscription [${subscriptionId}] for user ${uid}`);
+  }
 }

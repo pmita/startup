@@ -18,3 +18,5 @@ export const firebaseAuth = admin.auth();
 
 // HELPERS
 export const fromMillis = admin.firestore.Timestamp.fromMillis;
+export const arrayUnion = admin.firestore.FieldValue.arrayUnion;
+export const arrayRemove = admin.firestore.FieldValue.arrayRemove;

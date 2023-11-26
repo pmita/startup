@@ -10,23 +10,10 @@ import {
    updateInvoices,
    manageSubscriptionStatusChange
 } from '@/utils/helpers/firestore';
-const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET || '';
+// TYPES
+import { StripeWebhookEvents, StripeWebhookSubscirptionEvents } from '@/types';
 
-export enum StripeWebhookEvents {
-  PRODUCT_CREATED = 'product.created',
-  PRODUCT_UPDATED = 'product.updated',
-  PRICE_CREATED = 'price.created',
-  PRICE_UPDATED = 'price.updated',
-  CUSTOMER_SUBSCRIPTION_CREATED = 'customer.subscription.created',
-  CUSTOMER_SUBSCRIPTION_UPDATED = 'customer.subscription.updated',
-  CUSTOMER_SUBSCRIPTION_DELETED = 'customer.subscription.deleted',
-  INVOICE_PAID = 'invoice.paid',
-  INVOICE_PAYMENT_SUCCEEDED = 'invoice.payment_succeeded',
-  INVOICE_PAYMENT_FAILED = 'invoice.payment_failed',
-  INVOICE_UPCOMING = 'invoice.upcoming',
-  INVOICE_MARKED_UNCOLLECTIBLE = 'invoice.marked_uncollectible',
-  INVOICE_PAYMENT_ACTION_REQUIRED = 'invoice.payment_action_required',
-}
+const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET || '';
 
 const relavantEvents = new Set([
   'product.created',
@@ -75,8 +62,8 @@ export async function POST(req: Request) {
           const subscription = event.data.object as Stripe.Subscription;
           await manageSubscriptionStatusChange(
             subscription.id, 
-            subscription.customer as string, 
-            false
+            subscription.customer as string,
+            event.type as StripeWebhookSubscirptionEvents
           );
           break;
         case StripeWebhookEvents.INVOICE_PAID:
