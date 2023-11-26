@@ -4,7 +4,12 @@ import { headers } from 'next/headers';
 import { stripe } from '@/utils/stripe';
 import Stripe from 'stripe';
 // UTILS
-import { updateProduct, updateProductPrice, manageSubscriptionStatusChange } from '@/utils/helpers/firestore';
+import {
+   updateProduct, 
+   updateProductPrice, 
+   updateInvoices,
+   manageSubscriptionStatusChange
+} from '@/utils/helpers/firestore';
 const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET || '';
 
 export enum StripeWebhookEvents {
@@ -15,6 +20,12 @@ export enum StripeWebhookEvents {
   CUSTOMER_SUBSCRIPTION_CREATED = 'customer.subscription.created',
   CUSTOMER_SUBSCRIPTION_UPDATED = 'customer.subscription.updated',
   CUSTOMER_SUBSCRIPTION_DELETED = 'customer.subscription.deleted',
+  INVOICE_PAID = 'invoice.paid',
+  INVOICE_PAYMENT_SUCCEEDED = 'invoice.payment_succeeded',
+  INVOICE_PAYMENT_FAILED = 'invoice.payment_failed',
+  INVOICE_UPCOMING = 'invoice.upcoming',
+  INVOICE_MARKED_UNCOLLECTIBLE = 'invoice.marked_uncollectible',
+  INVOICE_PAYMENT_ACTION_REQUIRED = 'invoice.payment_action_required',
 }
 
 const relavantEvents = new Set([
@@ -25,6 +36,12 @@ const relavantEvents = new Set([
   'customer.subscription.created',
   'customer.subscription.updated',
   'customer.subscription.deleted',
+  'invoice.paid',
+  'invoice.payment_succeeded',
+  'invoice.payment_failed',
+  'invoice.upcoming',
+  'invoice.marked_uncollectible',
+  'invoice.payment_action_required',
 ]);
 
 export async function POST(req: Request) {
@@ -61,6 +78,15 @@ export async function POST(req: Request) {
             subscription.customer as string, 
             false
           );
+          break;
+        case StripeWebhookEvents.INVOICE_PAID:
+        case StripeWebhookEvents.INVOICE_PAYMENT_SUCCEEDED:
+        case StripeWebhookEvents.INVOICE_PAYMENT_FAILED:
+        case StripeWebhookEvents.INVOICE_UPCOMING:
+        case StripeWebhookEvents.INVOICE_MARKED_UNCOLLECTIBLE:
+        case StripeWebhookEvents.INVOICE_PAYMENT_ACTION_REQUIRED:
+          const invoice = event.data.object as Stripe.Invoice;
+          await updateInvoices(invoice);
           break;
         default: 
           throw new Error('Unhandled relevant event');

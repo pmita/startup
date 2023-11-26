@@ -58,6 +58,42 @@ export async function updateProductPrice(price: Stripe.Price) {
     console.log(`Inserted/updated price [${id}] for product [${product}]`);
 }
 
+export async function updateInvoices(invoice: Stripe.Invoice) {
+  // extract user details
+  const userDocument = await firestore.collection('users').where('stripeCustomerId', '==', invoice.customer).get();
+  const { uid: FirebaseUID } = userDocument?.docs[0]?.data() ?? {};
+
+  if (!FirebaseUID) throw new Error('No user found with this customer ID');
+
+  const response = await userDocument?.docs[0].ref
+    .collection('subscriptions')
+    .doc(invoice?.subscription as string)
+    .collection('invoices') 
+    .doc(invoice.id)
+    .set(invoice, { merge: true});
+    
+  if (!response) throw new Error('Failed to create invoice on firestore');
+
+  let prices = [];
+  for (const item of invoice.lines.data) {
+    prices.push(firestore
+      .collection('products')
+      .doc(item.price?.product as string)
+      .collection('prices')
+      .doc(item.price?.id as string)
+    )
+  };
+
+  const secondResponse = await userDocument?.docs[0].ref
+    .collection('payments')
+    .doc(invoice.payment_intent as string ?? invoice.id as string)
+    .set({ prices }, { merge: true});
+  
+  if (!secondResponse) throw new Error('Failed to create payment on firestore');
+
+  console.log(`Inserted/updated invoice [${invoice.id}] for user ${FirebaseUID}`);
+}
+
 export async function copyBillingDetailsToCustomerDoc(
   firebaseUID: string,
   payment_method: Stripe.PaymentMethod
