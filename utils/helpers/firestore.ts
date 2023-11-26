@@ -1,13 +1,8 @@
 // FIREBASE ADMIN
-import admin from "firebase-admin";
 import { firestore, fromMillis } from "../firebase-admin";
 // STRIPE
 import { stripe } from "../stripe";
 import Stripe from "stripe";
-// UTILS
-import { getOrCreateCustomer } from "./auth";
-
-
 
 export async function updateProduct(product: Stripe.Product) {
   // extract details from incoming product object and update firestore fields
@@ -60,19 +55,15 @@ export async function updateProductPrice(price: Stripe.Price) {
 
 export async function updateInvoices(invoice: Stripe.Invoice) {
   // extract user details
-  const userDocument = await firestore.collection('users').where('stripeCustomerId', '==', invoice.customer).get();
-  const { uid: FirebaseUID } = userDocument?.docs[0]?.data() ?? {};
+  const userRef = await firestore.collection('users').where('stripeCustomerId', '==', invoice.customer).get();
+  const { uid: FirebaseUID } = userRef?.docs[0]?.data() ?? {};
 
   if (!FirebaseUID) throw new Error('No user found with this customer ID');
 
-  const response = await userDocument?.docs[0].ref
-    .collection('subscriptions')
-    .doc(invoice?.subscription as string)
-    .collection('invoices') 
-    .doc(invoice.id)
-    .set(invoice, { merge: true});
-    
-  if (!response) throw new Error('Failed to create invoice on firestore');
+  const invoiceRef = userRef.docs[0].ref.collection('subscriptions').doc(invoice?.subscription as string).collection('invoices').doc(invoice.id);
+  const paymentRef = userRef.docs[0].ref.collection('payments').doc(invoice.payment_intent as string ?? invoice.id as string);
+
+  const batch = firestore.batch();
 
   let prices = [];
   for (const item of invoice.lines.data) {
@@ -81,15 +72,15 @@ export async function updateInvoices(invoice: Stripe.Invoice) {
       .doc(item.price?.product as string)
       .collection('prices')
       .doc(item.price?.id as string)
-    )
-  };
-
-  const secondResponse = await userDocument?.docs[0].ref
-    .collection('payments')
-    .doc(invoice.payment_intent as string ?? invoice.id as string)
-    .set({ prices }, { merge: true});
+      )
+    };
   
-  if (!secondResponse) throw new Error('Failed to create payment on firestore');
+  batch.set(invoiceRef, invoice, { merge: true });
+  batch.set(paymentRef, { prices }, { merge: true });
+
+  const responseBatch = await batch.commit();
+
+  if (!responseBatch) throw new Error('Batch write failed on firestore');
 
   console.log(`Inserted/updated invoice [${invoice.id}] for user ${FirebaseUID}`);
 }
