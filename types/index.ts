@@ -43,6 +43,34 @@ export enum StripeWebhookSubscirptionEvents {
   CUSTOMER_SUBSCRIPTION_DELETED = 'customer.subscription.deleted',
 }
 
+// FIREBASE
+export enum PRO_STATUS {
+  BASIC = 'BASIC',
+  PRO = 'PRO',
+  LIFE_TIME = 'LIFE_TIME',
+  EXPIRING='EXPIRING',
+  CANCELLED = 'CANCELLED',
+  PAST_DUE = 'PAST_DUE',
+}
+
+export interface UserData {
+  email?: string;
+  uid?: string;
+  displayName?: string;
+  photoURL?: string;
+  joined?: number;
+  stripeCustomerId?: string;
+  is_pro?: boolean;
+  expires?: number;
+  pro_status?: PRO_STATUS;
+  subscriptions?: {
+    [key: string]: string;
+  },
+  courses?: {
+    [key: string]: string;
+  }
+}
+
 // API
 export interface FetchFromApiOptions {
   method?: string;
