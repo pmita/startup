@@ -1,7 +1,7 @@
 // NEXT
 import { type Metadata } from 'next';
 // COMPONENTS
-import { UpgradeToProButton } from '@/components/Buttons';
+import ManageBilling from './ManageBilling';
 
 export const metadata: Metadata = {
   title: 'Billing',
@@ -15,7 +15,8 @@ export default async function BillingPage() {
         <h1>Subscription plan</h1>
         <h3>You are currently on the Free Plan</h3>
         <p>The free plan is limited to 3 posts. Upgrade to the PRO plan for unlimited posts</p>
-        <UpgradeToProButton />
+        {/* <UpgradeToProButton /> */}
+        <ManageBilling />
       </section>
     </>
   );
