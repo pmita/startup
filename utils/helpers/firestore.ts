@@ -9,14 +9,16 @@ import { StripeWebhookSubscirptionEvents } from "@/types";
 export async function updateProduct(product: Stripe.Product) {
   // extract details from incoming product object and update firestore fields
   const { id, active, name, description, metadata } = product;
-  const response = await firestore.collection('products').doc(id).set({
-    id,
-    active,
-    name,
-    description,
-    image: product.images?.[0] ?? null,
-    metadata
-  }, { merge: true });
+  const response = await firestore
+    .collection('products').doc(id)
+    .set({
+      id,
+      active,
+      name,
+      description,
+      image: product.images?.[0] ?? null,
+      metadata
+    }, { merge: true });
 
   // throw error if response is null
   if (!response) throw new Error('Failed to create product on firestore');
@@ -29,10 +31,8 @@ export async function updateProductPrice(price: Stripe.Price) {
   // extract productStripeId and priceId from incoming event and update firestore fields
   const { product, id } = price;
   const response = await firestore
-    .collection('products')
-    .doc(product as string)
-    .collection('prices')
-    .doc(id)
+    .collection('products').doc(product as string)
+    .collection('prices').doc(id)
     .set({
       id,
       firebaseUID: typeof price.product === 'string' ? price.product : '',
@@ -122,72 +122,74 @@ export async function copyBillingDetailsToCustomerDoc(
   if (!response) throw new Error('Failed to update user billing details');
 }
 
-export async function manageSubscriptionStatusChange(
+export async function manageProStatus(
   subscriptionId: string, 
-  stripeId: string, 
+  stripeCustomerId: string,
   eventType: StripeWebhookSubscirptionEvents
-  ) {
-  // finde corresponding user from firebase based on stripe customer ID
-  const userDocument= await firestore.collection('users').where('stripeCustomerId', '==', stripeId).get();
-  const { uid } = userDocument?.docs[0]?.data() ?? {};
+) {
+  const userRef = await firestore.collection('users').where('stripeCustomerId', '==', stripeCustomerId).get();
+  const { uid } = userRef?.docs[0]?.data() ?? {};
 
-  // if no user exist with this stripe customer ID, throw an error
-  if (!uid) throw new Error('No user found with this customer ID');
+  if (!uid) throw new Error('User not found');
 
-  // check if user exist or not and get back the stripe details for the subscription that triggered this webhook
   const subscriptionDetailsFromStripe = await stripe.subscriptions.retrieve(subscriptionId, {
     expand: ['default_payment_method']
   });
 
-  const batch = firestore.batch();
-
-  const subscriptionRef = userDocument.docs[0].ref.collection('subscriptions').doc(subscriptionId);
-
-  batch.set(subscriptionRef, {
-    subscriptionUID: subscriptionId,
-    firebaseUID: uid,
-    metadata: subscriptionDetailsFromStripe.metadata,
-    status: subscriptionDetailsFromStripe.status,
-    price_id: subscriptionDetailsFromStripe.items.data[0].price.id,
-    cancel_at_period_end: subscriptionDetailsFromStripe.cancel_at_period_end,
-    cancel_at: subscriptionDetailsFromStripe.cancel_at
-      ? fromMillis(subscriptionDetailsFromStripe.cancel_at * 1000)
-      : null,
-    canceled_At: subscriptionDetailsFromStripe.canceled_at
-      ? fromMillis(subscriptionDetailsFromStripe.canceled_at * 1000)
-      : null,
-    currect_period_start: subscriptionDetailsFromStripe.current_period_start
-      ? fromMillis(subscriptionDetailsFromStripe.current_period_start * 1000)
-      : null,
-    currect_period_end: subscriptionDetailsFromStripe.current_period_end
-      ? fromMillis(subscriptionDetailsFromStripe.current_period_end * 1000)
-      : null,
-    created: subscriptionDetailsFromStripe.created
-      ? fromMillis(subscriptionDetailsFromStripe.created * 1000)
-      : null,
-    ended_at: subscriptionDetailsFromStripe.ended_at 
-      ? fromMillis(subscriptionDetailsFromStripe.ended_at * 1000)
-      : null,
-  }, { merge: true });
-  batch.set(userDocument.docs[0].ref, { activePlans: arrayUnion(subscriptionDetailsFromStripe.items.data[0].plan.id) }, { merge: true });
-  
+  let response;
   switch(eventType) {
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_CREATED:
-    case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
-      batch.update(userDocument.docs[0].ref, { status: 'PRO', activePlans: arrayUnion(subscriptionDetailsFromStripe.items.data[0].plan.id) });
+      response = await userRef.docs[0].ref.update({
+        isPro: true,
+        proStatus: 'PRO',
+        subscriptions: arrayUnion(subscriptionDetailsFromStripe.items.data[0].plan.id),
+        expires: subscriptionDetailsFromStripe.cancel_at
+          ? fromMillis(subscriptionDetailsFromStripe.cancel_at * 1000)
+          : null,
+      });
       break;
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_DELETED:
-      batch.update(userDocument.docs[0].ref, { status: 'BASIC', activePlans: arrayRemove(subscriptionDetailsFromStripe.items.data[0].plan.id) });
+      response = await userRef.docs[0].ref.update({
+        isPro: false,
+        proStatu: 'BASIC',
+        subscriptions: arrayRemove(subscriptionDetailsFromStripe.items.data[0].plan.id),
+        expires: null,
+      });
       break;
-    default: 
+    default:
       break;
   }
 
-  const responseBatch = await batch.commit();
-
-  if (!responseBatch) {
-    throw new Error('Batch write failed on firestore');
+  // batch.set(subscriptionRef, {
+  //   subscriptionUID: subscriptionId,
+  //   firebaseUID: uid,
+  //   metadata: subscriptionDetailsFromStripe.metadata,
+  //   status: subscriptionDetailsFromStripe.status,
+  //   price_id: subscriptionDetailsFromStripe.items.data[0].price.id,
+  //   cancel_at_period_end: subscriptionDetailsFromStripe.cancel_at_period_end,
+  //   cancel_at: subscriptionDetailsFromStripe.cancel_at
+  //     ? fromMillis(subscriptionDetailsFromStripe.cancel_at * 1000)
+  //     : null,
+  //   canceled_At: subscriptionDetailsFromStripe.canceled_at
+  //     ? fromMillis(subscriptionDetailsFromStripe.canceled_at * 1000)
+  //     : null,
+  //   currect_period_start: subscriptionDetailsFromStripe.current_period_start
+  //     ? fromMillis(subscriptionDetailsFromStripe.current_period_start * 1000)
+  //     : null,
+  //   currect_period_end: subscriptionDetailsFromStripe.current_period_end
+  //     ? fromMillis(subscriptionDetailsFromStripe.current_period_end * 1000)
+  //     : null,
+  //   created: subscriptionDetailsFromStripe.created
+  //     ? fromMillis(subscriptionDetailsFromStripe.created * 1000)
+  //     : null,
+  //   ended_at: subscriptionDetailsFromStripe.ended_at 
+  //     ? fromMillis(subscriptionDetailsFromStripe.ended_at * 1000)
+  //     : null,
+  // }, { merge: true });
+  
+  if(!response) {
+    throw new Error('Failed to update user pro status');
   } else {
-    console.log(`Inserted/updated subscription [${subscriptionId}] for user ${uid}`);
+    console.log('User pro status updated successfully');
   }
 }

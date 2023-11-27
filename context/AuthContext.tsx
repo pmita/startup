@@ -30,7 +30,7 @@ const reducer = (state: AuthReducerInitialState, action: AuthReducerActionsType)
     case AuthActionTypes.FETCH_USER_PROGRESS:
       return { ...state, userProgress: action.payload }
     case AuthActionTypes.FETCH_USER_STATUS:
-      return { ...state, proStatus: action.payload.accountStatus, isPro: action.payload.isPro }
+      return { ...state, proStatus: action.payload.proStatus, isPro: action.payload.isPro }
     default: 
       return { ...state }
   }

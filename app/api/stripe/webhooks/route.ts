@@ -8,7 +8,7 @@ import {
    updateProduct, 
    updateProductPrice, 
    updateInvoices,
-   manageSubscriptionStatusChange
+   manageProStatus
 } from '@/utils/helpers/firestore';
 // TYPES
 import { StripeWebhookEvents, StripeWebhookSubscirptionEvents } from '@/types';
@@ -60,11 +60,11 @@ export async function POST(req: Request) {
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_DELETED:
           const subscription = event.data.object as Stripe.Subscription;
-          await manageSubscriptionStatusChange(
-            subscription.id, 
+          await manageProStatus(
+            subscription.id,
             subscription.customer as string,
             event.type as StripeWebhookSubscirptionEvents
-          );
+          )
           break;
         case StripeWebhookEvents.INVOICE_PAID:
         case StripeWebhookEvents.INVOICE_PAYMENT_SUCCEEDED:

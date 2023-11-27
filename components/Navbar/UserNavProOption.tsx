@@ -13,6 +13,8 @@ export default function UserNavProOption() {
   // HOOKS
   const { proStatus } = useAuthState();
 
+  console.log(proStatus);
+
 
   // FUNCTIONS
   const renderContent = useCallback(() => {
