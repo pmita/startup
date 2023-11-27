@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 // HOOKS
 import { useAuthState } from './useAuthState';
 // UTILS
-import { firebaseAuth, firestore } from '@/utils/firebase';
+import { firebaseAuth, firestore, createTimeStamp } from '@/utils/firebase';
 // TYPES
 import { AuthActionTypes } from '@/types/AuthContextTypes';
 
@@ -29,6 +29,9 @@ export const useConfirmPasswordlessSignIn = () => {
           email: result.user?.email,
           displayName: result.user?.displayName,
           photoURL: result.user?.photoURL,
+          joined: createTimeStamp(),
+          is_pro: false,
+          pro_status: 'BASIC',
         })
 
         dispatch({ type: AuthActionTypes.SIGN_IN_SUCCESS, payload: result.user });

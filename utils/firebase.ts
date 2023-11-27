@@ -29,5 +29,6 @@ export const actionCodeSettings: firebase.auth.ActionCodeSettings = {
 // FIRESTORE
 export const firestore = firebase.firestore();
 export const serverTimestamp = firebase.firestore.Timestamp;
+export const createTimeStamp = firebase.firestore.Timestamp.now;
 export const fieldValue = firebase.firestore.FieldValue;
 
