@@ -29,10 +29,7 @@ export const useConfirmPasswordlessSignIn = () => {
           email: result.user?.email,
           displayName: result.user?.displayName,
           photoURL: result.user?.photoURL,
-          joined: createTimeStamp(),
-          is_pro: false,
-          pro_status: 'BASIC',
-        })
+        }, { merge: true });
 
         dispatch({ type: AuthActionTypes.SIGN_IN_SUCCESS, payload: result.user });
 

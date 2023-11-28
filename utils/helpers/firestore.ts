@@ -62,65 +62,59 @@ export async function updateInvoices(invoice: Stripe.Invoice) {
 
   if (!FirebaseUID) throw new Error('No user found with this customer ID');
 
-  const invoiceRef = userRef.docs[0].ref.collection('subscriptions').doc(invoice?.subscription as string).collection('invoices').doc(invoice.id);
-  const paymentRef = userRef.docs[0].ref.collection('payments').doc(invoice.payment_intent as string ?? invoice.id as string);
+  const response = await userRef.docs[0].ref
+    .collection('invoices')
+    .doc(invoice.id)
+    .set({
+      id: invoice.id,
+      amount_paid: invoice.amount_paid,
+      created: invoice.created
+        ? fromMillis(invoice.created * 1000)
+        : null,
+      paid: invoice.paid,
+      status: invoice.status,
+    }, { merge: true });
 
-  const batch = firestore.batch();
 
-  let prices = [];
-  for (const item of invoice.lines.data) {
-    prices.push(firestore
-      .collection('products')
-      .doc(item.price?.product as string)
-      .collection('prices')
-      .doc(item.price?.id as string)
-      )
-    };
-  
-  batch.set(invoiceRef, invoice, { merge: true });
-  batch.set(paymentRef, { prices }, { merge: true });
+  if (!response) throw new Error('Failed to update user invoices');
 
-  const responseBatch = await batch.commit();
-
-  if (!responseBatch) throw new Error('Batch write failed on firestore');
-
-  console.log(`Inserted/updated invoice [${invoice.id}] for user ${FirebaseUID}`);
+  console.log(`Inserted/updated invoice id [${invoice.id}] for user ${FirebaseUID}`);
 }
 
-export async function copyBillingDetailsToCustomerDoc(
-  firebaseUID: string,
-  payment_method: Stripe.PaymentMethod
-) {
-  // extract customer details from stripe
-  const stripeCustomerId = payment_method.customer as string;
-  const { name, phone, address } = payment_method.billing_details;
+// export async function copyBillingDetailsToCustomerDoc(
+//   firebaseUID: string,
+//   payment_method: Stripe.PaymentMethod
+// ) {
+//   // extract customer details from stripe
+//   const stripeCustomerId = payment_method.customer as string;
+//   const { name, phone, address } = payment_method.billing_details;
 
-  // if any of the following details are missing, throw an error
-  if (!name || !phone || !address) return;
+//   // if any of the following details are missing, throw an error
+//   if (!name || !phone || !address) return;
 
-  // usince this is a new subscription, then save the billing details on user's stripe account
-  await stripe.customers.update(stripeCustomerId, {
-    name,
-    phone,
-    address: {
-      line1: address?.line1 ?? '',
-      line2: address?.line2 ?? '',
-      city: address?.city ?? undefined,
-      state: address?.state ?? '',
-      postal_code: address?.postal_code ?? '',
-      country: address?.country ?? ''
-    }
-  });
+//   // usince this is a new subscription, then save the billing details on user's stripe account
+//   await stripe.customers.update(stripeCustomerId, {
+//     name,
+//     phone,
+//     address: {
+//       line1: address?.line1 ?? '',
+//       line2: address?.line2 ?? '',
+//       city: address?.city ?? undefined,
+//       state: address?.state ?? '',
+//       postal_code: address?.postal_code ?? '',
+//       country: address?.country ?? ''
+//     }
+//   });
 
-  // at last update the user's billing details on firestore
-  const response = await firestore.collection('users').doc(firebaseUID).update({
-    billing_address: {...address},
-    payment_method: {...payment_method[payment_method.type]}
-  });
+//   // at last update the user's billing details on firestore
+//   const response = await firestore.collection('users').doc(firebaseUID).update({
+//     billing_address: {...address},
+//     payment_method: {...payment_method[payment_method.type]}
+//   });
 
-  // throw error if response is null
-  if (!response) throw new Error('Failed to update user billing details');
-}
+//   // throw error if response is null
+//   if (!response) throw new Error('Failed to update user billing details');
+// }
 
 export async function manageProStatus(
   subscriptionId: string, 

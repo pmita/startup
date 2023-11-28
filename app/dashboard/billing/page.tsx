@@ -13,9 +13,6 @@ export default async function BillingPage() {
     <>
       <section className="flex flex-col justify-start items-start gap-5 ">
         <h1>Subscription plan</h1>
-        <h3>You are currently on the Free Plan</h3>
-        <p>The free plan is limited to 3 posts. Upgrade to the PRO plan for unlimited posts</p>
-        {/* <UpgradeToProButton /> */}
         <ManageBilling />
       </section>
     </>

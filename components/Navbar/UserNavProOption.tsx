@@ -19,8 +19,12 @@ export default function UserNavProOption() {
   // FUNCTIONS
   const renderContent = useCallback(() => {
     switch(proStatus) {
+      case PRO_STATUS.LIFE_TIME:
+      case PRO_STATUS.PRO:
+        return null;
       case PRO_STATUS.BASIC:
       case PRO_STATUS.CANCELLED:
+      default:
         return (
           <li className="hover:scale-105 hover:opacity-75 font-semibold">
             <Link href={"/pro"}>
@@ -28,8 +32,6 @@ export default function UserNavProOption() {
             </Link>
           </li>
         )
-      default:
-        return null;
     }
   }, [proStatus]);
 
