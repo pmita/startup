@@ -6,54 +6,54 @@ import Stripe from "stripe";
 // TYPES
 import { StripeWebhookSubscirptionEvents } from "@/types";
 
-export async function updateProduct(product: Stripe.Product) {
-  // extract details from incoming product object and update firestore fields
-  const { id, active, name, description, metadata } = product;
-  const response = await firestore
-    .collection('products').doc(id)
-    .set({
-      id,
-      active,
-      name,
-      description,
-      image: product.images?.[0] ?? null,
-      metadata
-    }, { merge: true });
+// export async function updateProduct(product: Stripe.Product) {
+//   // extract details from incoming product object and update firestore fields
+//   const { id, active, name, description, metadata } = product;
+//   const response = await firestore
+//     .collection('products').doc(id)
+//     .set({
+//       id,
+//       active,
+//       name,
+//       description,
+//       image: product.images?.[0] ?? null,
+//       metadata
+//     }, { merge: true });
 
-  // throw error if response is null
-  if (!response) throw new Error('Failed to create product on firestore');
+//   // throw error if response is null
+//   if (!response) throw new Error('Failed to create product on firestore');
 
-  // log success
-  console.log(`Inserted/updated product [${id}]`)
-}
+//   // log success
+//   console.log(`Inserted/updated product [${id}]`)
+// }
 
-export async function updateProductPrice(price: Stripe.Price) {
-  // extract productStripeId and priceId from incoming event and update firestore fields
-  const { product, id } = price;
-  const response = await firestore
-    .collection('products').doc(product as string)
-    .collection('prices').doc(id)
-    .set({
-      id,
-      firebaseUID: typeof price.product === 'string' ? price.product : '',
-      active: price.active,
-      billing_scheme: price.billing_scheme,
-      currency: price.currency,
-      description: price.nickname ?? null,
-      type: price.type,
-      unit_amount: price.unit_amount ?? 0,
-      unit_amount_decimal: price.unit_amount_decimal ?? '0',
-      interval: price.recurring?.interval ?? null,
-      interval_count: price.recurring?.interval_count ?? null,
-      metadata: price.metadata,
-    }, { merge: true });
+// export async function updateProductPrice(price: Stripe.Price) {
+//   // extract productStripeId and priceId from incoming event and update firestore fields
+//   const { product, id } = price;
+//   const response = await firestore
+//     .collection('products').doc(product as string)
+//     .collection('prices').doc(id)
+//     .set({
+//       id,
+//       firebaseUID: typeof price.product === 'string' ? price.product : '',
+//       active: price.active,
+//       billing_scheme: price.billing_scheme,
+//       currency: price.currency,
+//       description: price.nickname ?? null,
+//       type: price.type,
+//       unit_amount: price.unit_amount ?? 0,
+//       unit_amount_decimal: price.unit_amount_decimal ?? '0',
+//       interval: price.recurring?.interval ?? null,
+//       interval_count: price.recurring?.interval_count ?? null,
+//       metadata: price.metadata,
+//     }, { merge: true });
 
-    // throw error if response is null
-    if (!response) throw new Error('Failed to create price on firestore');
+//     // throw error if response is null
+//     if (!response) throw new Error('Failed to create price on firestore');
 
-    // log success
-    console.log(`Inserted/updated price [${id}] for product [${product}]`);
-}
+//     // log success
+//     console.log(`Inserted/updated price [${id}] for product [${product}]`);
+// }
 
 export async function updateInvoices(invoice: Stripe.Invoice) {
   // extract user details

@@ -5,8 +5,6 @@ import { stripe } from '@/utils/stripe';
 import Stripe from 'stripe';
 // UTILS
 import {
-   updateProduct, 
-   updateProductPrice, 
    updateInvoices,
    manageProStatus
 } from '@/utils/helpers/firestore';
@@ -16,10 +14,6 @@ import { StripeWebhookEvents, StripeWebhookSubscirptionEvents } from '@/types';
 const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET || '';
 
 const relavantEvents = new Set([
-  'product.created',
-  'product.updated',
-  'price.created',
-  'price.updated',
   'customer.subscription.created',
   'customer.subscription.updated',
   'customer.subscription.deleted',
@@ -47,15 +41,15 @@ export async function POST(req: Request) {
   if (relavantEvents.has(event.type)) {
     try {
       switch(event.type) {
-        case StripeWebhookEvents.PRODUCT_CREATED:
-        case StripeWebhookEvents.PRODUCT_UPDATED:
-          await updateProduct(event.data.object as Stripe.Product);
-          break;
-        case StripeWebhookEvents.PRICE_CREATED:
-        case StripeWebhookEvents.PRICE_UPDATED:
-          const price = event.data.object as Stripe.Price;
-          await updateProductPrice(price);
-          break;
+        // case StripeWebhookEvents.PRODUCT_CREATED:
+        // case StripeWebhookEvents.PRODUCT_UPDATED:
+        //   await updateProduct(event.data.object as Stripe.Product);
+        //   break;
+        // case StripeWebhookEvents.PRICE_CREATED:
+        // case StripeWebhookEvents.PRICE_UPDATED:
+        //   const price = event.data.object as Stripe.Price;
+        //   await updateProductPrice(price);
+        //   break;
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_CREATED:
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_DELETED:

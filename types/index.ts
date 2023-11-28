@@ -22,10 +22,10 @@ export enum ProductPurchaseType {
 }
 
 export enum StripeWebhookEvents {
-  PRODUCT_CREATED = 'product.created',
-  PRODUCT_UPDATED = 'product.updated',
-  PRICE_CREATED = 'price.created',
-  PRICE_UPDATED = 'price.updated',
+  // PRODUCT_CREATED = 'product.created',
+  // PRODUCT_UPDATED = 'product.updated',
+  // PRICE_CREATED = 'price.created',
+  // PRICE_UPDATED = 'price.updated',
   CUSTOMER_SUBSCRIPTION_CREATED = 'customer.subscription.created',
   CUSTOMER_SUBSCRIPTION_UPDATED = 'customer.subscription.updated',
   CUSTOMER_SUBSCRIPTION_DELETED = 'customer.subscription.deleted',
