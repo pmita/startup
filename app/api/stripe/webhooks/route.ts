@@ -7,7 +7,7 @@ import Stripe from 'stripe';
 import {
    updateInvoices,
    manageProStatus
-} from '@/utils/helpers/firestore';
+} from '@/lib/firestore';
 // TYPES
 import { StripeWebhookEvents, StripeWebhookSubscirptionEvents } from '@/types';
 

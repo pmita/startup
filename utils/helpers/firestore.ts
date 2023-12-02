@@ -55,32 +55,6 @@ import { StripeWebhookSubscirptionEvents } from "@/types";
 //     console.log(`Inserted/updated price [${id}] for product [${product}]`);
 // }
 
-export async function updateInvoices(invoice: Stripe.Invoice) {
-  // extract user details
-  const userRef = await firestore.collection('users').where('stripeCustomerId', '==', invoice.customer).get();
-  const { uid: FirebaseUID } = userRef?.docs[0]?.data() ?? {};
-
-  if (!FirebaseUID) throw new Error('No user found with this customer ID');
-
-  const response = await userRef.docs[0].ref
-    .collection('invoices')
-    .doc(invoice.id)
-    .set({
-      id: invoice.id,
-      amount_paid: invoice.amount_paid,
-      created: invoice.created
-        ? fromMillis(invoice.created * 1000)
-        : null,
-      paid: invoice.paid,
-      status: invoice.status,
-    }, { merge: true });
-
-
-  if (!response) throw new Error('Failed to update user invoices');
-
-  console.log(`Inserted/updated invoice id [${invoice.id}] for user ${FirebaseUID}`);
-}
-
 // export async function copyBillingDetailsToCustomerDoc(
 //   firebaseUID: string,
 //   payment_method: Stripe.PaymentMethod
