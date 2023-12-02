@@ -43,39 +43,6 @@ export function SignOutButton({ className }: { className?: string}) {
   )
 }
 
-export function UpgradeToProButton({ className }: { className?: string}) {
-  const handleClick = useCallback(async () => {
-    const session = await fetchFromApi('/api/stripe/checkout', {
-      method: 'POST',
-      body: {
-        line_items: [
-          {
-            price: 'price_1OCT9XGIIdUaTAvR68bhsZMp',
-            quantity: 1,
-          }
-        ]
-      },
-    });
-
-    if (session) {
-      window.location.href = session.url;
-    }
-  }, []);
-
-  return (
-    <button 
-      className={cn(
-        "button",
-        "primaryButton",
-        className 
-      )}
-      onClick={handleClick}
-    >
-      Upgrade to PRO
-    </button>
-  )
-}
-
 export type SubscribeButtonProps = {
   className?: string;
   stripeProduct: Stripe.Checkout.SessionCreateParams.LineItem;
@@ -127,4 +94,29 @@ export function SubscribeButton({
       {children}
     </button>
   )
+}
+
+export function ManageSubscriptionButton({ className }: { className?: string }) {
+  const handleClick = useCallback(async () => {
+    const session = await fetchFromApi('/api/stripe/portal', {
+      method: 'POST',
+    });
+
+    if (session) {
+      window.location.href = session.url;
+    }
+  }, []);
+
+  return (
+    <button 
+      className={cn(
+        "button",
+        "primaryButton",
+        className 
+      )}
+      onClick={handleClick}
+    >
+      Manage Subscription
+    </button>
+  );
 }

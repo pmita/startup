@@ -8,6 +8,7 @@ import { useCallback } from "react";
 import { useAuthState } from "@/hooks/useAuthState";
 // TYPES
 import { PRO_STATUS } from "@/types/index";
+import { ManageSubscriptionButton } from "@/components/Buttons";
 
 export default function ManageBilling() {
   // STATE
@@ -29,6 +30,7 @@ export default function ManageBilling() {
         <>
           <h3>You are currently on the PRO Plan</h3>
           <p>Manage your subscription and billing information here ... coming soon</p>
+          <ManageSubscriptionButton />
         </>
       )
     }
