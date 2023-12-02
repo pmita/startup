@@ -1,7 +1,8 @@
 // FIREBASE ADMIN
-import { firebaseAuth, firestore } from "../firebase-admin";
+import { firebaseAuth, firestore } from "@/utils/firebase-admin";
 // STRIPE
-import { stripe } from "../stripe";
+import { stripe } from "@/utils/stripe";
+// TYPES
 import Stripe from "stripe";
 
 export async function validateUser(req: Request) {

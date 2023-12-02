@@ -1,5 +1,5 @@
-// UTILS
-import { validateUser, getOrCreateCustomer } from "@/utils/helpers/auth";
+// LIB
+import { validateUser, getOrCreateCustomer } from "@/lib/auth";
 import { createStripePortalSession } from "@/utils/helpers/stripe";
 
 

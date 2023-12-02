@@ -1,6 +1,6 @@
 
-// UTILS
-import { validateUser, getOrCreateCustomer } from "@/utils/helpers/auth";
+// LIB
+import { validateUser, getOrCreateCustomer } from "@/lib/auth";
 import { createStripeCheckoutSession } from "@/utils/helpers/stripe";
 
 export async function POST(req: Request) {
