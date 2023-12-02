@@ -1,7 +1,7 @@
 // STRIPE
 import { stripe } from "@/utils/stripe";
-import Stripe from "stripe";
 // TYPES
+import Stripe from "stripe";
 import { ProductPurchaseType } from "@/types";
 
 const PORTAL_RETURN_URL = "http://localhost:3000/dashboard"

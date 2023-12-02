@@ -1,6 +1,6 @@
 // LIB
 import { validateUser, getOrCreateCustomer } from "@/lib/auth";
-import { createStripePortalSession } from "@/utils/helpers/stripe";
+import { createStripePortalSession } from "@/lib/stripe";
 
 
 export async function POST(req: Request, res: Response) {

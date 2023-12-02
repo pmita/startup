@@ -1,7 +1,7 @@
 
 // LIB
 import { validateUser, getOrCreateCustomer } from "@/lib/auth";
-import { createStripeCheckoutSession } from "@/utils/helpers/stripe";
+import { createStripeCheckoutSession } from "@/lib/stripe";
 
 export async function POST(req: Request) {
   const { line_items, type } = await req.json();
