@@ -6,7 +6,7 @@ import Title from '../Header/Title';
 import Description from '../Header/Description';  
 import { CylinderSVG } from '../SVGs';
 // UTILS
-import { cn } from '@/utils/helpers/client';
+import { cn } from '@/utils/helpers';
 
 export default async function LandingBanner() {
   return(

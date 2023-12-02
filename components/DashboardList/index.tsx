@@ -4,7 +4,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 // UTILS
-import { cn } from "@/utils/helpers/client"
+import { cn } from "@/utils/helpers"
 // TYPES
 import type { NavItem } from "@/types"
 

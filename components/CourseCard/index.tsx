@@ -1,5 +1,5 @@
 // UTILS
-import { cn } from "@/utils/helpers/client"
+import { cn } from "@/utils/helpers"
 
 type CourseCardProps = {
   info?: React.ReactNode;

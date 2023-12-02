@@ -2,7 +2,7 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge' ;
 // UTILS
-import { firebaseAuth } from '../firebase';
+import { firebaseAuth } from './firebase';
 // TYPES
 import { FetchFromApiOptions } from '@/types/index';
 
