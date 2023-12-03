@@ -20,9 +20,9 @@ export default function UserNavProOption() {
   const renderContent = useCallback(() => {
     switch(proStatus) {
       case PRO_STATUS.LIFE_TIME:
-      case PRO_STATUS.PRO:
+      case PRO_STATUS.ACTIVE:
         return null;
-      case PRO_STATUS.BASIC:
+      case PRO_STATUS.EXPIRING:
       case PRO_STATUS.CANCELLED:
       default:
         return (

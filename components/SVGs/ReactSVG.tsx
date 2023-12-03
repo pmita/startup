@@ -1,6 +1,6 @@
 import { SVGPropType } from "@/types"
 
-const ReactSVG = async ({ width, height, fill}: SVGPropType) => (
+const ReactSVG = ({ width, height, fill}: SVGPropType) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlSpace="preserve"

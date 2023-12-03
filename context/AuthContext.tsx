@@ -39,10 +39,7 @@ const reducer = (state: AuthReducerInitialState, action: AuthReducerActionsType)
 
 export const AuthContextProvider: FC<{children: React.ReactNode}> = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  console.log(fromMillis(state.expires));
-  console.log(new Date().getTime());
-
+  
   useEffect(() => {
     let unsubscribeProgress: () => void;
     let unsubscribeStatus: () => void;

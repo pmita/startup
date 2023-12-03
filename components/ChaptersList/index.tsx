@@ -4,6 +4,7 @@ import Link from "next/link"
 import AuthCheck from "../AuthCheck"
 import ChapterProgress from "./ChapterProgress"
 import Tag from "../CourseCard/Tag"
+import { LockSVG } from "../SVGs"
 // LIBRARIES
 import { Courses } from "@/.contentlayer/generated"
 
@@ -19,7 +20,13 @@ export default async function ChaptersList({ chapters }: ChapterListProps) {
           <div className="flex justify-between items-center p-2">
             <span className="flex justify-start items-center gap-2">
               <AuthCheck fallback={(
-                <div className="w-[20px] h-[20px] rounded-[50%] bg-primary-black opacity-75"></div>
+                <>
+                  {chapter.free ? (
+                    <div className="w-[20px] h-[20px] rounded-[50%] bg-primary-black opacity-75"></div>
+                  ) : (
+                    <LockSVG width="20px" height="20px" fill="purple"/>
+                  )}
+                </>
               
               )}>
                 <ChapterProgress chapterId={chapter.slugAsParams} />

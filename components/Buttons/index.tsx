@@ -81,8 +81,6 @@ export function CheckoutButton({
       body
     });
 
-    console.log(session)
-
     const stripe = await getStripe();
     if (session) {
       window.location.href = session.url;

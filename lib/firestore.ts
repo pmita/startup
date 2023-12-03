@@ -41,7 +41,6 @@ export async function updateInvoices(
         statusResponse = await userRef.docs[0].ref.update({
           tries: increment(1),
         });
-        console.log(eventType);
         break;
     }
 
@@ -66,9 +65,18 @@ export async function manageProStatus(
   });
 
   let response;
-  console.log(subscriptionDetailsFromStripe)
+  console.log('subscriptionDetailsFromStripe', subscriptionDetailsFromStripe)
   switch(eventType) {
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_CREATED:
+      response = await userRef.docs[0].ref.update({
+        isPro: true,
+        proStatus: subscriptionDetailsFromStripe.status,
+        subscriptions: arrayUnion(subscriptionDetailsFromStripe.items.data[0].plan.id),
+        expires: subscriptionDetailsFromStripe.current_period_end
+        ? fromMillis(subscriptionDetailsFromStripe.current_period_end * 1000)
+        : null,
+      });
+      break;
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
       response = await userRef.docs[0].ref.update({
         isPro: true,
