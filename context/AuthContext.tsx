@@ -7,7 +7,7 @@ import { type AuthReducerInitialState, AuthActionTypes, type AuthReducerActionsT
 // UTILS
 import { firebaseAuth, firestore } from '@/utils/firebase';
 // TYPES
-import { PRO_STATUS } from '@/types';
+import { fromMillis } from '@/utils/firebase';
 
 export const AuthContext = createContext<AuthReducerState | undefined | null>(null);
 
@@ -15,8 +15,9 @@ const initialState: AuthReducerInitialState = {
   user: null,
   authStateHasChanged: false,
   userProgress: null,
+  expires: null,
   isPro: false,
-  proStatus: PRO_STATUS.BASIC,
+  proStatus: null,
 }
 
 const reducer = (state: AuthReducerInitialState, action: AuthReducerActionsType): AuthReducerInitialState => {
@@ -26,11 +27,11 @@ const reducer = (state: AuthReducerInitialState, action: AuthReducerActionsType)
     case AuthActionTypes.AUTH_HAS_CHANGED_SUCCESS:
       return { ...state, user:action.payload }
     case AuthActionTypes.SIGN_OUT_SUCCESS:
-      return { ...state, user: null, isPro: false, proStatus: PRO_STATUS.BASIC }
+      return { ...state, user: null, isPro: false, proStatus: null, expires: null}
     case AuthActionTypes.FETCH_USER_PROGRESS:
       return { ...state, userProgress: action.payload }
     case AuthActionTypes.FETCH_USER_STATUS:
-      return { ...state, proStatus: action.payload?.proStatus || 'BASIC', isPro: action.payload?.isPro || false }
+      return { ...state, proStatus: action.payload?.proStatus || null, isPro: action.payload?.isPro || false, expires: action.payload?.expires || null }
     default: 
       return { ...state }
   }
@@ -38,6 +39,9 @@ const reducer = (state: AuthReducerInitialState, action: AuthReducerActionsType)
 
 export const AuthContextProvider: FC<{children: React.ReactNode}> = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  console.log(fromMillis(state.expires));
+  console.log(new Date().getTime());
 
   useEffect(() => {
     let unsubscribeProgress: () => void;
@@ -53,7 +57,11 @@ export const AuthContextProvider: FC<{children: React.ReactNode}> = ({ children 
 
         unsubscribeStatus = firestore.collection('users').doc(user.uid)
           .onSnapshot((snapshot) => {
-            dispatch({ type: AuthActionTypes.FETCH_USER_STATUS, payload: snapshot.data() })
+            const docs = {
+              ...snapshot.data(),
+              expires: snapshot.data()?.expires ? snapshot.data()?.expires.toMillis() : null,
+            }
+            dispatch({ type: AuthActionTypes.FETCH_USER_STATUS, payload: docs })
           })
       } else {
         unsubscribeProgress && unsubscribeProgress();

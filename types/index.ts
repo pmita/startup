@@ -22,10 +22,6 @@ export enum ProductPurchaseType {
 }
 
 export enum StripeWebhookEvents {
-  // PRODUCT_CREATED = 'product.created',
-  // PRODUCT_UPDATED = 'product.updated',
-  // PRICE_CREATED = 'price.created',
-  // PRICE_UPDATED = 'price.updated',
   CUSTOMER_SUBSCRIPTION_CREATED = 'customer.subscription.created',
   CUSTOMER_SUBSCRIPTION_UPDATED = 'customer.subscription.updated',
   CUSTOMER_SUBSCRIPTION_DELETED = 'customer.subscription.deleted',
@@ -43,14 +39,23 @@ export enum StripeWebhookSubscirptionEvents {
   CUSTOMER_SUBSCRIPTION_DELETED = 'customer.subscription.deleted',
 }
 
+export enum StripeWebhookInvoiceEvents {
+  INVOICE_PAID = 'invoice.paid',
+  INVOICE_PAYMENT_SUCCEEDED = 'invoice.payment_succeeded',
+  INVOICE_PAYMENT_FAILED = 'invoice.payment_failed',
+  INVOICE_UPCOMING = 'invoice.upcoming',
+  INVOICE_MARKED_UNCOLLECTIBLE = 'invoice.marked_uncollectible',
+  INVOICE_PAYMENT_ACTION_REQUIRED = 'invoice.payment_action_required',
+}
+
 // FIREBASE
 export enum PRO_STATUS {
-  BASIC = 'BASIC',
-  PRO = 'PRO',
-  LIFE_TIME = 'LIFE_TIME',
-  EXPIRING='EXPIRING',
-  CANCELLED = 'CANCELLED',
-  PAST_DUE = 'PAST_DUE',
+  LIFE_TIME = 'lifetime',
+  ACTIVE = 'active',
+  PAST_DUE = 'past_due',
+  CANCELLED = 'CANCELcancelledLED',
+  EXPIRING = 'expiring',
+  UNPAID = 'unpaid',
 }
 
 export interface UserData {
@@ -60,9 +65,9 @@ export interface UserData {
   photoURL?: string;
   joined?: number;
   stripeCustomerId?: string;
-  is_pro?: boolean;
+  isPro?: boolean;
   expires?: number;
-  pro_status?: PRO_STATUS;
+  proStatus?: PRO_STATUS;
   subscriptions?: {
     [key: string]: string;
   },

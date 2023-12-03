@@ -17,36 +17,44 @@ export default function ManageBilling() {
 
   // FUNCTIONS
   const renderContent = useCallback(() => {
-    if (proStatus === PRO_STATUS.LIFE_TIME) {
-      return (
-        <>
-          <h3>You are currently on the Life Time Plan, enjoy this platform till the death of time</h3>
-          <p>Manage your subscription and billing information here ... coming soon</p>
-        </>
-      )
+    switch(proStatus) {
+      case PRO_STATUS.LIFE_TIME:
+        return (
+          <>
+            <h3>You are currently on the Life Time Plan, enjoy this platform till the death of time</h3>
+            <p>Manage your subscription and billing information here ... coming soon</p>
+          </>
+        )
+      case PRO_STATUS.ACTIVE:
+        return (
+          <>
+            <h3>You are currently on the PRO Plan</h3>
+            <p>Manage your subscription and billing information here ... coming soon</p>
+            <ManageSubscriptionButton />
+          </>
+        );
+      case PRO_STATUS.CANCELLED:
+      case PRO_STATUS.EXPIRING:
+        return (
+          <>
+            <h3>We miss you</h3>
+            <p>Check the latest course with full access to PRO</p>
+            <button className="button primaryButton" onClick={() => router.push('/pro')}>
+              PRO
+            </button>
+          </>
+        )
+      default:
+        return (
+          <>
+            <h3>You are currently on the BASIC Plan</h3>
+            <p>Upgrade your status today with PRO</p>
+            <button className="button primaryButton" onClick={() => router.push('/pro')}>
+              PRO
+            </button>
+          </>
+        );
     }
-    if (proStatus === PRO_STATUS.PRO) {
-      return (
-        <>
-          <h3>You are currently on the PRO Plan</h3>
-          <p>Manage your subscription and billing information here ... coming soon</p>
-          <ManageSubscriptionButton />
-        </>
-      )
-    }
-    if (proStatus === PRO_STATUS.BASIC) {
-      return (
-        <>
-          <h3>You are currently on the BASIC Plan</h3>
-          <p>Upgrade your status today with PRO</p>
-          <button className="button primaryButton" onClick={() => router.push('/pro')}>
-            PRO
-          </button>
-        </>
-      )
-    }
-
-    return null;
   }, [proStatus, router]);
 
   return (

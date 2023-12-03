@@ -52,14 +52,14 @@ export function SignOutButton({ className }: { className?: string}) {
 export type CheckoutButtonProps = {
   className?: string;
   stripeProduct: Stripe.Checkout.SessionCreateParams.LineItem;
-  purchaseType: ProductPurchaseType;
+  purchaseType?: ProductPurchaseType;
   children: React.ReactNode;
 }
 
 export function CheckoutButton({ 
   className, 
   stripeProduct, 
-  purchaseType= ProductPurchaseType.ONE_TIME,
+  purchaseType = ProductPurchaseType.ONE_TIME,
   children 
 }: CheckoutButtonProps) {
   // STATE
@@ -80,6 +80,8 @@ export function CheckoutButton({
       method: 'POST',
       body
     });
+
+    console.log(session)
 
     const stripe = await getStripe();
     if (session) {

@@ -1,12 +1,15 @@
 // FIREBASE ADMIN
-import { firestore, fromMillis, arrayRemove, arrayUnion } from "../utils/firebase-admin";
+import { firestore, fromMillis, arrayRemove, arrayUnion, serverTimestamp, increment } from "../utils/firebase-admin";
 // STRIPE
 import { stripe } from "../utils/stripe";
 // TYPES
 import Stripe from "stripe";
-import { StripeWebhookSubscirptionEvents } from "@/types";
+import { StripeWebhookSubscirptionEvents, StripeWebhookInvoiceEvents } from "@/types";
 
-export async function updateInvoices(invoice: Stripe.Invoice) {
+export async function updateInvoices(
+  invoice: Stripe.Invoice,
+  eventType: StripeWebhookInvoiceEvents
+  ) {
   // extract user details
   const userRef = await firestore.collection('users').where('stripeCustomerId', '==', invoice.customer).get();
   const { uid: FirebaseUID } = userRef?.docs[0]?.data() ?? {};
@@ -25,6 +28,22 @@ export async function updateInvoices(invoice: Stripe.Invoice) {
       paid: invoice.paid,
       status: invoice.status,
     }, { merge: true });
+
+    let statusResponse;
+    switch(eventType) {
+      case StripeWebhookInvoiceEvents.INVOICE_PAYMENT_FAILED:
+        statusResponse = await userRef.docs[0].ref.update({
+          isPro: false,
+          proStatus: 'BASIC',
+          expires: serverTimestamp(),
+        });
+      default:
+        statusResponse = await userRef.docs[0].ref.update({
+          tries: increment(1),
+        });
+        console.log(eventType);
+        break;
+    }
 
 
   if (!response) throw new Error('Failed to update user invoices');
@@ -47,23 +66,27 @@ export async function manageProStatus(
   });
 
   let response;
+  console.log(subscriptionDetailsFromStripe)
   switch(eventType) {
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_CREATED:
+    case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
       response = await userRef.docs[0].ref.update({
         isPro: true,
-        proStatus: 'PRO',
+        proStatus: subscriptionDetailsFromStripe.status,
         subscriptions: arrayUnion(subscriptionDetailsFromStripe.items.data[0].plan.id),
         expires: subscriptionDetailsFromStripe.cancel_at
-          ? fromMillis(subscriptionDetailsFromStripe.cancel_at * 1000)
-          : null,
+        ? fromMillis(subscriptionDetailsFromStripe.cancel_at * 1000)
+        : null,
       });
       break;
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_DELETED:
       response = await userRef.docs[0].ref.update({
         isPro: false,
-        proStatu: 'BASIC',
+        proStatus: subscriptionDetailsFromStripe.status,
         subscriptions: arrayRemove(subscriptionDetailsFromStripe.items.data[0].plan.id),
-        expires: null,
+        expires: subscriptionDetailsFromStripe.cancel_at
+          ? fromMillis(subscriptionDetailsFromStripe.cancel_at * 1000)
+          : null,
       });
       break;
     default:

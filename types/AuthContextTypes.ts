@@ -6,8 +6,9 @@ export type AuthReducerInitialState = {
   user: firebase.User | null;
   authStateHasChanged: boolean;
   userProgress: any;
+  expires: any;
   isPro: boolean;
-  proStatus: PRO_STATUS
+  proStatus: PRO_STATUS | null;
 }
 
 export type userProgressType = {
@@ -65,7 +66,8 @@ export type AuthReducerState = {
   user: firebase.User | null,
   authStateHasChanged: boolean,
   userProgress: userProgressType,
+  expires: any,
   isPro: boolean,
-  proStatus: PRO_STATUS
+  proStatus: PRO_STATUS | null,
   dispatch: React.Dispatch<any>
 }
