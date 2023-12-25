@@ -39,17 +39,9 @@ export async function POST(req: Request) {
   }
 
   if (relavantEvents.has(event.type)) {
+    console.log('------->' + event.type + 'just triggered');
     try {
       switch(event.type) {
-        // case StripeWebhookEvents.PRODUCT_CREATED:
-        // case StripeWebhookEvents.PRODUCT_UPDATED:
-        //   await updateProduct(event.data.object as Stripe.Product);
-        //   break;
-        // case StripeWebhookEvents.PRICE_CREATED:
-        // case StripeWebhookEvents.PRICE_UPDATED:
-        //   const price = event.data.object as Stripe.Price;
-        //   await updateProductPrice(price);
-        //   break;
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_CREATED:
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_DELETED:
@@ -63,8 +55,6 @@ export async function POST(req: Request) {
         case StripeWebhookEvents.INVOICE_PAID:
         case StripeWebhookEvents.INVOICE_PAYMENT_SUCCEEDED:
         case StripeWebhookEvents.INVOICE_PAYMENT_FAILED:
-        case StripeWebhookEvents.INVOICE_UPCOMING:
-        case StripeWebhookEvents.INVOICE_MARKED_UNCOLLECTIBLE:
         case StripeWebhookEvents.INVOICE_PAYMENT_ACTION_REQUIRED:
           const invoice = event.data.object as Stripe.Invoice;
           await updateInvoices(

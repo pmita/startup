@@ -75,6 +75,7 @@ export async function manageProStatus(
         expires: subscriptionDetailsFromStripe.current_period_end
         ? fromMillis(subscriptionDetailsFromStripe.current_period_end * 1000)
         : null,
+        manageSubscriptionTries: increment(1),
       });
       break;
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
@@ -85,6 +86,7 @@ export async function manageProStatus(
         expires: subscriptionDetailsFromStripe.cancel_at
         ? fromMillis(subscriptionDetailsFromStripe.cancel_at * 1000)
         : null,
+        manageSubscriptionTries: increment(1),
       });
       break;
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_DELETED:

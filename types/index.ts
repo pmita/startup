@@ -28,8 +28,6 @@ export enum StripeWebhookEvents {
   INVOICE_PAID = 'invoice.paid',
   INVOICE_PAYMENT_SUCCEEDED = 'invoice.payment_succeeded',
   INVOICE_PAYMENT_FAILED = 'invoice.payment_failed',
-  INVOICE_UPCOMING = 'invoice.upcoming',
-  INVOICE_MARKED_UNCOLLECTIBLE = 'invoice.marked_uncollectible',
   INVOICE_PAYMENT_ACTION_REQUIRED = 'invoice.payment_action_required',
   CHECKOUT_SESSION_ASYNC_PAYMENT_SUCCESS = 'checkout.session.async_payment_succeeded',
   CHECKOUT_SESSION_COMPLETED = 'checkout.session.completed',
@@ -45,7 +43,6 @@ export enum StripeWebhookInvoiceEvents {
   INVOICE_PAID = 'invoice.paid',
   INVOICE_PAYMENT_SUCCEEDED = 'invoice.payment_succeeded',
   INVOICE_PAYMENT_FAILED = 'invoice.payment_failed',
-  INVOICE_UPCOMING = 'invoice.upcoming',
   INVOICE_MARKED_UNCOLLECTIBLE = 'invoice.marked_uncollectible',
   INVOICE_PAYMENT_ACTION_REQUIRED = 'invoice.payment_action_required',
 }
