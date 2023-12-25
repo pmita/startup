@@ -40,9 +40,6 @@ export enum StripeWebhookSubscirptionEvents {
 }
 
 // FIREBASE
-/*
-  The following are the main subscrition status types that we track from Stripe
-*/
 export enum PRO_STATUS {
   LIFE_TIME = 'lifetime',
   ACTIVE = 'active',

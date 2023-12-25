@@ -6,15 +6,14 @@ import { stripe } from "../utils/stripe";
 import Stripe from "stripe";
 import { StripeWebhookSubscirptionEvents } from "@/types";
 
-export async function updateInvoices(
-  invoice: Stripe.Invoice,
-  ) {
+export async function updateInvoices(invoice: Stripe.Invoice) {
   // extract user details
   const userRef = await firestore.collection('users').where('stripeCustomerId', '==', invoice.customer).get();
   const { uid: FirebaseUID } = userRef?.docs[0]?.data() ?? {};
 
   if (!FirebaseUID) throw new Error('No user found with this customer ID');
 
+  // update user invoice; this will trigger for invoices paid, payment failed, unpaid, and uncollectable
   const response = await userRef.docs[0].ref
     .collection('invoices')
     .doc(invoice.id)
@@ -40,17 +39,19 @@ export async function manageProStatus(
   stripeCustomerId: string,
   eventType: StripeWebhookSubscirptionEvents
 ) {
+  // retrieve user details based on stripe customer id
   const userRef = await firestore.collection('users').where('stripeCustomerId', '==', stripeCustomerId).get();
   const { uid } = userRef?.docs[0]?.data() ?? {};
 
   if (!uid) throw new Error('User not found');
 
+  // subscription details from stripe based on event's subscription id
   const subscriptionDetailsFromStripe = await stripe.subscriptions.retrieve(subscriptionId, {
     expand: ['default_payment_method']
   });
 
   let response;
-  console.log('subscriptionDetailsFromStripe', subscriptionDetailsFromStripe)
+  // updated user status on firestore based on updated on their subscription status on stripe
   switch(eventType) {
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_CREATED:
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
