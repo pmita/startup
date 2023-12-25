@@ -33,12 +33,29 @@ export default function ManageBilling() {
             <ManageSubscriptionButton />
           </>
         );
-      case PRO_STATUS.CANCELLED:
-      case PRO_STATUS.EXPIRING:
+      case PRO_STATUS.CANCELED:
         return (
           <>
             <h3>We miss you</h3>
             <p>Check the latest course with full access to PRO</p>
+            <button className="button primaryButton" onClick={() => router.push('/pro')}>
+              PRO
+            </button>
+          </>
+        )
+      case PRO_STATUS.PAST_DUE:
+        return (
+          <>
+            <h3>Your payment is not past due</h3>
+            <p>Please update your payment menthod below</p>
+            <ManageSubscriptionButton />
+          </>
+        )
+      case PRO_STATUS.UNPAID:
+        return (
+          <>
+            <h3>We have now canceled your subscription</h3>
+            <p>We we unable to collect for your subscription plan. To re-subscribe check our plans</p>
             <button className="button primaryButton" onClick={() => router.push('/pro')}>
               PRO
             </button>

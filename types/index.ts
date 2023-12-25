@@ -31,6 +31,8 @@ export enum StripeWebhookEvents {
   INVOICE_UPCOMING = 'invoice.upcoming',
   INVOICE_MARKED_UNCOLLECTIBLE = 'invoice.marked_uncollectible',
   INVOICE_PAYMENT_ACTION_REQUIRED = 'invoice.payment_action_required',
+  CHECKOUT_SESSION_ASYNC_PAYMENT_SUCCESS = 'checkout.session.async_payment_succeeded',
+  CHECKOUT_SESSION_COMPLETED = 'checkout.session.completed',
 }
 
 export enum StripeWebhookSubscirptionEvents {
@@ -49,12 +51,14 @@ export enum StripeWebhookInvoiceEvents {
 }
 
 // FIREBASE
+/*
+  The following are the main subscrition status types that we track from Stripe
+*/
 export enum PRO_STATUS {
   LIFE_TIME = 'lifetime',
   ACTIVE = 'active',
   PAST_DUE = 'past_due',
-  CANCELLED = 'CANCELcancelledLED',
-  EXPIRING = 'expiring',
+  CANCELED = 'canceled',
   UNPAID = 'unpaid',
 }
 

@@ -22,8 +22,7 @@ export default function UserNavProOption() {
       case PRO_STATUS.LIFE_TIME:
       case PRO_STATUS.ACTIVE:
         return null;
-      case PRO_STATUS.EXPIRING:
-      case PRO_STATUS.CANCELLED:
+      case PRO_STATUS.CANCELED:
       default:
         return (
           <li className="hover:scale-105 hover:opacity-75 font-semibold">
