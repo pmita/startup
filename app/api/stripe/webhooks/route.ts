@@ -9,7 +9,7 @@ import {
    manageProStatus
 } from '@/lib/firestore';
 // TYPES
-import { StripeWebhookEvents, StripeWebhookSubscirptionEvents, StripeWebhookInvoiceEvents } from '@/types';
+import { StripeWebhookEvents, StripeWebhookSubscirptionEvents } from '@/types';
 
 const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET || '';
 
@@ -55,12 +55,8 @@ export async function POST(req: Request) {
         case StripeWebhookEvents.INVOICE_PAID:
         case StripeWebhookEvents.INVOICE_PAYMENT_SUCCEEDED:
         case StripeWebhookEvents.INVOICE_PAYMENT_FAILED:
-        case StripeWebhookEvents.INVOICE_PAYMENT_ACTION_REQUIRED:
           const invoice = event.data.object as Stripe.Invoice;
-          await updateInvoices(
-            invoice, 
-            event.type as StripeWebhookInvoiceEvents
-          );
+          await updateInvoices(invoice);
           break;
         default: 
           throw new Error('Unhandled relevant event');

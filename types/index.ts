@@ -28,23 +28,15 @@ export enum StripeWebhookEvents {
   INVOICE_PAID = 'invoice.paid',
   INVOICE_PAYMENT_SUCCEEDED = 'invoice.payment_succeeded',
   INVOICE_PAYMENT_FAILED = 'invoice.payment_failed',
-  INVOICE_PAYMENT_ACTION_REQUIRED = 'invoice.payment_action_required',
-  CHECKOUT_SESSION_ASYNC_PAYMENT_SUCCESS = 'checkout.session.async_payment_succeeded',
-  CHECKOUT_SESSION_COMPLETED = 'checkout.session.completed',
+  // INVOICE_PAYMENT_ACTION_REQUIRED = 'invoice.payment_action_required', when 3DS authentication is required
+  // CHECKOUT_SESSION_ASYNC_PAYMENT_SUCCESS = 'checkout.session.async_payment_succeeded', use this for single purchases
+  // CHECKOUT_SESSION_COMPLETED = 'checkout.session.completed', same
 }
 
 export enum StripeWebhookSubscirptionEvents {
   CUSTOMER_SUBSCRIPTION_CREATED = 'customer.subscription.created',
   CUSTOMER_SUBSCRIPTION_UPDATED = 'customer.subscription.updated',
   CUSTOMER_SUBSCRIPTION_DELETED = 'customer.subscription.deleted',
-}
-
-export enum StripeWebhookInvoiceEvents {
-  INVOICE_PAID = 'invoice.paid',
-  INVOICE_PAYMENT_SUCCEEDED = 'invoice.payment_succeeded',
-  INVOICE_PAYMENT_FAILED = 'invoice.payment_failed',
-  INVOICE_MARKED_UNCOLLECTIBLE = 'invoice.marked_uncollectible',
-  INVOICE_PAYMENT_ACTION_REQUIRED = 'invoice.payment_action_required',
 }
 
 // FIREBASE

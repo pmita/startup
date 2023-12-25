@@ -1,14 +1,13 @@
 // FIREBASE ADMIN
-import { firestore, fromMillis, arrayRemove, arrayUnion, serverTimestamp, increment } from "../utils/firebase-admin";
+import { firestore, fromMillis, arrayRemove, arrayUnion } from "../utils/firebase-admin";
 // STRIPE
 import { stripe } from "../utils/stripe";
 // TYPES
 import Stripe from "stripe";
-import { StripeWebhookSubscirptionEvents, StripeWebhookInvoiceEvents } from "@/types";
+import { StripeWebhookSubscirptionEvents } from "@/types";
 
 export async function updateInvoices(
   invoice: Stripe.Invoice,
-  eventType: StripeWebhookInvoiceEvents
   ) {
   // extract user details
   const userRef = await firestore.collection('users').where('stripeCustomerId', '==', invoice.customer).get();
@@ -29,25 +28,11 @@ export async function updateInvoices(
       status: invoice.status,
     }, { merge: true });
 
-    let statusResponse;
-    switch(eventType) {
-      case StripeWebhookInvoiceEvents.INVOICE_PAYMENT_FAILED:
-        statusResponse = await userRef.docs[0].ref.update({
-          isPro: false,
-          proStatus: 'BASIC',
-          expires: serverTimestamp(),
-        });
-      default:
-        statusResponse = await userRef.docs[0].ref.update({
-          tries: increment(1),
-        });
-        break;
-    }
-
-
-  if (!response) throw new Error('Failed to update user invoices');
-
-  console.log(`Inserted/updated invoice id [${invoice.id}] for user ${FirebaseUID}`);
+  if (!response) {
+    throw new Error('Failed to update user invoices');
+  } else {
+    console.log(`Inserted/updated invoice id [${invoice.id}] for user ${FirebaseUID}`);
+  }
 }
 
 export async function manageProStatus(
@@ -68,6 +53,7 @@ export async function manageProStatus(
   console.log('subscriptionDetailsFromStripe', subscriptionDetailsFromStripe)
   switch(eventType) {
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_CREATED:
+    case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
       response = await userRef.docs[0].ref.update({
         isPro: true,
         proStatus: subscriptionDetailsFromStripe.status,
@@ -75,18 +61,6 @@ export async function manageProStatus(
         expires: subscriptionDetailsFromStripe.current_period_end
         ? fromMillis(subscriptionDetailsFromStripe.current_period_end * 1000)
         : null,
-        manageSubscriptionTries: increment(1),
-      });
-      break;
-    case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
-      response = await userRef.docs[0].ref.update({
-        isPro: true,
-        proStatus: subscriptionDetailsFromStripe.status,
-        subscriptions: arrayUnion(subscriptionDetailsFromStripe.items.data[0].plan.id),
-        expires: subscriptionDetailsFromStripe.cancel_at
-        ? fromMillis(subscriptionDetailsFromStripe.cancel_at * 1000)
-        : null,
-        manageSubscriptionTries: increment(1),
       });
       break;
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_DELETED:
