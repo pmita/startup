@@ -6,7 +6,8 @@ import Stripe from 'stripe';
 // UTILS
 import {
    updateInvoices,
-   manageProStatus
+   manageProStatus,
+   managePurchase
 } from '@/lib/firestore';
 // TYPES
 import { StripeWebhookEvents, StripeWebhookSubscirptionEvents } from '@/types';
@@ -20,9 +21,7 @@ const relavantEvents = new Set([
   'invoice.paid',
   'invoice.payment_succeeded',
   'invoice.payment_failed',
-  'invoice.upcoming',
-  'invoice.marked_uncollectible',
-  'invoice.payment_action_required',
+  'checkout.session.completed'
 ]);
 
 export async function POST(req: Request) {
@@ -39,7 +38,7 @@ export async function POST(req: Request) {
   }
 
   if (relavantEvents.has(event.type)) {
-    console.log('------->' + event.type + 'just triggered');
+    // console.log('------->' + event.type + 'just triggered');
     try {
       switch(event.type) {
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_CREATED:
@@ -57,6 +56,12 @@ export async function POST(req: Request) {
         case StripeWebhookEvents.INVOICE_PAYMENT_FAILED:
           const invoice = event.data.object as Stripe.Invoice;
           await updateInvoices(invoice);
+          break;
+        case StripeWebhookEvents.CHECKOUT_SESSION_COMPLETED:
+          const checkoutSession = event.data.object as Stripe.Checkout.Session;
+          if (checkoutSession.mode === 'payment') {
+            managePurchase(checkoutSession)
+          }
           break;
         default: 
           throw new Error('Unhandled relevant event');

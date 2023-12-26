@@ -30,7 +30,7 @@ export enum StripeWebhookEvents {
   INVOICE_PAYMENT_FAILED = 'invoice.payment_failed',
   // INVOICE_PAYMENT_ACTION_REQUIRED = 'invoice.payment_action_required', when 3DS authentication is required
   // CHECKOUT_SESSION_ASYNC_PAYMENT_SUCCESS = 'checkout.session.async_payment_succeeded', use this for single purchases
-  // CHECKOUT_SESSION_COMPLETED = 'checkout.session.completed', same
+  CHECKOUT_SESSION_COMPLETED = 'checkout.session.completed'
 }
 
 export enum StripeWebhookSubscirptionEvents {

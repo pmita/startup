@@ -34,6 +34,33 @@ export async function updateInvoices(invoice: Stripe.Invoice) {
   }
 }
 
+export async function managePurchase(checkout: Stripe.Checkout.Session) {
+  // extract user details
+  const userRef = await firestore.collection('users').where('stripeCustomerId', '==', checkout.customer).get();
+  const { uid: FirebaseUID } = userRef?.docs[0]?.data() ?? {};
+
+  if (!FirebaseUID) throw new Error('User not found');
+
+
+  const checkoutLineItemDetails = await stripe.checkout.sessions.listLineItems(checkout.id, {
+    limit: 1,
+  })
+  const productDetailsFromStripe = await stripe.products.retrieve(checkoutLineItemDetails?.data[0]?.price?.product as string);
+
+  // update user pro status based on their one-time purchase
+  const response = await userRef.docs[0].ref.update({
+    isPro: productDetailsFromStripe.metadata.proStatus ? true : false,
+    proStatus: productDetailsFromStripe.metadata.proStatus ?? 'basic',
+    expires: null,
+  });
+
+  if (!response) {
+    throw new Error('Failed to update user status based on this stripe purchase');
+  } else {
+    console.log(`Updated user pro status for user ${FirebaseUID} based on stripe checkout id ${checkout.id}`);
+  }
+}
+
 export async function manageProStatus(
   subscriptionId: string, 
   stripeCustomerId: string,
@@ -49,6 +76,8 @@ export async function manageProStatus(
   const subscriptionDetailsFromStripe = await stripe.subscriptions.retrieve(subscriptionId, {
     expand: ['default_payment_method']
   });
+
+  // const checkoutSessionDetailsFromStripe = await stripe.checkout.sessions.retrieve(subscriptionDetailsFromStripe.metadata.checkout_session_id);
 
   let response;
   // updated user status on firestore based on updated on their subscription status on stripe
