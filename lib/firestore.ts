@@ -6,14 +6,15 @@ import { stripe } from "../utils/stripe";
 import Stripe from "stripe";
 import { StripeWebhookSubscirptionEvents } from "@/types";
 
-export async function updateInvoices(invoice: Stripe.Invoice) {
+export async function updateInvoice(invoice: Stripe.Invoice) {
   // extract user details
   const userRef = await firestore.collection('users').where('stripeCustomerId', '==', invoice.customer).get();
   const { uid: FirebaseUID } = userRef?.docs[0]?.data() ?? {};
 
   if (!FirebaseUID) throw new Error('No user found with this customer ID');
 
-  // update user invoice; this will trigger for invoices paid, payment failed, unpaid, and uncollectable
+  // update invoice subcollection on firestore accordingly
+  // this will trigger for invoices paid, payment failed, unpaid, and uncollectable
   const response = await userRef.docs[0].ref
     .collection('invoices')
     .doc(invoice.id)
@@ -27,6 +28,7 @@ export async function updateInvoices(invoice: Stripe.Invoice) {
       status: invoice.status,
     }, { merge: true });
 
+  // handle success/error states
   if (!response) {
     throw new Error('Failed to update user invoices');
   } else {
@@ -35,29 +37,30 @@ export async function updateInvoices(invoice: Stripe.Invoice) {
 }
 
 export async function consoleStuff(itemsToConsoleLog: any) {
-  console.log('Payment Intend here ------->', itemsToConsoleLog);
+  console.log('Console Here ------->', itemsToConsoleLog);
 }
 
-export async function managePurchase(checkout: Stripe.Checkout.Session) {
+export async function manageOneTimePurchase(checkout: Stripe.Checkout.Session) {
   // extract user details
   const userRef = await firestore.collection('users').where('stripeCustomerId', '==', checkout.customer).get();
   const { uid: FirebaseUID } = userRef?.docs[0]?.data() ?? {};
 
   if (!FirebaseUID) throw new Error('User not found');
 
-
+  // extract product details from stripe
   const checkoutLineItemDetails = await stripe.checkout.sessions.listLineItems(checkout.id, {
     limit: 1,
   })
   const productDetailsFromStripe = await stripe.products.retrieve(checkoutLineItemDetails?.data[0]?.price?.product as string);
 
-  // update user pro status based on their one-time purchase
+  // update user status on firestore
   const response = await userRef.docs[0].ref.update({
     isPro: productDetailsFromStripe.metadata.proStatus ? true : false,
     proStatus: productDetailsFromStripe.metadata.proStatus ?? 'basic',
     expires: null,
   });
 
+  // handle success/error states
   if (!response) {
     throw new Error('Failed to update user status based on this stripe purchase');
   } else {
@@ -65,26 +68,24 @@ export async function managePurchase(checkout: Stripe.Checkout.Session) {
   }
 }
 
-export async function manageProStatus(
+export async function manageSubscriptionPurchase(
   subscriptionId: string, 
   stripeCustomerId: string,
   eventType: StripeWebhookSubscirptionEvents
 ) {
-  // retrieve user details based on stripe customer id
+  // extract user details
   const userRef = await firestore.collection('users').where('stripeCustomerId', '==', stripeCustomerId).get();
-  const { uid } = userRef?.docs[0]?.data() ?? {};
+  const { uid: FirebaseUID} = userRef?.docs[0]?.data() ?? {};
 
-  if (!uid) throw new Error('User not found');
+  if (!FirebaseUID) throw new Error('User not found');
 
   // subscription details from stripe based on event's subscription id
   const subscriptionDetailsFromStripe = await stripe.subscriptions.retrieve(subscriptionId, {
     expand: ['default_payment_method']
   });
 
-  // const checkoutSessionDetailsFromStripe = await stripe.checkout.sessions.retrieve(subscriptionDetailsFromStripe.metadata.checkout_session_id);
-
+  // update user status on firestore
   let response;
-  // updated user status on firestore based on updated on their subscription status on stripe
   switch(eventType) {
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_CREATED:
     case StripeWebhookSubscirptionEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
@@ -111,6 +112,7 @@ export async function manageProStatus(
       break;
   }
   
+  // handle success/error states
   if(!response) {
     throw new Error('Failed to update user pro status');
   } else {

@@ -5,10 +5,9 @@ import { stripe } from '@/utils/stripe';
 import Stripe from 'stripe';
 // UTILS
 import {
-   updateInvoices,
-   manageProStatus,
-   managePurchase,
-   consoleStuff,
+   updateInvoice,
+   manageSubscriptionPurchase,
+   manageOneTimePurchase,
 } from '@/lib/firestore';
 // TYPES
 import { StripeWebhookEvents, StripeWebhookSubscirptionEvents } from '@/types';
@@ -45,7 +44,7 @@ export async function POST(req: Request) {
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_DELETED:
           const subscription = event.data.object as Stripe.Subscription;
-          await manageProStatus(
+          await manageSubscriptionPurchase(
             subscription.id,
             subscription.customer as string,
             event.type as StripeWebhookSubscirptionEvents
@@ -55,12 +54,12 @@ export async function POST(req: Request) {
         case StripeWebhookEvents.INVOICE_PAYMENT_SUCCEEDED:
         case StripeWebhookEvents.INVOICE_PAYMENT_FAILED:
           const invoice = event.data.object as Stripe.Invoice;
-          await updateInvoices(invoice);
+          await updateInvoice(invoice);
           break;
         case StripeWebhookEvents.CHECKOUT_SESSION_COMPLETED:
           const checkoutSession = event.data.object as Stripe.Checkout.Session;
           if (checkoutSession.mode === 'payment' && checkoutSession.payment_status === 'paid') {
-            await managePurchase(checkoutSession)
+            await manageOneTimePurchase(checkoutSession)
           }
           break;
         default: 
