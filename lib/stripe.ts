@@ -41,6 +41,10 @@ export async function createStripeCheckoutSession(
       line_items,
       metadata: {
         firebaseUID: user.uid
+      },
+      expand: ['payment_intent'],
+      invoice_creation: {
+        enabled: true
       }
     })
   }

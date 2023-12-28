@@ -34,6 +34,10 @@ export async function updateInvoices(invoice: Stripe.Invoice) {
   }
 }
 
+export async function consoleStuff(itemsToConsoleLog: any) {
+  console.log('Payment Intend here ------->', itemsToConsoleLog);
+}
+
 export async function managePurchase(checkout: Stripe.Checkout.Session) {
   // extract user details
   const userRef = await firestore.collection('users').where('stripeCustomerId', '==', checkout.customer).get();

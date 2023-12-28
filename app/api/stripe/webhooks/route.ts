@@ -7,7 +7,8 @@ import Stripe from 'stripe';
 import {
    updateInvoices,
    manageProStatus,
-   managePurchase
+   managePurchase,
+   consoleStuff,
 } from '@/lib/firestore';
 // TYPES
 import { StripeWebhookEvents, StripeWebhookSubscirptionEvents } from '@/types';
@@ -21,7 +22,7 @@ const relavantEvents = new Set([
   'invoice.paid',
   'invoice.payment_succeeded',
   'invoice.payment_failed',
-  'checkout.session.completed'
+  'checkout.session.completed',
 ]);
 
 export async function POST(req: Request) {
@@ -38,7 +39,6 @@ export async function POST(req: Request) {
   }
 
   if (relavantEvents.has(event.type)) {
-    // console.log('------->' + event.type + 'just triggered');
     try {
       switch(event.type) {
         case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_CREATED:
@@ -59,8 +59,8 @@ export async function POST(req: Request) {
           break;
         case StripeWebhookEvents.CHECKOUT_SESSION_COMPLETED:
           const checkoutSession = event.data.object as Stripe.Checkout.Session;
-          if (checkoutSession.mode === 'payment') {
-            managePurchase(checkoutSession)
+          if (checkoutSession.mode === 'payment' && checkoutSession.payment_status === 'paid') {
+            await managePurchase(checkoutSession)
           }
           break;
         default: 
