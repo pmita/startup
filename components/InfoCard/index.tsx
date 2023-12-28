@@ -2,7 +2,7 @@
 import Tag from "../CourseCard/Tag"
 import { NextSvg } from "../SVGs";
 // UTILS
-import { cn } from '@/utils/helpers';
+import { cn } from "@/utils/helpers";
 
 type InfoCardProps = {
   icon?: boolean;

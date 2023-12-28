@@ -17,7 +17,6 @@ export default function CourseChapterLayout({ children, params }: CourseChapterL
     .filter((course) => course.slugAsParams.split("/")[0] === params.slug && course?._raw.sourceFileName !== 'index.mdx')
     .sort((a, b) => compareAsc(a.weight, b.weight));
 
-  console.log(params);
   return (
     <section className="flex flex-wrap flex-row justify-center items-stretch w-full p-5 pb-0">
       <ChaptersList chapters={chapters} />

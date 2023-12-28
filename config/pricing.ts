@@ -54,5 +54,5 @@ export const pricing = [
     ],
     purchaseType: ProductPurchaseType.ONE_TIME,
     stripePriceId: process.env.NEXT_PUBLIC_STRIPE_YEARLY_SUBSCRIPTION_PRICE_ID || ""
-  },
+  }
 ]

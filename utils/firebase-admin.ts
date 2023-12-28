@@ -15,3 +15,10 @@ if (!admin.apps.length) {
 // SERVICES
 export const firestore = admin.firestore();
 export const firebaseAuth = admin.auth();
+
+// HELPERS
+export const serverTimestamp = admin.firestore.FieldValue.serverTimestamp;
+export const increment = admin.firestore.FieldValue.increment;
+export const fromMillis = admin.firestore.Timestamp.fromMillis;
+export const arrayUnion = admin.firestore.FieldValue.arrayUnion;
+export const arrayRemove = admin.firestore.FieldValue.arrayRemove;

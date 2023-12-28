@@ -1,10 +1,10 @@
 // FIREBASE ADMIN
-import { firebaseAuth, firestore } from "./firebase-admin";
+import { firebaseAuth, firestore } from "@/utils/firebase-admin";
 // STRIPE
-import { stripe } from "./stripe";
+import { stripe } from "@/utils/stripe";
+// TYPES
 import Stripe from "stripe";
 
-/* ----------USER & AUTHENTICATION --------------*/
 export async function validateUser(req: Request) {
   // grab auth token from http headers
   const headers = new Headers(req.headers);
@@ -43,21 +43,4 @@ export async function getOrCreateCustomer(uid: string, params?: Stripe.CustomerC
     // otherwise, retrieve customer with firebaseUID
     return await stripe.customers.retrieve(stripeCustomerId);
   }
-}
-
-/* --------------- Firestore --------------*/
-export async function updateProductOnFirestore(product: Stripe.Product) {
-  const { id, active, name, description, metadata } = product;
-  const response = await firestore.collection('products').doc(id).set({
-    id,
-    active,
-    name,
-    description,
-    image: product.images?.[0] ?? null,
-    metadata
-  }, { merge: true });
-
-  if (!response) throw new Error('Failed to create product on firestore');
-
-  console.log(`Inserted/updated product [${id}]`)
 }

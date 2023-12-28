@@ -5,6 +5,7 @@ import NextSvg from "./NextSVG";
 import ReactSVG from "./ReactSVG";
 import StripeSVG from "./StripeSVG";
 import TailwindSVG from "./TailwindSVG";
+import LockSVG from "./LockSVG";
 
 export { 
   AuthenticationSVG, 
@@ -13,5 +14,6 @@ export {
   NextSvg, 
   ReactSVG, 
   StripeSVG, 
-  TailwindSVG 
+  TailwindSVG,
+  LockSVG
 };

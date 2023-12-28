@@ -7,13 +7,19 @@ import { useCallback, useState, useEffect } from "react";
 // HOOKS
 import { useSignOut } from "@/hooks/useSignOut";
 // UTILS
-import { cn, fetchFromApi } from '@/utils/helpers';
+import { cn, fetchFromApi } from "@/utils/helpers";
 import { getStripe } from "@/utils/stripe-client";
 // TYPES
 import Stripe from "stripe";
 import { ProductPurchaseType} from "@/types/index";
 
-export function SignInButton({ className }: { className?: string }) {
+export function SignInButton({ 
+  className,
+  children
+}: { 
+  className?: string 
+  children?: React.ReactNode
+}) {
   const router = useRouter();
   return(
     <button 
@@ -24,7 +30,7 @@ export function SignInButton({ className }: { className?: string }) {
       )}
       onClick={() => router.push('/signin')}
     >
-      Sign In
+      {children ?? 'Sign In'}
   </button>
   )
 }
@@ -43,52 +49,19 @@ export function SignOutButton({ className }: { className?: string}) {
   )
 }
 
-export function UpgradeToProButton({ className }: { className?: string}) {
-  const handleClick = useCallback(async () => {
-    const session = await fetchFromApi('/api/stripe/checkout', {
-      method: 'POST',
-      body: {
-        line_items: [
-          {
-            price: 'price_1OCT9XGIIdUaTAvR68bhsZMp',
-            quantity: 1,
-          }
-        ]
-      },
-    });
-
-    if (session) {
-      window.location.href = session.url;
-    }
-  }, []);
-
-  return (
-    <button 
-      className={cn(
-        "button",
-        "primaryButton",
-        className 
-      )}
-      onClick={handleClick}
-    >
-      Upgrade to PRO
-    </button>
-  )
-}
-
-export type SubscribeButtonProps = {
+export type CheckoutButtonProps = {
   className?: string;
   stripeProduct: Stripe.Checkout.SessionCreateParams.LineItem;
-  purchaseType: ProductPurchaseType;
+  purchaseType?: ProductPurchaseType;
   children: React.ReactNode;
 }
 
-export function SubscribeButton({ 
+export function CheckoutButton({ 
   className, 
   stripeProduct, 
-  purchaseType= ProductPurchaseType.ONE_TIME,
+  purchaseType = ProductPurchaseType.ONE_TIME,
   children 
-}: SubscribeButtonProps) {
+}: CheckoutButtonProps) {
   // STATE
   const [product, setProduct] = useState({});
 
@@ -127,4 +100,29 @@ export function SubscribeButton({
       {children}
     </button>
   )
+}
+
+export function ManageSubscriptionButton({ className }: { className?: string }) {
+  const handleClick = useCallback(async () => {
+    const session = await fetchFromApi('/api/stripe/portal', {
+      method: 'POST',
+    });
+
+    if (session) {
+      window.location.href = session.url;
+    }
+  }, []);
+
+  return (
+    <button 
+      className={cn(
+        "button",
+        "primaryButton",
+        className 
+      )}
+      onClick={handleClick}
+    >
+      Manage Subscription
+    </button>
+  );
 }

@@ -43,6 +43,7 @@ export const Course = defineDocumentType(() => ({
       tags: { type: 'list', of: { type: 'string' } },
       stack: { type: 'list', of: { type: 'string' } },
       lastmod: { type: 'date' },
+      free: { type: 'boolean' },
     },
     computedFields: {
       slug: {

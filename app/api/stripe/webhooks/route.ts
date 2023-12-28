@@ -4,20 +4,24 @@ import { headers } from 'next/headers';
 import { stripe } from '@/utils/stripe';
 import Stripe from 'stripe';
 // UTILS
-import { updateProductOnFirestore } from '@/utils/helpers-sever';
+import {
+   updateInvoice,
+   manageSubscriptionPurchase,
+   manageOneTimePurchase,
+} from '@/lib/firestore';
+// TYPES
+import { StripeWebhookEvents, StripeWebhookSubscirptionEvents } from '@/types';
 
 const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET || '';
 
-export enum StripeWebhookEvents {
-  PRODUCT_CREATED = 'product.created',
-  PRODUCT_UPDATED = 'product.updated',
-  CUSTOMER_SUBSCRIPTION_CREATED = 'customer.subscription.created',
-}
-
 const relavantEvents = new Set([
-  'product.created',
-  'product.updated',
   'customer.subscription.created',
+  'customer.subscription.updated',
+  'customer.subscription.deleted',
+  'invoice.paid',
+  'invoice.payment_succeeded',
+  'invoice.payment_failed',
+  'checkout.session.completed',
 ]);
 
 export async function POST(req: Request) {
@@ -36,18 +40,28 @@ export async function POST(req: Request) {
   if (relavantEvents.has(event.type)) {
     try {
       switch(event.type) {
-        case StripeWebhookEvents.PRODUCT_CREATED:
-        case StripeWebhookEvents.PRODUCT_UPDATED:
-          await updateProductOnFirestore(event.data.object as Stripe.Product);
+        case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_CREATED:
+        case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_UPDATED:
+        case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_DELETED:
+          const subscription = event.data.object as Stripe.Subscription;
+          await manageSubscriptionPurchase(
+            subscription.id,
+            subscription.customer as string,
+            event.type as StripeWebhookSubscirptionEvents
+          )
           break;
-        // case StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_CREATED:
-        //   const subscription = event.data.object as Stripe.Subscription;
-        //   await manageSubscriptionStatusChange(
-        //     subscription.id,
-        //     subscription.customer as string,
-        //     event.type === StripeWebhookEvents.CUSTOMER_SUBSCRIPTION_CREATED
-        //   )
-        //   break;
+        case StripeWebhookEvents.INVOICE_PAID:
+        case StripeWebhookEvents.INVOICE_PAYMENT_SUCCEEDED:
+        case StripeWebhookEvents.INVOICE_PAYMENT_FAILED:
+          const invoice = event.data.object as Stripe.Invoice;
+          await updateInvoice(invoice);
+          break;
+        case StripeWebhookEvents.CHECKOUT_SESSION_COMPLETED:
+          const checkoutSession = event.data.object as Stripe.Checkout.Session;
+          if (checkoutSession.mode === 'payment' && checkoutSession.payment_status === 'paid') {
+            await manageOneTimePurchase(checkoutSession)
+          }
+          break;
         default: 
           throw new Error('Unhandled relevant event');
       }

@@ -2,7 +2,9 @@
 import Header from "@/components/Header"
 import Title from "@/components/Header/Title"
 import Description from "@/components/Header/Description"
-import { SubscribeButton } from "@/components/Buttons"
+import { CheckoutButton } from "@/components/Buttons"
+import AuthCheck from "@/components/AuthCheck"
+import { SignInButton } from "@/components/Buttons"
 // LIB
 import { pricing } from "@/config/pricing"
 
@@ -56,13 +58,21 @@ export default async function ProMembersPage() {
                         <span className="text-5xl font-bold tracking-tight text-gray-900">${price.price}</span>
                         <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">{price.frequency}</span>
                       </p>
-                      <SubscribeButton 
-                        className="mt-10 w-full bg-primary-black px-3 py-2 text-center text-sm font-semibold text-white border-primary-black shadow-sm hover:bg-indigo-500 hover:border-indigo-500 hover:text-primary-white"
-                        stripeProduct={{ quantity: 1, price: price.stripePriceId }}
-                        purchaseType={price.purchaseType}
-                      >
-                        Buy Now
-                      </SubscribeButton>
+                      <AuthCheck fallback={(
+                        <SignInButton
+                          className="mt-10 w-full bg-primary-black px-3 py-2 text-center text-sm font-semibold text-white border-primary-black shadow-sm hover:bg-indigo-500 hover:border-indigo-500 hover:text-primary-white"
+                        >
+                          Buy Now
+                        </SignInButton>
+                      )}>
+                        <CheckoutButton 
+                          className="mt-10 w-full bg-primary-black px-3 py-2 text-center text-sm font-semibold text-white border-primary-black shadow-sm hover:bg-indigo-500 hover:border-indigo-500 hover:text-primary-white"
+                          stripeProduct={{ quantity: 1, price: price.stripePriceId }}
+                          purchaseType={price.purchaseType}
+                        >
+                          Buy Now
+                        </CheckoutButton>
+                      </AuthCheck>
                       <p className="mt-6 text-xs leading-5 text-gray-600">Invoices and receipts available for easy company reimbursement</p>
                     </div>
                   </div>

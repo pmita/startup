@@ -1,5 +1,5 @@
 // UTILS
-import { cn } from "@/utils/helpers"
+import { cn } from "@/utils/helpers";
 
 type BannerProps = {
   className?: string;
