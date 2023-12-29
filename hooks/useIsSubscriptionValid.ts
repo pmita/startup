@@ -10,10 +10,6 @@ export function useIsSubscriptionValid() {
   const isPeriodValid = expires > new Date().getTime();
   const daysPastExpired = calculateDaysPassed(1703560182799);
 
-  console.log(new Date().getTime());
-
-  console.log('days past expired', daysPastExpired)
-
   switch(proStatus) {
     case PRO_STATUS.LIFE_TIME:
       return true;
