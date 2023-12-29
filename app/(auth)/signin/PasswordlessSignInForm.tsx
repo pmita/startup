@@ -48,19 +48,21 @@ export default function PasswordlessSignInForm(){
   useEffect(() => {
     if (user) {
       router.push('/');
-    } else {
-      if(firebaseAuth.isSignInWithEmailLink(window.location.href)) {
-        let email = localStorage.getItem('emailForSignIn');
-        if(!email) {
-          email = window.prompt('Please provide your email for confirmation') as string;
-        }
+    }
+  }, [router, user]);
 
-        if(email) {
-          confirmEmailLink(email);
-        }
+  useEffect(() => {
+    if(firebaseAuth.isSignInWithEmailLink(window.location.href)) {
+      let email = localStorage.getItem('emailForSignIn');
+      if(!email) {
+        email = window.prompt('Please provide your email for confirmation') as string;
+      }
+
+      if(email) {
+        confirmEmailLink(email);
       }
     }
-  }, [router, confirmEmailLink, user]);
+  }, [confirmEmailLink]);
 
   return (
     <form 
