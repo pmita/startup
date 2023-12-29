@@ -46,7 +46,7 @@ export default function ManageBilling() {
       case PRO_STATUS.PAST_DUE:
         return (
           <>
-            <h3>Your payment is not past due</h3>
+            <h3>Your payment is now past due</h3>
             <p>Please update your payment menthod below</p>
             <ManageSubscriptionButton />
           </>
@@ -54,11 +54,9 @@ export default function ManageBilling() {
       case PRO_STATUS.UNPAID:
         return (
           <>
-            <h3>We have now canceled your subscription</h3>
-            <p>We we unable to collect for your subscription plan. To re-subscribe check our plans</p>
-            <button className="button primaryButton" onClick={() => router.push('/pro')}>
-              PRO
-            </button>
+            <h3>Your payment is now past 7 days</h3>
+            <p>We will be cancelling your subscription soon. To avoid losing access please update your payment method below</p>
+            <ManageSubscriptionButton />
           </>
         )
       default:
