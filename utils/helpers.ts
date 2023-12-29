@@ -29,3 +29,10 @@ export async function fetchFromApi(endpoint: string, options: FetchFromApiOption
 
   return response.json();
 }
+
+export function calculateDaysPassed(date: number) {
+  const today = new Date().getTime();
+  const difference = today - date;
+  const daysPast = Math.floor(difference / (1000 * 3600 * 24));
+  return daysPast;
+}

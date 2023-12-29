@@ -13,6 +13,22 @@ import { getStripe } from "@/utils/stripe-client";
 import Stripe from "stripe";
 import { ProductPurchaseType} from "@/types/index";
 
+export function GoToDashboardButton({ className }: { className?: string }) {
+  const router = useRouter();
+  return (
+    <button 
+      className={cn(
+        "button",
+        "primaryButton",
+        className 
+      )}
+      onClick={() => router.push('/dashboard')}
+    >
+      Check my Dashboard
+    </button>
+  );
+}
+
 export function SignInButton({ 
   className,
   children
