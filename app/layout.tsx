@@ -5,7 +5,7 @@ import { AuthContextProvider } from '@/context/AuthContext';
 // UTILS
 import { fontRoboto, fontPoppins } from '@/utils/font';
 // STLYES
-import './globals.css'
+import '@/styles/globals.css'
 
 
 export const metadata: Metadata = {
