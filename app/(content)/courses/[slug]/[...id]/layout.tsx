@@ -3,6 +3,8 @@ import ChaptersList from "@/components/ChaptersList";
 // LIBRARIES
 import { allCourses } from "@/.contentlayer/generated";
 import { compareAsc } from "date-fns";
+// STYLES
+import '@/styles/mdx.css';
 
 interface CourseChapterLayoutProps {
   children: React.ReactNode;
