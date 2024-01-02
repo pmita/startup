@@ -14,6 +14,7 @@
   @apply grid min-w-full box-decoration-clone bg-[#2d2d2d] p-4 rounded-[0px_0px_6px_6px] border-2 border-solid border-[rgba(42,46,53,0.5)];
   counter-reset: line;
   word-break: break-word;
+  overflow-inline: auto;
 }
 
 [data-rehype-pretty-code-fragment] .line {
