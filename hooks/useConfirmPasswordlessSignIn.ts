@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 // HOOKS
 import { useAuthState } from './useAuthState';
 // UTILS
-import { firebaseAuth, firestore, createTimeStamp } from '@/utils/firebase';
+import { firebaseAuth, firestore } from '@/utils/firebase';
 // TYPES
 import { AuthActionTypes } from '@/types/AuthContextTypes';
 

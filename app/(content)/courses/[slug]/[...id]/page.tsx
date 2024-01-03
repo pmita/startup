@@ -8,6 +8,7 @@ import Title from "@/components/Header/Title";
 import Description from "@/components/Header/Description";
 import { Mdx } from "@/components/MDX";
 import ProgressToggle from "@/components/ProgressToggle";
+import Subscriptioncheck from "@/components/SubscriptionCheck";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
 
@@ -55,9 +56,15 @@ export default async function ChapterPage({ params }: CoursePageProps) {
   
   return (
     <>
-      <div className="text-end">
-        <ProgressToggle chapterId={course?.slugAsParams} />
-      </div>
+      <Subscriptioncheck fallback={(
+          <div className="text-center">
+            You need to be a PRO member to access this course
+          </div>
+      )}>
+        <div className="text-end">
+         <ProgressToggle chapterId={course?.slugAsParams} />
+        </div>
+      </Subscriptioncheck>
       <Header
         className="flex flex-col justify-center items-start gap-6"
         headerTitle={

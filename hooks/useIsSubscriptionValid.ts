@@ -6,9 +6,11 @@ import { PRO_STATUS } from '@/types';
 import { calculateDaysPassed } from '@/utils/helpers';
 
 export function useIsSubscriptionValid() {
+  // HOOKS
   const { expires, proStatus } = useAuthState();
+  // STATE & VARIAB:ES
   const isPeriodValid = expires > new Date().getTime();
-  const daysPastExpired = calculateDaysPassed(1703560182799);
+  const daysPastExpired = calculateDaysPassed(expires);
 
   switch(proStatus) {
     case PRO_STATUS.LIFE_TIME:
