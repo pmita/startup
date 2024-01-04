@@ -8,7 +8,7 @@ import { calculateDaysPassed } from '@/utils/helpers';
 export function useIsSubscriptionValid() {
   // HOOKS
   const { expires, proStatus } = useAuthState();
-  // STATE & VARIAB:ES
+  // STATE & VARIABLES
   const isPeriodValid = expires > new Date().getTime();
   const daysPastExpired = calculateDaysPassed(expires);
 
