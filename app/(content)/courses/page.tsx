@@ -36,14 +36,14 @@ export default async function LessonsPage() {
           />
         }
       />
-      <section className="grid grid-cols-[repeat(auto-fit,minmax(265px,265px))] auto-rows-[380px] gap-8 mx-0 my-4 p-4 justify-center">
+      <section className="grid grid-cols-[repeat(auto-fit,minmax(416px,416px))] auto-rows-[579px] gap-4 my-4 p-4 justify-center">
         {courses.map((course, index) => (
           <CourseCard
             key={index}
-            className="bg-blue-400 border-solid border-primary-black rounded-[12px] w-full h-full"
+            className="bg-blue-400 border-solid border-primary-black rounded-[6px] w-full h-full"
             slug={course?._raw.sourceFileDir}
             image={
-              <div className="w-full h-[60%] relative">
+              <div className="w-full h-[65%] relative">
                 <Link href={`/${course?._raw.sourceFileDir}`}>
                   <ImageWithFallback
                     src={'/images/hacker.png'}
@@ -61,7 +61,7 @@ export default async function LessonsPage() {
                           <Tag 
                             key={tag} 
                             tag={tag}
-                            className="bg-primary-green rounded-[6px] border-[2px] border-solid border-primary-green text-primary-white"
+                            className="bg-primary-green border-[2px] border-solid border-primary-green text-primary-white"
                           /> 
                         ))}
                       </div>
@@ -71,7 +71,7 @@ export default async function LessonsPage() {
             }
             info={
               <InfoCard 
-                className="rounded-b-[6px] bg-primary-white h-[40%] w-full flex flex-col justify-start items-start gap-2.5 p-2.5"
+                className="bg-primary-white h-[35%] w-full flex flex-col justify-start items-start gap-4 p-4"
                 title={course?.title}
                 description={course?.description || ''}
                 hastags={course?.stack}
