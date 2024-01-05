@@ -40,12 +40,12 @@ export default async function LandingBanner() {
               }
             />
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <button className={cn("button", "primaryButton")}>
+              <button className={cn("button", "secondary")}>
                 <Link href={'/pro'}>
                   Get Started
                 </Link>
               </button>
-              <button className={cn("button", "secondaryButton")}>
+              <button className={cn("button", "secondary-outlined")}>
                 <Link href={'/courses'}>
                   Learn More
                 </Link>

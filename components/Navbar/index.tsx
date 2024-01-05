@@ -11,7 +11,7 @@ export default async function Navbar() {
           <h2 
             className="text-2xl p-4 font-poppins font-bold"
           >
-            Codaro.io
+            Codaro<span className="text-primary">.io</span>
           </h2>
         </Link>
       </div>

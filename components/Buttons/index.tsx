@@ -41,7 +41,7 @@ export function SignInButton({
     <button 
       className={cn(
         "button",
-        "primaryButton",
+        "primary",
         className
       )}
       onClick={() => router.push('/signin')}
@@ -56,7 +56,7 @@ export function SignOutButton({ className }: { className?: string}) {
 
   return (      
     <button 
-      className={cn("button", "secondaryButton", className)}
+      className={cn("button", "secondary", className)}
       onClick={signOut}
       disabled={isLoading}
     >

@@ -24,6 +24,13 @@ module.exports = {
       'primary-blue': '#7BB9FA',
       'primary-grey': '#5F5F5F',
       'primary-error': '#CE4C4C',
+      primary: "rgb(var(--primary))",
+      secondary: "rgb(var(--secondary))",
+      alternateOne: "rgb(var(--alternate-one))",
+      alternateTwo: "rgb(var(--alternate-two))",
+      danger: "rgb(var(--danger))",
+      neutral: "rgb(var(--neutral))",
+
     },
     keyframes: {
       left: {
