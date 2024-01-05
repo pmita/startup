@@ -1,3 +1,5 @@
+"use client"
+
 // NEXT
 import Link from 'next/link'
 // COMPONENTS
@@ -5,10 +7,12 @@ import Header from '../Header';
 import Title from '../Header/Title';
 import Description from '../Header/Description';  
 import { CylinderSVG } from '../SVGs';
+import { Button } from '../ui/Button';
 // UTILS
 import { cn } from '@/utils/helpers';
+import { buttonVariants } from '../ui/Button';
 
-export default async function LandingBanner() {
+export default function LandingBanner() {
   return(
     <div className="container min-h-[90vh] flex justify-center items-center">
       <div className="relative isolate px-4 pt-14 lg:px-6">
@@ -50,6 +54,9 @@ export default async function LandingBanner() {
                   Learn More
                 </Link>
               </button>
+              <Button className={cn(buttonVariants({ variant: "secondary", size: "default"}))}>
+                Test
+              </Button>
             </div>
           </div>
         </div>
