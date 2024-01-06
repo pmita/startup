@@ -1,38 +1,46 @@
 "use client"
 
+// REACT
+import { useCallback } from "react";
+// COMPONENTS
+import { Button } from "../ui/Button";
 // HOOKS
 import { useUpdateProgress } from "@/hooks/useUpdateProgress";
 import { useCheckProgress } from "@/hooks/useCheckProgress";
 
-export function MarkComplete({ chapterSlug }: { chapterSlug: string}) {
+function MarkComplete({ chapterSlug }: { chapterSlug: string}) {
   // HOOKS
   const { markComplete } = useUpdateProgress();
 
+  // EVENTS
+  const handleClick = useCallback(() => {
+    markComplete(chapterSlug);
+  }, [chapterSlug, markComplete]);
+
   return (
-    <button 
-      className="button"
-      onClick={() => markComplete(chapterSlug)}
-    >
+    <Button onClick={handleClick}>
       Mark Complete
-    </button>
+    </Button>
   )
 }
 
-export function MarkIncomplete({ chapterSlug }: { chapterSlug: string}) {
+function MarkIncomplete({ chapterSlug }: { chapterSlug: string}) {
   // HOOKS
   const { markIncomplete } = useUpdateProgress();
 
+  // EVENTS
+  const handleClick = useCallback(() => {
+    markIncomplete(chapterSlug);
+  }, [chapterSlug, markIncomplete]);
+
   return (
-    <button 
-      className="button"
-      onClick={() => markIncomplete(chapterSlug)}
-    >
+    <Button onClick={handleClick}>
       Mark Incomplete
-    </button>
+    </Button>
   );
 }
 
-export default function ProgressToggle({ chapterId }: { chapterId?: string}) {
+export function ToggleProgressButton({ chapterId }: { chapterId?: string}) {
     // HOOKS
     const { isCompleted } = useCheckProgress();
 

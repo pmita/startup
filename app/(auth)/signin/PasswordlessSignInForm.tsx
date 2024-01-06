@@ -9,6 +9,7 @@ import { useGoogleSignIn } from '@/hooks/useGoogleSignIn';
 import { usePasswordlessSignIn } from '@/hooks/usePasswordlessSignIn';
 // COMPONENTS
 import InputField from '@/components/InputField';
+import { buttonVariants } from '@/components/ui/Button';
 // LIBRARIES
 import { SubmitHandler, useForm } from 'react-hook-form';
 // UTILS
@@ -89,8 +90,8 @@ export default function PasswordlessSignInForm(){
       )}
       
       {isLoading 
-        ? <button className="button" type="submit" disabled>Loading ...</button>
-        : <button className="button" type="submit">Send Email</button>
+        ? <button className={cn(buttonVariants({ variant: "secondaryOutlined" }))} type="submit" disabled>Loading ...</button>
+        : <button className={cn(buttonVariants({ variant: "secondaryOutlined" }))} type="submit">Send Email</button>
       }
       <button 
         className={cn(
