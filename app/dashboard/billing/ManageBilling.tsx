@@ -4,11 +4,12 @@
 import { useRouter } from "next/navigation";
 // REACT
 import { useCallback } from "react";
+// COMPONENTS
+import { ManageSubscriptionButton } from "@/components/Buttons";
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
 // TYPES
 import { PRO_STATUS } from "@/types/index";
-import { ManageSubscriptionButton } from "@/components/Buttons";
 
 export default function ManageBilling() {
   // STATE

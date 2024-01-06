@@ -1,12 +1,9 @@
-// NEXT
-import Link from 'next/link'
 // COMPONENTS
 import Header from '../Header';
 import Title from '../Header/Title';
 import Description from '../Header/Description';  
+import { RedirectToButton } from '../Buttons/RedirectToButton';
 import { CylinderSVG } from '../SVGs';
-// UTILS
-import { cn } from '@/utils/helpers';
 
 export default async function LandingBanner() {
   return(
@@ -40,18 +37,16 @@ export default async function LandingBanner() {
               }
             />
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Link
-                href={'/pro'}
-                className={cn("button", "primary")}
-              >
-                Get Started
-              </Link>
-              <Link
-                href={'/courses'}
-                className={cn("button", "primary-outlined")}
-              >
-                Learn More
-              </Link>
+              <RedirectToButton
+                variant="primary"
+                redirectTo="/pro"
+                callToAction="Get Started"
+              />
+              <RedirectToButton
+                variant="primaryOutlined"
+                redirectTo="/courses"
+                callToAction="Learn More"
+              />
             </div>
           </div>
         </div>

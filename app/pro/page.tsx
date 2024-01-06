@@ -2,9 +2,8 @@
 import Header from "@/components/Header"
 import Title from "@/components/Header/Title"
 import Description from "@/components/Header/Description"
-import { CheckoutButton } from "@/components/Buttons"
 import AuthCheck from "@/components/AuthCheck"
-import { SignInButton, GoToDashboardButton } from "@/components/Buttons"
+import { RedirectToButton, CheckoutButton } from "@/components/Buttons"
 import Subscriptioncheck from "@/components/SubscriptionCheck"
 // LIB
 import { pricing } from "@/config/pricing"
@@ -15,7 +14,7 @@ export default async function ProMembersPage() {
       <Subscriptioncheck fallback={(
         <>
           <h1>You are a PRO member already ... get out of here!!!</h1>
-          <GoToDashboardButton />
+          <RedirectToButton variant="primary" redirectTo="/dashboard" callToAction="Dashboard" />
         </>
       )}>
         <Header
@@ -66,19 +65,20 @@ export default async function ProMembersPage() {
                           <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">{price.frequency}</span>
                         </p>
                         <AuthCheck fallback={(
-                          <SignInButton
-                            className="mt-10 w-full bg-primary-black px-3 py-2 text-center text-sm font-semibold text-white border-primary-black shadow-sm hover:bg-indigo-500 hover:border-indigo-500 hover:text-primary-white"
-                          >
-                            Buy Now
-                          </SignInButton>
+                          <RedirectToButton 
+                            variant="secondary" 
+                            className="mt-10 w-full hover:bg-indigo-500 hover:border-indigo-500 hover:text-primary-white"
+                            redirectTo="/signin" 
+                            callToAction="Buy Now" 
+                          />
                         )}>
                           <CheckoutButton 
-                            className="mt-10 w-full bg-primary-black px-3 py-2 text-center text-sm font-semibold text-white border-primary-black shadow-sm hover:bg-indigo-500 hover:border-indigo-500 hover:text-primary-white"
+                            variant="secondary"
+                            className="mt-10 w-full hover:bg-indigo-500 hover:border-indigo-500 hover:text-primary-white"
                             stripeProduct={{ quantity: 1, price: price.stripePriceId }}
                             purchaseType={price.purchaseType}
-                          >
-                            Buy Now
-                          </CheckoutButton>
+                            callToAction="Buy Now"
+                          />
                         </AuthCheck>
                         <p className="mt-6 text-xs leading-5 text-gray-600">Invoices and receipts available for easy company reimbursement</p>
                       </div>

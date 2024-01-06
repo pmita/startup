@@ -5,7 +5,7 @@ import Link from "next/link";
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
 // COMPONENTS
-import { SignInButton } from "../Buttons"
+import { RedirectToButton } from "../Buttons/RedirectToButton";
 import Avatar from "../Avatar";
 
 export default function NavbarAvatar() {
@@ -24,7 +24,13 @@ export default function NavbarAvatar() {
           />
         </Link>
       )
-      : <SignInButton />
+      : (
+        <RedirectToButton
+          variant="primary"
+          redirectTo="/signin"
+          callToAction="Sign In"
+        />
+      )
     }
   </>
   )

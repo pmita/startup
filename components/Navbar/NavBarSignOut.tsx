@@ -3,7 +3,7 @@
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
 // COMPONENTS
-import { SignOutButton } from "../Buttons";
+import { SignOutButton } from "../Buttons/SignOutButton";
 
 export default function NavBarSignOut() {
   // HOOKS

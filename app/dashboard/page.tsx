@@ -7,7 +7,7 @@ import { useAuthState } from '@/hooks/useAuthState';
 // COMPONENTS
 import AuthCheck from '@/components/AuthCheck';
 import Avatar from '@/components/Avatar';
-import { SignInButton, SignOutButton } from '@/components/Buttons';
+import { RedirectToButton, SignOutButton } from '@/components/Buttons';
 
 export const MetaData: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://example.com'),
@@ -24,7 +24,7 @@ export default function AccountPage(){
       <AuthCheck fallback={(
         <>
           <h1>You are not signed it ... this page means nothing to you</h1>
-          <SignInButton />
+          <RedirectToButton variant="primary" redirectTo="/signin" callToAction="Sign In" />
         </>
       )}>
         <h1>Welcome to you dashboard, {user?.displayName}</h1>
