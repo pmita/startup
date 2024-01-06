@@ -1,5 +1,3 @@
-"use client"
-
 // NEXT
 import Link from 'next/link'
 // COMPONENTS
@@ -7,12 +5,10 @@ import Header from '../Header';
 import Title from '../Header/Title';
 import Description from '../Header/Description';  
 import { CylinderSVG } from '../SVGs';
-import { Button } from '../ui/Button';
 // UTILS
 import { cn } from '@/utils/helpers';
-import { buttonVariants } from '../ui/Button';
 
-export default function LandingBanner() {
+export default async function LandingBanner() {
   return(
     <div className="container min-h-[90vh] flex justify-center items-center">
       <div className="relative isolate px-4 pt-14 lg:px-6">
@@ -44,19 +40,18 @@ export default function LandingBanner() {
               }
             />
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <button className={cn("button", "secondary")}>
-                <Link href={'/pro'}>
-                  Get Started
-                </Link>
-              </button>
-              <button className={cn("button", "secondary-outlined")}>
-                <Link href={'/courses'}>
-                  Learn More
-                </Link>
-              </button>
-              <Button className={cn(buttonVariants({ variant: "secondary", size: "default"}))}>
-                Test
-              </Button>
+              <Link
+                href={'/pro'}
+                className={cn("button", "primary")}
+              >
+                Get Started
+              </Link>
+              <Link
+                href={'/courses'}
+                className={cn("button", "primary-outlined")}
+              >
+                Learn More
+              </Link>
             </div>
           </div>
         </div>
