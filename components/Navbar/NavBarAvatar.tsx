@@ -5,8 +5,10 @@ import Link from "next/link";
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
 // COMPONENTS
-import { RedirectToButton } from "../Buttons/RedirectToButton";
 import Avatar from "../Avatar";
+import { buttonVariants } from "../ui/Button";
+// UTILS
+import { cn } from "@/utils/helpers";
 
 export default function NavbarAvatar() {
   const { user } = useAuthState();
@@ -25,11 +27,12 @@ export default function NavbarAvatar() {
         </Link>
       )
       : (
-        <RedirectToButton
-          variant="primary"
-          redirectTo="/signin"
-          callToAction="Sign In"
-        />
+        <Link
+          href="/signin"
+          className={cn(buttonVariants({ variant: "primary" }))}
+        >
+          Sign In
+        </Link>
       )
     }
   </>

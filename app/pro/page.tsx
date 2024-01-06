@@ -3,10 +3,13 @@ import Header from "@/components/Header"
 import Title from "@/components/Header/Title"
 import Description from "@/components/Header/Description"
 import AuthCheck from "@/components/AuthCheck"
-import { RedirectToButton, CheckoutButton } from "@/components/Buttons"
+import { CheckoutButton } from "@/components/Buttons"
 import Subscriptioncheck from "@/components/SubscriptionCheck"
 // LIB
 import { pricing } from "@/config/pricing"
+import Link from "next/link"
+import { buttonVariants } from "@/components/ui/Button"
+import { cn } from "@/utils/helpers"
 
 export default async function ProMembersPage() {
   return (
@@ -14,7 +17,12 @@ export default async function ProMembersPage() {
       <Subscriptioncheck fallback={(
         <>
           <h1>You are a PRO member already ... get out of here!!!</h1>
-          <RedirectToButton variant="primary" redirectTo="/dashboard" callToAction="Dashboard" />
+          <Link 
+            href="/dashboard" 
+            className={cn(buttonVariants({ variant: "primary" }))}
+          >
+            Dashboard
+          </Link>
         </>
       )}>
         <Header
@@ -65,12 +73,12 @@ export default async function ProMembersPage() {
                           <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">{price.frequency}</span>
                         </p>
                         <AuthCheck fallback={(
-                          <RedirectToButton 
-                            variant="secondary" 
-                            className="mt-10 w-full hover:bg-indigo-500 hover:border-indigo-500 hover:text-primary-white"
-                            redirectTo="/signin" 
-                            callToAction="Buy Now" 
-                          />
+                          <Link
+                            href="/signin"
+                            className={cn(buttonVariants({ variant: "secondary", className: "mt-10 w-full hover:bg-indigo-500 hover:border-indigo-500 hover:text-primary-white" }))}
+                          >
+                            Buy Now
+                          </Link>
                         )}>
                           <CheckoutButton 
                             variant="secondary"

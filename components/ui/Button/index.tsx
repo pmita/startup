@@ -1,5 +1,4 @@
-"use client"
-
+// UTILS
 import { cn } from "@/utils/helpers";
 // LIBRARIES
 import { VariantProps, cva } from "class-variance-authority";
