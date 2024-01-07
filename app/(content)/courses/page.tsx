@@ -4,13 +4,15 @@ import Link from "next/link"
 import Header from "@/components/Header"
 import CourseCard from "@/components/CourseCard"
 import ImageWithFallback from "@/components/ImageWithFallback"
-import Tag from "@/components/CourseCard/Tag"
+import { Tag, tagVariants } from "@/components/ui/Tag"
 import InfoCard from "@/components/InfoCard"
 import Title from "@/components/Header/Title"
 import Description from "@/components/Header/Description"
 // LIBRARIES
 import { allCourses } from "@/.contentlayer/generated"
 import { compareDesc } from "date-fns"
+// UTILS
+import { cn } from "@/utils/helpers"
 
 
 export default async function LessonsPage() {
@@ -58,11 +60,11 @@ export default async function LessonsPage() {
                     {course?.tags?.length && (
                       <div className="absolute right-[5%] top-[5%] flex justify-end items-center gap-1">
                         {course?.tags?.map((tag) => (
-                          <Tag 
-                            key={tag} 
+                          <Tag
+                            key={tag}
                             tag={tag}
-                            className="bg-primary-green border-[2px] border-solid border-primary-green text-primary-white"
-                          /> 
+                            className={cn(tagVariants({ variant: "primary", size: "lg" }))}
+                          />
                         ))}
                       </div>
                     )}

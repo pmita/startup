@@ -1,5 +1,3 @@
-"use client"
-
 // LIBRARIES
 import { VariantProps, cva } from "class-variance-authority";
 // UTILS
@@ -36,7 +34,7 @@ export const tagVariants = cva(
   }
 )
 
-export default function Tag({ className, variant, size, tag, ...props }: TagProps) {
+export function Tag({ className, variant, size, tag, ...props }: TagProps) {
   // FUNCTIONS
   if(!tag) return null;
 
