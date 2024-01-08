@@ -1,19 +1,17 @@
 // COMPONENTS
-import Tag from "../CourseCard/Tag"
-import { NextSvg } from "../SVGs";
+import { Tag as TagType } from "@/.contentlayer/generated";
 // UTILS
 import { cn } from "@/utils/helpers";
+import { tagVariants, Tag } from "../ui/Tag";
 
 type InfoCardProps = {
-  icon?: boolean;
-  hastags?: string[];
+  hastags?: TagType[];
   title: string;
   description: string;
   className?: string;
 }
 
 export default async function InfoCard({ 
-  icon, 
   hastags, 
   title, 
   description, 
@@ -21,22 +19,17 @@ export default async function InfoCard({
 }: InfoCardProps) {
   return (
     <div className={cn(
-        "w-full flex flex-col justify-start item-start gap-2.5 p-2.5",
+        "w-full flex flex-col justify-start item-start",
         className
       )}
     >
-
-      {icon && (
-        <NextSvg width={48} height={48} fill={'#000'} />
-        )}
-      
       {hastags && hastags.length && (
-        <div className="flex justify-start items-center gap-1">
-          {hastags && hastags.map((hastag) => (
+        <div className="flex justify-start items-center gap-2">
+          {hastags && hastags.map(({ title, variant}) => (
             <Tag 
-              key={hastag} 
-              tag={hastag} 
-              className="bg-primary-black rounded-[6px]"
+              key={title} 
+              tag={title} 
+              className={cn(tagVariants({ variant }))}
             /> 
           ))}
         </div>

@@ -1,6 +1,19 @@
-import { defineDocumentType, makeSource } from 'contentlayer/source-files'
+import { defineDocumentType, defineNestedType, makeSource } from 'contentlayer/source-files'
 import rehypeSlug from 'rehype-slug'
 import rehypePrettyCode from 'rehype-pretty-code'
+
+export const Tag = defineNestedType(() => ({
+  name: 'Tag',
+  fields: {
+    title: { type: 'string' },
+    variant: { 
+      type: 'enum', 
+      options: ['primary', 'primaryOutlined', 'secondary', 'secondaryOutlined', 'alternateOne', 'alternateOneOutlined', 'alternateTwo', 'alternateTwoOutlined'], 
+      default: 'primary' 
+    },
+  },
+
+}))
 
 export const Blog = defineDocumentType(() => ({
   name: 'Blog',
@@ -10,7 +23,7 @@ export const Blog = defineDocumentType(() => ({
     title: { type: 'string', required: true },
     description: { type: 'string' },
     date: { type: 'date', required: true },
-    tags: { type: 'list', of: { type: 'string' } },
+    tags: { type: 'list', of: Tag },
     stack: { type: 'list', of: { type: 'string' } },
     image: { type: 'string' },
     imageAlt: { type: 'string' },
@@ -40,8 +53,8 @@ export const Course = defineDocumentType(() => ({
       youtube: { type: 'string' },
       video_length: { type: 'string' },
       date: { type: 'date', required: true },
-      tags: { type: 'list', of: { type: 'string' } },
-      stack: { type: 'list', of: { type: 'string' } },
+      tags: { type: 'list', of: Tag },
+      stack: { type: 'list', of: Tag },
       lastmod: { type: 'date' },
       free: { type: 'boolean' },
     },

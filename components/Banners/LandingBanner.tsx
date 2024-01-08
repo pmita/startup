@@ -1,10 +1,10 @@
-// NEXT
-import Link from 'next/link'
 // COMPONENTS
 import Header from '../Header';
 import Title from '../Header/Title';
 import Description from '../Header/Description';  
 import { CylinderSVG } from '../SVGs';
+import Link from 'next/link';
+import { buttonVariants } from '../ui/Button';
 // UTILS
 import { cn } from '@/utils/helpers';
 
@@ -40,16 +40,18 @@ export default async function LandingBanner() {
               }
             />
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <button className={cn("button", "primaryButton")}>
-                <Link href={'/pro'}>
-                  Get Started
-                </Link>
-              </button>
-              <button className={cn("button", "secondaryButton")}>
-                <Link href={'/courses'}>
-                  Learn More
-                </Link>
-              </button>
+              <Link 
+                href="/pro"
+                className={cn(buttonVariants({ variant: "primary" }))}
+              >
+                Get Started
+              </Link>
+              <Link 
+                href="/courses"
+                className={cn(buttonVariants({ variant: "primaryOutlined" }))}
+              >
+                Learn More
+              </Link>
             </div>
           </div>
         </div>

@@ -7,11 +7,13 @@ import Header from "@/components/Header";
 import Title from "@/components/Header/Title";
 import Description from "@/components/Header/Description";
 import ImageWithFallback from "@/components/ImageWithFallback";
-import Tag from "@/components/CourseCard/Tag";
 // LIBARIRES
 import { allBlogs } from "@/.contentlayer/generated";
 import { compareDesc, parseISO } from "date-fns";
 import { format } from "date-fns/fp";
+import { tagVariants, Tag } from "@/components/ui/Tag";
+// UTILS
+import { cn } from "@/utils/helpers";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://example.com/blog'),
@@ -57,18 +59,18 @@ export default async function BlogPage() {
         {blogs.map((blog, index) => (
           <div key={index} className="bg-primary-white mx-auto max-w-2xl lg:mx-0 lg:flex lg:max-w-none">
             <div className="p-8 sm:p-10 lg:flex-auto flex flex-col justify-center items-start gap-4">
-              <div className="flex justify-start items-center gap-4">
-                {blog?.tags?.map((tag) => (
+              <div className="flex justify-start items-center gap-2">
+                {blog?.tags?.map(({ title, variant}) => (
                   <Tag 
-                    key={tag} 
-                    tag={'# ' + tag}
-                    className="bg-primary-black rounded-[6px] border-[6px] border-solid border-primary-black"
+                    key={title} 
+                    tag={'# ' + title}
+                    className={cn(tagVariants({ variant, size: 'lg' }))}
                   /> 
                 ))}
                 {blog?.date && (
                   <Tag
-                  tag={format('dd-MMMM-yyyy', parseISO(blog.date)).split('-').join(' ')}
-                    className="bg-primary-white border-[6px] border-solid border-primary-black rounded-[6px] text-primary-black"
+                    tag={format('dd-MMMM-yyyy', parseISO(blog.date)).split('-').join(' ')}
+                    className={cn(tagVariants({ variant: 'secondaryOutlined', size: 'lg' }))}
                   />
                 )}
               </div>

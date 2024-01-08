@@ -3,9 +3,9 @@ import Link from "next/link"
 // COMPONENTS
 import AuthCheck from "../AuthCheck"
 import ChapterProgress from "./ChapterProgress"
-import Tag from "../CourseCard/Tag"
+import { Tag } from "../ui/Tag"
 import { LockSVG } from "../SVGs"
-// LIBRARIES
+// TYPES
 import { Courses } from "@/.contentlayer/generated"
 
 type ChapterListProps = {
@@ -35,7 +35,7 @@ export default async function ChaptersList({ chapters }: ChapterListProps) {
             </span>
             <Tag 
               tag={chapter?.video_length || '1:01'} 
-              className="bg-primary-black bg-opacity-50 rounded-[6px]"
+              className={"bg-primary-black bg-opacity-50 border-none rounded-[6px] p-2" }
             />
           </div>
         </Link>

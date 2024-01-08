@@ -5,8 +5,10 @@ import Link from "next/link";
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
 // COMPONENTS
-import { SignInButton } from "../Buttons"
 import Avatar from "../Avatar";
+import { buttonVariants } from "../ui/Button";
+// UTILS
+import { cn } from "@/utils/helpers";
 
 export default function NavbarAvatar() {
   const { user } = useAuthState();
@@ -24,7 +26,14 @@ export default function NavbarAvatar() {
           />
         </Link>
       )
-      : <SignInButton />
+      : (
+        <Link
+          href="/signin"
+          className={cn(buttonVariants({ variant: "primaryOutlined" }))}
+        >
+          Sign In
+        </Link>
+      )
     }
   </>
   )
