@@ -29,7 +29,7 @@ export default function NavbarAvatar() {
       : (
         <Link
           href="/signin"
-          className={cn(buttonVariants({ variant: "primary" }))}
+          className={cn(buttonVariants({ variant: "primaryOutlined" }))}
         >
           Sign In
         </Link>
