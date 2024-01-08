@@ -59,11 +59,11 @@ export default async function LessonsPage() {
                   />
                     {course?.tags?.length && (
                       <div className="absolute right-[5%] top-[5%] flex justify-end items-center gap-1">
-                        {course?.tags?.map((tag) => (
+                        {course?.tags?.map(({ title, variant }) => (
                           <Tag
-                            key={tag}
-                            tag={tag}
-                            className={cn(tagVariants({ variant: "primary", size: "lg" }))}
+                            key={title}
+                            tag={title}
+                            className={cn(tagVariants({ variant, size: "lg" }))}
                           />
                         ))}
                       </div>

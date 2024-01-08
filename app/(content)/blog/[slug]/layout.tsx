@@ -1,8 +1,7 @@
 // COMPONENTS
 import Banner from "@/components/Banner";
 import Title from "@/components/Header/Title";
-import { tagVariants } from "@/components/ui/Tag";
-import Tag from "@/components/CourseCard/Tag";
+import { tagVariants, Tag } from "@/components/ui/Tag";
 // LIBRARIES
 import { allBlogs } from "@/.contentlayer/generated";
 import { parseISO } from "date-fns";
@@ -36,7 +35,7 @@ export default function BlogPageLayout({ children, params }: BlogPageLayoutProps
           {blog?.date && (
             <Tag
               tag={format('dd-MMMM-yyyy', parseISO(blog.date)).split('-').join(' ')}
-              className="bg-primary-black border-[6px] border-solid border-primary-white rounded-[6px] text-primary-white"
+              className={cn(tagVariants({ className:"bg-secondary rounded-[6px] border-[6px] border-solid border-neutral text-neutral" }))}
             />
           )}
         </div>

@@ -7,12 +7,11 @@ import Header from "@/components/Header";
 import Title from "@/components/Header/Title";
 import Description from "@/components/Header/Description";
 import ImageWithFallback from "@/components/ImageWithFallback";
-import Tag from "@/components/CourseCard/Tag";
 // LIBARIRES
 import { allBlogs } from "@/.contentlayer/generated";
 import { compareDesc, parseISO } from "date-fns";
 import { format } from "date-fns/fp";
-import { tagVariants } from "@/components/ui/Tag";
+import { tagVariants, Tag } from "@/components/ui/Tag";
 // UTILS
 import { cn } from "@/utils/helpers";
 
