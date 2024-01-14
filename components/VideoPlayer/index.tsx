@@ -1,22 +1,27 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-// import Vimeo from '@vimeo/player'
+import { useCallback, useEffect, useRef, useState } from "react"
 import Vimeo from '@vimeo/player';
+// COMPONENTS
+import { buttonVariants } from "../ui/Button";
+import { ToggleProgressButton } from "../Buttons";
+// UTILS
+import { cn } from "@/utils/helpers";
 
 interface VimeoPlayerProps {
-    videoId: number
+    videoId: string | undefined
     onVideoEnded?: () => void
 }
 
 export const VideoPlayer: React.FC<VimeoPlayerProps> = ({videoId, onVideoEnded}) => {
   const playerRef = useRef<Vimeo | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [shouldAutoPlay, setShouldAutoPlay] = useState(false);
 
   useEffect(() => {
     if (!playerRef.current) {
       playerRef.current = new Vimeo('video-player', {
-        id: videoId,
+        id: 902736844,
         autopause: false,
         controls: true
       })
@@ -43,10 +48,27 @@ export const VideoPlayer: React.FC<VimeoPlayerProps> = ({videoId, onVideoEnded})
     }
   }, [isPlaying]);
 
+  // EVENTS
+  const handleAutoPlay = useCallback(() => {
+    setShouldAutoPlay(!shouldAutoPlay);
+  }, [shouldAutoPlay]);
+
   return (
-    <div className="">
-      <div id="video-player" className="w-full h-full" />
-    </div>
+    <>
+      <div className="aspect-video w-full relative bg-primary bg-opacity-50">
+        <div id="video-player" className="absolute top-0 left-0 w-full h-full" />
+      </div>
+      {/* <div className="flex justify-between items-center">
+        <button
+          onClick={handleAutoPlay}
+          className={cn(buttonVariants({ 
+            variant: shouldAutoPlay ? "primary" : "secondary"
+          }))}
+        >
+          {shouldAutoPlay ? 'Play' : 'Pause'}
+        </button>
+      </div> */}
+    </>
   )
 
 }

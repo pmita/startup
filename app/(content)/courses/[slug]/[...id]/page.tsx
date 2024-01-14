@@ -7,9 +7,10 @@ import Header from "@/components/Header";
 import Title from "@/components/Header/Title";
 import Description from "@/components/Header/Description";
 import { Mdx } from "@/components/MDX";
-import { ToggleProgressButton } from "@/components/Buttons";
+import { ToggleProgressButton, ToggleAutoPlayButton } from "@/components/Buttons";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
+import { VideoPlayer } from "@/components/VideoPlayer";
 
 interface CoursePageProps {
   params: {
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: { params: { slug: string, id:
 
   return { 
     title: course.title ,
-    description: course?.description,
+    description: course?.description
   }
 }
 
@@ -55,7 +56,9 @@ export default async function ChapterPage({ params }: CoursePageProps) {
   
   return (
     <>
-      <div className="text-end">
+      <VideoPlayer videoId={course?.vimeo} />
+      <div className="flex justify-between items-center">
+        <ToggleAutoPlayButton />
         <ToggleProgressButton chapterId={course?.slugAsParams} />
       </div>
       <Header
