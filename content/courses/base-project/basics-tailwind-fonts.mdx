@@ -1,0 +1,81 @@
+---
+title: Fonts with Tailwind
+description: Google fonts with Tailwind css
+weight: 4
+date: "2023-01-15"
+free: false
+---
+
+```ts title="./app/layout.tsx"
+import type { Metadata } from 'next'
+import '@/styles/globals.css'; //remember to change the import to alias
+// import our fonts
+import { Roboto, Poppins, } from 'next/font/google'
+
+// and define some font variables
+export const roboto = Roboto({
+// here we can set the details of our fonts
+  subsets: ['latin'],
+  variable: "--font-roboto",
+  weight: ['400', '500', '700', '900'],
+  style: ['normal', 'italic'],
+});
+
+export const poppins = Poppins({
+  subsets: ['latin'],
+  variable: "--font-poppins",
+  weight: ['400', '500', '700', '900'],
+  style: ['normal', 'italic'],
+});
+
+export const metadata: Metadata = {
+  title: 'Our Brand App',
+  description: 'Your brand purpose and description goes here',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+// at last ensure we include these across our entire application
+      <body className={`${roboto.variable} ${poppins.variable}`}>{children}</body>
+    </html>
+  )
+}
+```
+
+```ts title="tailwind.config.ts"
+import type { Config } from 'tailwindcss'
+
+const config: Config = {
+	/// ..same as before
+  theme: {
+    extend: {
+			colors: { 
+				// ...same as before
+			},
+			fontFamily: {
+        roboto: ['var(--font-roboto)'],
+        poppins: ['var(--font-poppins)'],
+      }
+    },
+  },
+  plugins: [],
+}
+export default config
+```
+
+To check that everything is working correctly we can check the colours
+```ts title="./app/page.tsx"
+export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center">
+      <h1 className="font-roboto font-medium text-primary">Hello</h1>
+      <h1 className="font-poppins font-light text-secondary">Hello</h1>
+    </main>
+  )
+}
+```

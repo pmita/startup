@@ -1,0 +1,39 @@
+---
+title: Utility function
+description: Google fonts with Tailwind css
+weight: 5
+date: "2023-01-15"
+free: false
+---
+
+```bash title="terminal"
+npm install tailwind-merge clsx
+```
+
+```ts title="./app/layout.tsx"
+// import our util function
+import { cn } from '@/utils/helpers';
+
+// ...same as before
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body
+{/* We are adding base classes and the font variables */}
+        className={cn(
+          "min-h-screen bg-secondary font-roboto antialiased",
+          roboto.variable,
+          poppins.variable,
+        )}
+      >
+        {children}
+      </body>
+    </html>
+  )
+}
+```

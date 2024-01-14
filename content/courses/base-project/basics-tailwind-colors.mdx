@@ -1,0 +1,66 @@
+---
+title: Colours with Tailwind
+description: Base colors with tailwind.config
+weight: 3
+date: "2023-01-15"
+free: true
+---
+
+```css title="./style/global.css"
+// configure tailwind according to the doocs
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// and add some css variables, typically we do this in root of our
+// appplication
+@layer base {
+// we also set some base colors
+  :root {
+    --primary: 30 30 30; /* black */
+    --secondary: 255 255 255; /* white */
+  }
+}
+```
+
+```ts title="tailwind.config.ts"
+import type { Config } from 'tailwindcss'
+
+const config: Config = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+// now we can access these accross our application
+        primary: 'rgb(var(--primary))',
+// alternatively we can set a color palette like this
+				// primary: {
+        //   400: 'rgba(var(--primary) / 0.7)',
+        //   500: 'rgba(var(--primary) / 0.7)',
+        //   700: 'rgba(var(--primary) / 0.7)',
+        //   900: 'rgba(var(--primary) / 0.9)',
+        // },
+        secondary: 'rgb(var(--secondary))',
+      },
+    },
+  },
+  plugins: [],
+}
+export default config
+```
+
+To check that everything is working correctly we can check the colours
+```ts title="./app/page.tsx"
+export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center">
+      <h1 className="text-primary">Hello</h1>
+      <h1 className="text-secondary">Hello</h1>
+    </main>
+  )
+}
+```
