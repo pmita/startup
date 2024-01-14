@@ -1,0 +1,71 @@
+---
+title: Adding a Navbar
+description: Shaping our first React Component
+weight: 6
+date: "2023-01-15"
+free: false
+---
+
+```ts title="@/components/Navbar.tsx"
+import Link from 'next/link'
+
+export default function Navbar() {
+  return (
+    <nav className="max-w-6xl mx-auto bg-secondary py-8 px-5 flex justify-between lg:px-8">
+      <Link href="/" className="text-2xl text-primary-900 font-bold">OurBrand</Link>
+      <ul className="flex gap-4 pt-1.5 text-md lg:pt-0 lg:text-lg">
+        <li className="lg:px-4">
+          <Link href="/products" className="text-primary opacity-50 font-semibold hover:opacity-90">Products</Link>
+        </li>
+        <li className="lg:pl-4">
+          <Link href="/contact" className="text-primary opacity-50 font-semibold hover:opacity-90">Contact</Link>
+        </li>
+      </ul>
+    </nav>
+  )
+}
+```
+
+```ts title="@/app/layout.tsx"
+// ..same as before
+import Navbar from '@/components/Navbar';
+
+// ..same as before
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body
+        className={cn(
+          "min-h-screen bg-secondary font-roboto antialiased",
+          roboto.variable,
+          poppins.variable,
+        )}
+      >
+// This will include our Navbar at the top of entire application so our
+// entire application has access to it
+        <Navbar />
+        {children}
+      </body>
+    </html>
+  )
+}
+```
+
+```ts title="@/app/contact/page.tsx"
+export default function ContactPage() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center">
+      <h1 
+        className="font-roboto font-medium text-primary"
+      >
+        Welcome to the Contact Page
+      </h1>
+    </main>
+  )
+}
+```

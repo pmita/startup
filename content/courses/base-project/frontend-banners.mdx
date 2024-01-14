@@ -1,0 +1,122 @@
+---
+title: Composable Banners
+description: Following composable principles with react components
+weight: 7
+date: "2023-01-15"
+free: false
+---
+
+```ts title="@/components/Banner.tsx"
+import { cn } from "@/utils/helpers"
+
+export type BannerProps = {
+  className: string;
+  bannerContent?: React.ReactNode;
+  bannerBackground?: React.ReactNode;
+}
+
+export default function Banner({
+  className,
+  bannerContent,
+  bannerBackground
+} : BannerProps) {
+  return (
+    <section className={cn("w-full", className)}>
+      {bannerContent && bannerContent}
+      {bannerBackground && bannerBackground}
+    </section>
+  )
+}
+```
+
+```css title="@/styles/global.css"
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .button {
+    height: 3rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.6rem;
+    transition: var(--transition);
+  }
+
+	.primary {
+	    background-color: theme('colors.primary');
+	    border: 0.3rem solid theme('colors.primary');
+	    color: theme('colors.secondary');
+	  }
+	  .primary:hover {
+	    background-color: theme('colors.secondary');
+	    color: theme('colors.primary');
+	  }
+	
+	  .secondary {
+	    background-color: theme('colors.secondary');
+	    border: 0.3rem solid theme('colors.primary');
+	    color: theme('colors.primary');
+	  }
+	  .secondary:hover {
+	    background-color: theme('colors.primary');
+	    color: theme('colors.secondary');
+	  }
+}
+```
+
+```ts title="@/app/layout.tsx"
+import Link from 'next/link'
+import Image from 'next/image'
+import Banner from "@/components/Banner"
+
+export default function HomePage() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-start">
+      <Banner
+        className="min-h-[90vh] flex justify-center items-stretch md:flex-row flex-col"
+        bannerContent={
+          <>
+            <div className="flex-1 flex flex-col justify-center items-start gap-5 p-10">
+              <h2 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
+                Have an issue with finance? 
+                <br />We are here
+              </h2>
+              <p className="mb-8 leading-relaxed">
+                Copper mug try-hard pitchfork pour-over freegan heirloom neutra air plant cold-pressed tacos poke beard tote bag. Heirloom echo park mlkshk tote bag selvage hot chicken authentic tumeric truffaut hexagon try-hard chambray.
+              </p>
+              <div className="flex justify-center gap-5">
+                <Link 
+                  href='/products'
+                  className="button primary font-poppins text-semibold"
+                >
+                  Products
+                </Link>
+                <Link 
+                  href='/contact'
+                  className="button secondary font-poppins text-semibold"
+                >
+                  Contact
+                </Link>
+              </div>
+            </div> 
+          </>
+        }
+        bannerBackground={
+          <>
+            <div className="bg-primary flex-1 grid place-content-center p-10">
+              <Image 
+                  style={{ width: "auto", height: "100%" }}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  objectFit="cover"
+                  alt="hero" 
+                  src="/banner-img.jpg" />
+            </div>
+          </>
+        }
+      />
+    </main>
+  )
+}
+```
