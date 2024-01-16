@@ -54,9 +54,10 @@ export default async function ChapterPage({ params }: CoursePageProps) {
 
   if (!course) notFound();
   
+  console.log(course?.vimeo, course?.free)
   return (
     <>
-      <VideoPlayer videoId={course?.vimeo} />
+      <VideoPlayer videoId={course?.vimeo ?? undefined} isFree={course?.free ?? false}/>
       <div className="flex justify-between items-center">
         <ToggleAutoPlayButton />
         <ToggleProgressButton chapterId={course?.slugAsParams} />
