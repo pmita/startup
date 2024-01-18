@@ -60,11 +60,11 @@ export const VideoPlayer: React.FC<VimeoPlayerProps> = ({videoId, isFree, onVide
   return (
     <>
     {videoId && (isFree || canAccess) ? (
-      <div className="aspect-video w-full relative bg-secondary bg-opacity-50">
+      <div className="aspect-video w-full relative bg-secondary">
         <div data-vimeo-logo="false" id="video-player" className="absolute top-0 left-0 w-full h-full" />
       </div>
     ) : (
-      <div className="aspect-video w-full relative bg-secondary grid place-content-center gap-10">
+      <div className="aspect-video w-full bg-secondary grid place-content-center gap-10">
         <h2 className="font-bold text-neutral">You can not view this video, upgrade now</h2>
         <Link
           href="/pro"

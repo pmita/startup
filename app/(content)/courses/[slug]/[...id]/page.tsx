@@ -57,26 +57,31 @@ export default async function ChapterPage({ params }: CoursePageProps) {
   console.log(course?.vimeo, course?.free)
   return (
     <>
+    <section 
+      className="flex flex-col justify-start items-stretch gap-10"
+    >
       <VideoPlayer videoId={course?.vimeo ?? undefined} isFree={course?.free ?? false}/>
       <div className="flex justify-between items-center">
         <ToggleAutoPlayButton />
         <ToggleProgressButton chapterId={course?.slugAsParams} />
       </div>
+      
       <Header
-        className="flex flex-col justify-center items-start gap-6"
+        className="flex flex-col justify-center items-start"
         headerTitle={
           <Title 
-            title={course?.title}
-            className="capitalize"
+          title={course?.title}
+          className="capitalize"
           />
         }
         headerDescription={
           <Description
-            description={course?.description || ''}
-            className="capitilize"
+          description={course?.description || ''}
+          className="capitilize"
           />
         }
-      />
+        />
+      </section>
       <section className="container max-w-3xl py-6 lg:py-12">
         <Mdx code={course.body.code} />
       </section>
