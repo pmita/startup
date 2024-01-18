@@ -19,8 +19,6 @@ export default function ChapterProgress({
   const { isCompleted } = useCheckProgress();
   const canAccess = useIsSubscriptionValid();
 
-  console.log(canAccess)
-
   if (!chapterId) return null;
  
   if (!canAccess && !isFree) return <LockSVG width="20px" height="20px" fill="purple"/>
@@ -29,7 +27,6 @@ export default function ChapterProgress({
     <>
       {isCompleted(chapterId || '') ? (
         <>
-        {console.log(chapterId)}
         <div className="w-[20px] h-[20px] rounded-[50%] bg-primary-green" />
         </>
         ) : (
