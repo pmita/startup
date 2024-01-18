@@ -7,10 +7,9 @@ import Header from "@/components/Header";
 import Title from "@/components/Header/Title";
 import Description from "@/components/Header/Description";
 import { Mdx } from "@/components/MDX";
-import { ToggleProgressButton, ToggleAutoPlayButton } from "@/components/Buttons";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
-import { VideoPlayer } from "@/components/VideoPlayer";
+import VideoContainer from "@/components/VideoContainer";
 
 interface CoursePageProps {
   params: {
@@ -60,11 +59,11 @@ export default async function ChapterPage({ params }: CoursePageProps) {
     <section 
       className="flex flex-col justify-start items-stretch gap-10"
     >
-      <VideoPlayer videoId={course?.vimeo ?? undefined} isFree={course?.free ?? false}/>
-      <div className="flex justify-between items-center">
-        <ToggleAutoPlayButton />
-        <ToggleProgressButton chapterId={course?.slugAsParams} />
-      </div>
+      <VideoContainer
+        chapterId={course?.slugAsParams}
+        videoId={course?.vimeo ?? undefined}
+        isFree={course?.free ?? false}
+      />
       
       <Header
         className="flex flex-col justify-center items-start"

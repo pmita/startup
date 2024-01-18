@@ -6,19 +6,23 @@ import Vimeo from '@vimeo/player';
 import { buttonVariants } from "../ui/Button";
 // UTILS
 import { cn } from "@/utils/helpers";
-import { useIsSubscriptionValid } from "@/hooks/useIsSubscriptionValid";
 import Link from "next/link";
 
 interface VimeoPlayerProps {
     videoId: number | undefined
     isFree?: boolean
+    canAccess?: boolean
     onVideoEnded?: () => void
 }
 
-export const VideoPlayer: React.FC<VimeoPlayerProps> = ({videoId, isFree, onVideoEnded}) => {
+export const VideoPlayer = ({
+  videoId, 
+  isFree, 
+  canAccess,
+  onVideoEnded
+}: VimeoPlayerProps) => {
   const playerRef = useRef<any | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const canAccess = useIsSubscriptionValid();
 
   useEffect(() => {
     if (!playerRef.current) {
