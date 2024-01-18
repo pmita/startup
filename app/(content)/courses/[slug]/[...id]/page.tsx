@@ -53,7 +53,6 @@ export default async function ChapterPage({ params }: CoursePageProps) {
 
   if (!course) notFound();
   
-  console.log(course?.vimeo, course?.free)
   return (
     <>
     <section 
