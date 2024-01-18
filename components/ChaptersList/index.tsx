@@ -29,7 +29,7 @@ export default async function ChaptersList({ chapters }: ChapterListProps) {
                 </>
               
               )}>
-                <ChapterProgress chapterId={chapter.slugAsParams} />
+                <ChapterProgress chapterId={chapter.slugAsParams} isFree={chapter?.free}/>
               </AuthCheck>
               <h3>{chapter.title}</h3>
             </span>

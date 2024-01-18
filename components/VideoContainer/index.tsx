@@ -7,9 +7,10 @@ import { ToggleProgressButton } from "../Buttons";
 import { LockSVG } from "../SVGs";
 // HOOKS
 import { useIsSubscriptionValid } from "@/hooks/useIsSubscriptionValid";
+import { useAuthState } from "@/hooks/useAuthState";
 
 interface VideoContainerProps {
-  chapterId?: string | undefined
+  chapterId?: string
   videoId: number | undefined
   isFree?: boolean
 } 
@@ -18,7 +19,10 @@ const VideoContainer = ({
   videoId,
   isFree
 }: VideoContainerProps) => {
+  const { user } = useAuthState();
   const canAccess = useIsSubscriptionValid();
+
+  console.log(user)
 
   return (
     <section className="w-full flex flex-col justify-center items-stretch gap-10">
@@ -31,7 +35,7 @@ const VideoContainer = ({
     {videoId && (
       <div className="flex justify-between items-stretch">
         <ToggleAutoPlayButton />
-        {isFree || canAccess ? (
+        {((isFree || canAccess) && user) ? (
           <ToggleProgressButton chapterId={chapterId} />
         ) : (
           <LockSVG width="30px" height="30px" fill="purple"/>

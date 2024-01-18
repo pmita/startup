@@ -25,8 +25,8 @@ export const VideoPlayer = ({
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    if (!playerRef.current) {
-      if (isFree || canAccess) {
+    if (!playerRef.current && videoId) {
+      if ((isFree || canAccess)) {
         playerRef.current = new Vimeo('video-player', {
           id: videoId,
           controls: true,
