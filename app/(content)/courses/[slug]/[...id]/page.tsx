@@ -1,15 +1,20 @@
 export const revalidate = 1200;
 
 // NEXT
+import Link from "next/link"
 import { notFound } from "next/navigation";
 // COMPONENTS
+import VideoContainer from "@/components/VideoContainer";
+import { buttonVariants } from "@/components/ui/Button";
 import Header from "@/components/Header";
 import Title from "@/components/Header/Title";
 import Description from "@/components/Header/Description";
 import { Mdx } from "@/components/MDX";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
-import VideoContainer from "@/components/VideoContainer";
+// UTILS
+import { getSortedCourseChapters } from "../page";
+import { cn } from "@/utils/helpers";
 
 interface CoursePageProps {
   params: {
@@ -18,7 +23,7 @@ interface CoursePageProps {
   }
 }
 
-async function getDocFromParams(params: any) {
+async function getChapterFromParams(params: any) {
   const slug = params?.slug + '/' + params?.id?.join('/');
   const course = allCourses.find((course) => course.slugAsParams === slug)
 
@@ -49,9 +54,13 @@ export async function generateStaticParams(): Promise<CoursePageProps["params"][
 }
 
 export default async function ChapterPage({ params }: CoursePageProps) {
-  const course = await getDocFromParams(params);
+  const chapter = await getChapterFromParams(params);
+  const sortedChapters = await getSortedCourseChapters(params);
+  const showPreviousButton = chapter?.weight ? chapter?.weight > 0 : false;
+  const showNextButton = chapter?.weight ? chapter?.weight < sortedChapters.length - 1 : false;
 
-  if (!course) notFound();
+
+  if (!chapter) notFound();
   
   return (
     <>
@@ -59,29 +68,54 @@ export default async function ChapterPage({ params }: CoursePageProps) {
       className="flex flex-col justify-start items-stretch gap-10"
     >
       <VideoContainer
-        chapterId={course?.slugAsParams}
-        videoId={course?.vimeo ?? undefined}
-        isFree={course?.free ?? false}
+        chapterId={chapter?.slugAsParams}
+        videoId={chapter?.vimeo ?? undefined}
+        isFree={chapter?.free ?? false}
       />
+
+      <div className="flex justify-center items-center gap-10">
+        {showPreviousButton && (
+          <Link 
+            href={`/courses/${sortedChapters[chapter?.weight - 1].slugAsParams}`}
+            className={cn(buttonVariants({
+              variant: "primary",
+              size: "sm"
+            }))}
+          >
+            Previous
+          </Link>
+        )}
+        {showNextButton && (
+          <Link 
+            href={`/courses/${sortedChapters[chapter?.weight + 1].slugAsParams}`}
+            className={cn(buttonVariants({
+              variant: "primary",
+              size: "sm"
+            }))}
+          >
+            Next
+          </Link>
+        )}
+      </div>
       
       <Header
         className="flex flex-col justify-center items-start"
         headerTitle={
           <Title 
-          title={course?.title}
+          title={chapter?.title}
           className="capitalize"
           />
         }
         headerDescription={
           <Description
-          description={course?.description || ''}
+          description={chapter?.description || ''}
           className="capitilize"
           />
         }
         />
       </section>
       <section className="container max-w-3xl py-6 lg:py-12">
-        <Mdx code={course.body.code} />
+        <Mdx code={chapter.body.code} />
       </section>
     </>
   )
