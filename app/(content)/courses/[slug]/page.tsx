@@ -18,13 +18,19 @@ interface CoursePageProps {
   }
 }
 
-async function getDocFromParams(params: any) {
+async function getLessonFromParams(params: any) {
   const slug = params?.slug;
   const course = allCourses.find((course) => course.slugAsParams === slug)
 
   if (!course) return null;
 
   return course;
+}
+
+export async function getSortedCourseChapters(params: any) {
+  return allCourses
+  .filter((course) => course.slugAsParams.split("/")[0] === params.slug && course?._raw.sourceFileName !== 'index.mdx')
+  .sort((a, b) => compareAsc(a.weight, b.weight));
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
@@ -46,10 +52,8 @@ export async function generateStaticParams(): Promise<CoursePageProps["params"][
 
 
 export default async function LessonPage({ params }: CoursePageProps) {
-  const course = await getDocFromParams(params);
-  const chapters = allCourses
-    .filter((course) => course.slugAsParams.split("/")[0] === params.slug && course?._raw.sourceFileName !== 'index.mdx')
-    .sort((a, b) => compareAsc(a.weight, b.weight));
+  const course = await getLessonFromParams(params);
+  const sortedChapters = await getSortedCourseChapters(params);
 
   if (!course) notFound();
   
@@ -71,8 +75,8 @@ export default async function LessonPage({ params }: CoursePageProps) {
         }
       />
       <section className="grid grid-cols-[repeat(auto-fit,minmax(240px,300px))] auto-rows-[150px] gap-8 mx-0 my-4 p-4 justify-center">
-        {chapters.map((chapter) => (
-          <div key={chapter.weight} className="w-full border-[6px] border-solid border-primary-black hover:border-primary-green flex flex-col justify-center items-start rounded-[12px] bg-primary-white">
+        {sortedChapters.map((chapter) => (
+          <div key={chapter.weight} className="w-full border-[6px] border-solid border-primary-black hover:border-primary-green flex flex-col justify-center items-start rounded-[12px] bg-primary-white p-4">
             <Link href={`/courses/${chapter.slugAsParams}`}>
               <InfoCard
                 title={chapter?.title}

@@ -17,7 +17,7 @@ export default async function ChaptersList({ chapters }: ChapterListProps) {
     <aside className="flex-[1_1_300px] self-stretch flex flex-col flex-start items-between gap-2 w-full order-2 lg:order-1 min-h-[90vh] overflow-scroll p-5">
       {chapters.map((chapter) => (
         <Link href={`/courses/${chapter.slugAsParams}`} key={chapter.weight} className="hover:text-primary-green">
-          <div className="flex justify-between items-center p-2">
+          <div className="flex justify-between items-center p-2 min-h-[48px]">
             <span className="flex justify-start items-center gap-2">
               <AuthCheck fallback={(
                 <>
@@ -29,14 +29,16 @@ export default async function ChaptersList({ chapters }: ChapterListProps) {
                 </>
               
               )}>
-                <ChapterProgress chapterId={chapter.slugAsParams} />
+                <ChapterProgress chapterId={chapter.slugAsParams} isFree={chapter?.free}/>
               </AuthCheck>
               <h3>{chapter.title}</h3>
             </span>
-            <Tag 
-              tag={chapter?.video_length || '1:01'} 
-              className={"bg-primary-black bg-opacity-50 border-none rounded-[6px] p-2" }
-            />
+            {chapter?.video_length && (
+              <Tag 
+                tag={chapter?.video_length} 
+                className={"bg-primary-black bg-opacity-50 border-none rounded-[6px] p-2" }
+              />
+            )}
           </div>
         </Link>
       ))}

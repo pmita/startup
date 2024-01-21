@@ -12,28 +12,15 @@ export const useUpdateProgress = () => {
   const currentUser = firebaseAuth.currentUser;
   const docRef = firestore.collection(`progression`).doc(currentUser?.uid);
 
-  const markComplete = async (slug: string) => {
+  const toggleProgress = async (slug: string, isComplete: boolean) => {
     setIsLoading(true);
 
     try {
-      await docRef.set({ [slug]: true }, { merge: true })
-
-      if (!isCanceled) {
-        setIsLoading(false);
-      }
-    } catch(err) {
-      if (!isCanceled) {
-        setError((err as Error).message);
-        setIsLoading(false);
-      }
-    }
-  }
-
-  const markIncomplete = async (slug: string) => {
-    setIsLoading(true);
-
-    try {
-      await docRef.set({ [slug]: fieldValue.delete() }, { merge: true })
+      await docRef.set({ 
+        [slug]: isComplete ? fieldValue.delete() : !isComplete 
+      }, { 
+        merge: true 
+      });
 
       if (!isCanceled) {
         setIsLoading(false);
@@ -50,5 +37,5 @@ export const useUpdateProgress = () => {
     return () => setIsCanceled(true);
   }, []);
 
-  return { markComplete, markIncomplete, isLoading, error };
+  return { toggleProgress, isLoading, error };
 }
