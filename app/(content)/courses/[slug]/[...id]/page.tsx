@@ -56,8 +56,12 @@ export async function generateStaticParams(): Promise<CoursePageProps["params"][
 export default async function ChapterPage({ params }: CoursePageProps) {
   const chapter = await getChapterFromParams(params);
   const sortedChapters = await getSortedCourseChapters(params);
-  const showPreviousButton = chapter?.weight ? chapter?.weight > 0 : false;
-  const showNextButton = chapter?.weight ? chapter?.weight < sortedChapters.length - 1 : false;
+  const showPrevious = chapter?.weight ? chapter?.weight > 0 : false;
+  const showNext = chapter?.weight 
+  ? chapter?.weight < sortedChapters.length - 1 
+  : chapter?.weight === 0 
+    ? true 
+    : false;
 
 
   if (!chapter) notFound();
@@ -71,32 +75,33 @@ export default async function ChapterPage({ params }: CoursePageProps) {
         chapterId={chapter?.slugAsParams}
         videoId={chapter?.vimeo ?? undefined}
         isFree={chapter?.free ?? false}
+        nextChaptersLinks={
+          <div className="flex justify-center items-center gap-2.5">
+            {showPrevious && (
+              <Link 
+                href={`/courses/${sortedChapters[chapter?.weight - 1].slugAsParams}`}
+                className={cn(buttonVariants({
+                  variant: "secondaryOutlined",
+                  size: "sm"
+                }))}
+              >
+                Play Previous
+              </Link>
+            )}
+            {showNext && (
+              <Link 
+                href={`/courses/${sortedChapters[chapter?.weight + 1].slugAsParams}`}
+                className={cn(buttonVariants({
+                  variant: "secondaryOutlined",
+                  size: "sm"
+                }))}
+              >
+                Play Next
+              </Link>
+            )}
+          </div>
+        }
       />
-
-      <div className="flex justify-center items-center gap-10">
-        {showPreviousButton && (
-          <Link 
-            href={`/courses/${sortedChapters[chapter?.weight - 1].slugAsParams}`}
-            className={cn(buttonVariants({
-              variant: "primary",
-              size: "sm"
-            }))}
-          >
-            Previous
-          </Link>
-        )}
-        {showNextButton && (
-          <Link 
-            href={`/courses/${sortedChapters[chapter?.weight + 1].slugAsParams}`}
-            className={cn(buttonVariants({
-              variant: "primary",
-              size: "sm"
-            }))}
-          >
-            Next
-          </Link>
-        )}
-      </div>
       
       <Header
         className="flex flex-col justify-center items-start"

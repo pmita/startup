@@ -13,11 +13,13 @@ interface VideoContainerProps {
   chapterId?: string
   videoId: number | undefined
   isFree?: boolean
+  nextChaptersLinks?: React.ReactNode
 } 
 const VideoContainer = ({
   chapterId,
   videoId,
-  isFree
+  isFree,
+  nextChaptersLinks,
 }: VideoContainerProps) => {
   const { user } = useAuthState();
   const canAccess = useIsSubscriptionValid();
@@ -32,16 +34,17 @@ const VideoContainer = ({
         canAccess={canAccess}
       />
 
-    {videoId && (
       <div className="flex justify-between items-stretch">
-        <ToggleAutoPlayButton />
-        {((isFree || canAccess) && user) ? (
-          <ToggleProgressButton chapterId={chapterId} />
-        ) : (
-          <LockSVG width="30px" height="30px" fill="purple"/>
-        )}
+        {nextChaptersLinks && nextChaptersLinks}
+        <div className="flex justify-center items-center gap-2.5">
+          {videoId && <ToggleAutoPlayButton />}
+          {((isFree || canAccess) && user) ? (
+            <ToggleProgressButton chapterId={chapterId} />
+          ) : (
+            <LockSVG width="25px" height="25px" fill="green"/>
+          )}
+        </div>
       </div>
-    )}
     </section>
   )
 }

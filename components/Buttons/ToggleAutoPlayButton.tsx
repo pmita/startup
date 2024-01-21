@@ -21,11 +21,12 @@ export function ToggleAutoPlayButton({ className }: ToggleAutoPlayButtonProps) {
       <button
         onClick={handleAutoPlay}
         className={cn(buttonVariants({ 
-          variant: shouldAutoPlay ? "primary" : "secondary", 
+          variant: shouldAutoPlay ? "primary" : "secondaryOutlined", 
+          size: "sm",
           className
         }))}
       >
-        {shouldAutoPlay ? 'Play' : 'Pause'}
+        {shouldAutoPlay ? 'AutoPlay: On' : 'AutoPlay: Off'}
       </button>
     );
 }
