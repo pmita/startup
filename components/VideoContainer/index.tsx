@@ -4,10 +4,9 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 // REACT
-import { useState } from "react";
+import { useCallback } from "react";
 // COMPONENTS
 import { VideoPlayer } from "../VideoPlayer";
-import { ToggleAutoPlayButton } from "../Buttons";
 import { ToggleProgressButton } from "../Buttons";
 import { LockSVG } from "../SVGs";
 import { buttonVariants } from "../ui/Button";
@@ -21,7 +20,6 @@ interface VideoContainerProps {
   chapterId?: string
   videoId: number | undefined
   isFree?: boolean
-  nextChaptersLinks?: React.ReactNode
   prevChapterLink?: React.ReactNode
   nextChapterLink?: React.ReactNode
 } 
@@ -29,22 +27,20 @@ const VideoContainer = ({
   chapterId,
   videoId,
   isFree,
-  nextChaptersLinks,
   prevChapterLink = false,
   nextChapterLink = false,
 }: VideoContainerProps) => {
   // STATE && HOOKS
-  const [isAutoPlayOn, setIsAutoPlayOn] = useState(true);
   const { user } = useAuthState();
   const canAccess = useIsSubscriptionValid();
   const router = useRouter();
 
   // EVENTS
-  const onVideoEnded = () => {
+  const onVideoEnded = useCallback(() => {
     if (true && nextChapterLink) {
-      router.push(`/courses/${nextChapterLink}`);
+      router.push(`/courses/${nextChapterLink}` + `?autoplay=true`);
     }
-  } 
+  }, [nextChapterLink, router]);
 
   return (
     <section className="w-full flex flex-col justify-center items-stretch gap-10">
@@ -56,7 +52,6 @@ const VideoContainer = ({
       />
 
       <div className="flex justify-between items-stretch">
-        {/* {nextChaptersLinks && nextChaptersLinks} */}
         <div className="flex justify-center items-center gap-2.5">
             {prevChapterLink && (
               <Link 
@@ -82,7 +77,17 @@ const VideoContainer = ({
             )}
           </div>
         <div className="flex justify-center items-center gap-2.5">
-          {videoId && <ToggleAutoPlayButton />}
+          {/* {videoId && (
+            <button
+              onClick={handleToggleAutoPlay}
+              className={cn(buttonVariants({
+                variant: isAutoPlayOn ? "primary" : "secondaryOutlined",
+                size: "sm"
+              }))}
+            >
+              {isAutoPlayOn ? 'AutoPlay: On' : 'AutoPlay: Off'}
+            </button>
+          )} */}
           {((isFree || canAccess) && user) ? (
             <ToggleProgressButton chapterId={chapterId} />
           ) : (

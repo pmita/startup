@@ -1,11 +1,9 @@
 export const revalidate = 1200;
 
 // NEXT
-import Link from "next/link"
 import { notFound } from "next/navigation";
 // COMPONENTS
 import VideoContainer from "@/components/VideoContainer";
-import { buttonVariants } from "@/components/ui/Button";
 import Header from "@/components/Header";
 import Title from "@/components/Header/Title";
 import Description from "@/components/Header/Description";
@@ -14,7 +12,6 @@ import { Mdx } from "@/components/MDX";
 import { allCourses } from "contentlayer/generated";
 // UTILS
 import { getSortedCourseChapters } from "../page";
-import { cn } from "@/utils/helpers";
 
 interface CoursePageProps {
   params: {
@@ -77,32 +74,6 @@ export default async function ChapterPage({ params }: CoursePageProps) {
         isFree={chapter?.free ?? false}
         prevChapterLink={showPrevious && sortedChapters[chapter?.weight - 1].slugAsParams}
         nextChapterLink={showNext && sortedChapters[chapter?.weight + 1].slugAsParams}
-        nextChaptersLinks={
-          <div className="flex justify-center items-center gap-2.5">
-            {showPrevious && (
-              <Link 
-                href={`/courses/${sortedChapters[chapter?.weight - 1].slugAsParams}`}
-                className={cn(buttonVariants({
-                  variant: "secondaryOutlined",
-                  size: "sm"
-                }))}
-              >
-                Play Previous
-              </Link>
-            )}
-            {showNext && (
-              <Link 
-                href={`/courses/${sortedChapters[chapter?.weight + 1].slugAsParams}`}
-                className={cn(buttonVariants({
-                  variant: "secondaryOutlined",
-                  size: "sm"
-                }))}
-              >
-                Play Next
-              </Link>
-            )}
-          </div>
-        }
       />
       
       <Header
