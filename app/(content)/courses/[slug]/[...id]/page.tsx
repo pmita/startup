@@ -75,6 +75,8 @@ export default async function ChapterPage({ params }: CoursePageProps) {
         chapterId={chapter?.slugAsParams}
         videoId={chapter?.vimeo ?? undefined}
         isFree={chapter?.free ?? false}
+        prevChapterLink={showPrevious && sortedChapters[chapter?.weight - 1].slugAsParams}
+        nextChapterLink={showNext && sortedChapters[chapter?.weight + 1].slugAsParams}
         nextChaptersLinks={
           <div className="flex justify-center items-center gap-2.5">
             {showPrevious && (

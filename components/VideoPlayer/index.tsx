@@ -1,12 +1,13 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import Vimeo from '@vimeo/player';
 // COMPONENTS
 import { buttonVariants } from "../ui/Button";
 // UTILS
 import { cn } from "@/utils/helpers";
 import Link from "next/link";
+// LIBRARIES
+import Vimeo from '@vimeo/player';
 
 interface VimeoPlayerProps {
     videoId: number | undefined
@@ -21,10 +22,19 @@ export const VideoPlayer = ({
   canAccess,
   onVideoEnded
 }: VimeoPlayerProps) => {
-  const playerRef = useRef<any | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const playerRef = useRef<Vimeo | null>(null);
+  const [cleanUpImmediately, setCleanUpImmediately] = useState(false);
 
   useEffect(() => {
+    const handleCleanup = () => {
+      if (playerRef.current && cleanUpImmediately) {
+        playerRef.current.off('ended');
+        playerRef.current.destroy();
+        playerRef.current = null;
+        setCleanUpImmediately(false);
+      }
+    }
+
     if (!playerRef.current && videoId) {
       if ((isFree || canAccess)) {
         playerRef.current = new Vimeo('video-player', {
@@ -36,28 +46,16 @@ export const VideoPlayer = ({
         });
 
         playerRef.current.on('ended', () => {
-          onVideoEnded && onVideoEnded();
-          setIsPlaying(false);
+          setCleanUpImmediately(true);
+          setTimeout(() => {
+            onVideoEnded && onVideoEnded();
+          }, 2000);
         });
       }
     }
 
-    return () => {
-      if (playerRef.current) {
-        playerRef.current.off('ended');
-      }
-    };
-  }, [onVideoEnded, videoId, isFree, canAccess]);
-
-  useEffect(() => {
-    if (playerRef.current) {
-      if (isPlaying) {
-        playerRef.current.play();
-      } else {
-        playerRef.current.pause();
-      }
-    }
-  }, [isPlaying]);
+    return () => handleCleanup();
+  }, [onVideoEnded, videoId, isFree, canAccess, cleanUpImmediately]);
 
   if (!videoId) return null;
 
@@ -83,5 +81,4 @@ export const VideoPlayer = ({
     )}
     </>
   )
-
 }
