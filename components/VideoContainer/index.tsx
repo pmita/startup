@@ -37,8 +37,8 @@ const VideoContainer = ({
 
   // EVENTS
   const onVideoEnded = useCallback(() => {
-    if (true && nextChapterLink) {
-      router.push(`/courses/${nextChapterLink}` + `?autoplay=true`);
+    if (false && nextChapterLink) {
+      router.push(`/courses/${nextChapterLink}` +  `?autoplay=true`);
     }
   }, [nextChapterLink, router]);
 
@@ -77,19 +77,11 @@ const VideoContainer = ({
             )}
           </div>
         <div className="flex justify-center items-center gap-2.5">
-          {/* {videoId && (
-            <button
-              onClick={handleToggleAutoPlay}
-              className={cn(buttonVariants({
-                variant: isAutoPlayOn ? "primary" : "secondaryOutlined",
-                size: "sm"
-              }))}
-            >
-              {isAutoPlayOn ? 'AutoPlay: On' : 'AutoPlay: Off'}
-            </button>
-          )} */}
           {((isFree || canAccess) && user) ? (
-            <ToggleProgressButton chapterId={chapterId} />
+            <>
+              <span className="font-roboto font-bold text-4x text-secondary">Completed: </span>
+              <ToggleProgressButton chapterId={chapterId} />
+            </>
           ) : (
             <LockSVG width="25px" height="25px" fill="green"/>
           )}

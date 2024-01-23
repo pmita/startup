@@ -2,8 +2,6 @@
 
 // REACT
 import { useCallback } from "react";
-// COMPONENTS
-import { Button, buttonVariants } from "../ui/Button";
 // HOOKS
 import { useUpdateProgress } from "@/hooks/useUpdateProgress";
 import { useCheckProgress } from "@/hooks/useCheckProgress";
@@ -23,11 +21,12 @@ export function ToggleProgressButton({ chapterId }: { chapterId?: string}) {
     if (!chapterId) return null;
 
     return (
-      <Button
+      <button
+        className={cn(
+          "w-[20px] h-[20px] rounded-[50%]",
+          isCompleted(chapterId) ? "bg-primary-green" : "bg-primary-black opacity-75"
+        )}
         onClick={handleClick}
-        className={cn(buttonVariants({ variant: 'primary'}))}
-      >
-        {isCompleted(chapterId ?? '') ? 'Mark Incomplete' : 'Mark Complete'}
-      </Button>
+      />
     );
 }
