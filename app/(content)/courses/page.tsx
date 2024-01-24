@@ -6,7 +6,7 @@ import CourseCard from "@/components/CourseCard"
 import ImageWithFallback from "@/components/ImageWithFallback"
 import { Tag, tagVariants } from "@/components/ui/Tag"
 import InfoCard from "@/components/InfoCard"
-import Title from "@/components/Header/Title"
+import Title, { titleVariants } from "@/components/ui/Title"
 import Description from "@/components/Header/Description"
 // LIBRARIES
 import { allCourses } from "@/.contentlayer/generated"
@@ -28,7 +28,11 @@ export default async function LessonsPage() {
         headerTitle={
           <Title 
             title="All Courses"
-            className="capitalize"
+            className={cn(titleVariants({
+              variant: "secondary",
+              size: "lg",
+              className: "capitalize"
+            }))}
           />
         }
         headerDescription={

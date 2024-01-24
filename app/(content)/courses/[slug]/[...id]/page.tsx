@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 // COMPONENTS
 import VideoContainer from "@/components/VideoContainer";
 import Header from "@/components/Header";
-import Title from "@/components/Header/Title";
+import Title, { titleVariants } from "@/components/ui/Title";
 import Description from "@/components/Header/Description";
 import { Mdx } from "@/components/MDX";
 // LIBRARIES
@@ -113,7 +113,12 @@ export default async function ChapterPage({ params }: CoursePageProps) {
         headerTitle={
           <Title 
           title={chapter?.title}
-          className="capitalize"
+          className={cn(titleVariants({
+            variant: "secondary",
+            size: "lg",
+            className: "capitalize"
+          
+          }))}
           />
         }
         headerDescription={

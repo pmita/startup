@@ -1,12 +1,14 @@
 // COMPONENTS
 import Banner from "@/components/Banner";
-import Title from "@/components/Header/Title";
+import Title, { titleVariants } from "@/components/ui/Title";
 import Description from "@/components/Header/Description";
 import LandingBanner from "@/components/Banners/LandingBanner";
 import Header from "@/components/Header";
 import InfoCard from "@/components/InfoCard";
 // CONFIG
 import { features } from "@/config/features";
+// UTILS
+import { cn } from "@/utils/helpers";
 
 export default async function Home() {
   return (
@@ -54,7 +56,11 @@ export default async function Home() {
             headerTitle={
               <Title 
                 title="Features"
-                className="capitalize"
+                className={cn(titleVariants({ 
+                  variant: "secondary", 
+                  size: "lg",
+                  className: "capitalize" 
+                }))}
               />
             }
             headerDescription={
@@ -70,7 +76,6 @@ export default async function Home() {
             {features.map((feature) => (
               <div key={feature.id} className="w-full border-[5px] border-solid border-primary-black columnCenterLeft gap-1 rounded-[12px] bg-primary-white p-2.5">
                 <InfoCard 
-                  icon={true}
                   title={feature?.title}
                   description={feature?.description}
                 />

@@ -4,7 +4,7 @@ import Link from "next/link";
 // COMPONENTS
 import Banner from "@/components/Banner";
 import Header from "@/components/Header";
-import Title from "@/components/Header/Title";
+import Title, { titleVariants } from "@/components/ui/Title";
 import Description from "@/components/Header/Description";
 import ImageWithFallback from "@/components/ImageWithFallback";
 // LIBARIRES
@@ -36,7 +36,10 @@ export default async function BlogPage() {
         bannerDescription={
           <Title 
             title="Insights about coding, entrepreneurship, tools, and the in-betweens"
-            className="capitalize"
+            className={cn(titleVariants({
+              variant: "neutral",
+              size: "lg",
+            }))}
           />
         }
       />
@@ -45,7 +48,11 @@ export default async function BlogPage() {
         headerTitle={
           <Title 
             title="All Blog Articles"
-            className="capitalize"
+            className={cn(titleVariants({
+              variant: "secondary",
+              size: "lg",
+              className: "capitalize"
+            }))}
           />
         }
         headerDescription={

@@ -1,6 +1,6 @@
 // COMPONENTS
 import Banner from "@/components/Banner";
-import Title from "@/components/Header/Title";
+import Title, { titleVariants } from "@/components/ui/Title";
 import { tagVariants, Tag } from "@/components/ui/Tag";
 // LIBRARIES
 import { allBlogs } from "@/.contentlayer/generated";
@@ -43,7 +43,11 @@ export default function BlogPageLayout({ children, params }: BlogPageLayoutProps
         bannerDescription={
           <Title 
             title={blog?.title ?? "Iconing Title"}
-            className="capitalize"
+            className={cn(titleVariants({
+              variant: "primary",
+              size: "lg",
+              className: "capitalize"
+            }))}
           />
         }
       />
