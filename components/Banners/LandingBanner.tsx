@@ -1,7 +1,7 @@
 // COMPONENTS
 import Header from '../Header';
 import Title, { titleVariants } from '../ui/Title';
-import Description from '../Header/Description';  
+import Description, { descriptionVariants } from '../ui/Description';
 import { CylinderSVG } from '../SVGs';
 import Link from 'next/link';
 import { buttonVariants } from '../ui/Button';
@@ -39,7 +39,10 @@ export default async function LandingBanner() {
               headerDescription={
                 <Description
                   description="Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua"
-                  className="capitilize"
+                  className={cn(descriptionVariants({
+                    variant: "neutral",
+                    size: "lg"
+                  }))}
                 />
               }
             />

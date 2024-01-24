@@ -7,7 +7,7 @@ import ImageWithFallback from "@/components/ImageWithFallback"
 import { Tag, tagVariants } from "@/components/ui/Tag"
 import InfoCard from "@/components/InfoCard"
 import Title, { titleVariants } from "@/components/ui/Title"
-import Description from "@/components/Header/Description"
+import Description, { descriptionVariants } from "@/components/ui/Description"
 // LIBRARIES
 import { allCourses } from "@/.contentlayer/generated"
 import { compareDesc } from "date-fns"
@@ -38,7 +38,10 @@ export default async function LessonsPage() {
         headerDescription={
           <Description
             description="Built feature based projects and stop following step by step tutorials when coding"
-            className="capitilize"
+            className={cn(descriptionVariants({
+              variant: "neutral",
+              size: "lg"
+            }))}
           />
         }
       />
