@@ -14,7 +14,6 @@ export default async function Banner({ className, bannerTitle, bannerTags, banne
       className={cn(
         "flex flex-col justify-center items-stretch",
         className
-
       )}
     >
 

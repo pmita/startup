@@ -34,7 +34,7 @@ export const tagVariants = cva(
   }
 )
 
-export function Tag({ className, variant, size, tag, ...props }: TagProps) {
+export async function Tag({ className, variant, size, tag, ...props }: TagProps) {
   // FUNCTIONS
   if(!tag) return null;
 

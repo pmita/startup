@@ -2,10 +2,10 @@
 import { type Metadata } from "next";
 import Link from "next/link";
 // COMPONENTS
-import Banner from "@/components/Banner";
+import Banner, { bannerVariants } from "@/components/ui/Banner";
 import Header from "@/components/Header";
-import Title from "@/components/Header/Title";
-import Description from "@/components/Header/Description";
+import Title, { titleVariants } from "@/components/ui/Title";
+import Description, { descriptionVariants } from "@/components/ui/Description";
 import ImageWithFallback from "@/components/ImageWithFallback";
 // LIBARIRES
 import { allBlogs } from "@/.contentlayer/generated";
@@ -29,14 +29,20 @@ export default async function BlogPage() {
   return (
     <>
       <Banner
-        className="rounded-[12px] min-h-[505px] w-full bg-primary-black text-primary-white flex flex-col justify-center items-start gap-10 p-10"
+        className={cn(bannerVariants({
+          size: "default",
+          className: "rounded-[12px] min-h-[505px] w-full bg-primary-black text-primary-white flex flex-col justify-center items-start gap-10 p-10"
+        }))}
         bannerTitle={(
           <h3 className="text-2xl font-bold tracking-tight text-primary-white">👋 Hello</h3>
         )}
         bannerDescription={
           <Title 
             title="Insights about coding, entrepreneurship, tools, and the in-betweens"
-            className="capitalize"
+            className={cn(titleVariants({
+              variant: "neutral",
+              size: "lg",
+            }))}
           />
         }
       />
@@ -45,13 +51,20 @@ export default async function BlogPage() {
         headerTitle={
           <Title 
             title="All Blog Articles"
-            className="capitalize"
+            className={cn(titleVariants({
+              variant: "secondary",
+              size: "lg",
+              className: "capitalize"
+            }))}
           />
         }
         headerDescription={
           <Description
             description="What's on our mind currently"
-            className="capitilize"
+            className={cn(descriptionVariants({
+              variant: "neutral",
+              size: "lg"
+            }))}
           />
         }
       />

@@ -5,12 +5,13 @@ import Link from "next/link"
 import { notFound } from "next/navigation";
 // COMPONENTS
 import Header from "@/components/Header";
-import Title from "@/components/Header/Title";
-import Description from "@/components/Header/Description";
+import Title, { titleVariants} from "@/components/ui/Title";
+import Description, { descriptionVariants } from "@/components/ui/Description";
 import InfoCard from "@/components/InfoCard";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
 import { compareAsc } from "date-fns";
+import { cn } from "@/utils/helpers";
 
 interface CoursePageProps {
   params: {
@@ -64,13 +65,21 @@ export default async function LessonPage({ params }: CoursePageProps) {
         headerTitle={
           <Title 
             title={course?.title}
-            className="capitalize"
+            className={cn(titleVariants({
+              variant: "secondary",
+              size: "lg",
+              className: "capitalize"
+            
+            }))}
           />
         }
         headerDescription={
           <Description
             description={course?.description || ''}
-            className="capitilize"
+            className={cn(descriptionVariants({
+              variant: "neutral",
+              size: "lg"
+            }))}
           />
         }
       />

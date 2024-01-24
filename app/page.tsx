@@ -1,66 +1,45 @@
 // COMPONENTS
-import Banner from "@/components/Banner";
-import Title from "@/components/Header/Title";
-import Description from "@/components/Header/Description";
+import Banner, { bannerVariants } from "@/components/ui/Banner";
+import Title, { titleVariants } from "@/components/ui/Title";
+import Description, { descriptionVariants } from "@/components/ui/Description";
 import LandingBanner from "@/components/Banners/LandingBanner";
 import Header from "@/components/Header";
 import InfoCard from "@/components/InfoCard";
 // CONFIG
 import { features } from "@/config/features";
+// UTILS
+import { cn } from "@/utils/helpers";
 
 export default async function Home() {
   return (
     <div>
       <LandingBanner />
-      {/* Not Ready Yet, Need to troubleshoot animation in the background */}
-      {/* <Banner 
-        bannerTitle={
-          <Header
-            className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 text-center flex flex-col justify-center items-center gap-6"
-            headerTitle={
-              <Title 
-                title="Data to enrich your online business"
-                className="capitalize"
-              />
-            }
-            headerDescription={
-            <Description
-              description="Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua"
-              className="capitilize"
-            />
-          }
-          />
-        }
-        bannerDescription={
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-          <button className={cn("button", "primaryButton")}>
-            <Link href={'/pro'}>
-              Get Started
-            </Link>
-          </button>
-          <button className={cn("button", "secondaryButton")}>
-            <Link href={'/courses'}>
-              Learn More
-            </Link>
-          </button>
-        </div>
-        }
-      /> */}
       <Banner 
-        className="container flex flex-col justify-start items-stretch gap-16 h-[100vh]"
+        className={cn(bannerVariants({
+          variant: "fullHeight",
+          size: "default",
+          className: "container flex flex-col justify-start items-stretch gap-16"
+        }))}
         bannerTitle={
           <Header
             className="flex flex-col justify-center items-center gap-6"
             headerTitle={
               <Title 
                 title="Features"
-                className="capitalize"
+                className={cn(titleVariants({ 
+                  variant: "secondary", 
+                  size: "lg",
+                  className: "capitalize" 
+                }))}
               />
             }
             headerDescription={
               <Description
                 description="Learn the latest web development trends with feature based project. We cover everything from authentication, UI/UX, database configuration, and many more"
-                className="capitilize"
+                className={cn(descriptionVariants({
+                  variant: "secondary",
+                  size: "default"
+                }))}
               />
             }
           />
@@ -70,7 +49,6 @@ export default async function Home() {
             {features.map((feature) => (
               <div key={feature.id} className="w-full border-[5px] border-solid border-primary-black columnCenterLeft gap-1 rounded-[12px] bg-primary-white p-2.5">
                 <InfoCard 
-                  icon={true}
                   title={feature?.title}
                   description={feature?.description}
                 />

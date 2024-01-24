@@ -1,7 +1,7 @@
 // COMPONENTS
 import Header from '../Header';
-import Title from '../Header/Title';
-import Description from '../Header/Description';  
+import Title, { titleVariants } from '../ui/Title';
+import Description, { descriptionVariants } from '../ui/Description';
 import { CylinderSVG } from '../SVGs';
 import Link from 'next/link';
 import { buttonVariants } from '../ui/Button';
@@ -29,13 +29,20 @@ export default async function LandingBanner() {
               headerTitle={
                 <Title 
                   title="Data to enrich your online business"
-                  className="capitalize"
+                  className={cn(titleVariants({
+                    variant: "secondary",
+                    size: "xl",
+                    className: "capitalize"
+                  }))}
                 />
               }
               headerDescription={
                 <Description
                   description="Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua"
-                  className="capitilize"
+                  className={cn(descriptionVariants({
+                    variant: "secondary",
+                    size: "default"
+                  }))}
                 />
               }
             />

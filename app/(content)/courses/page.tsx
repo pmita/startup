@@ -6,8 +6,8 @@ import CourseCard from "@/components/CourseCard"
 import ImageWithFallback from "@/components/ImageWithFallback"
 import { Tag, tagVariants } from "@/components/ui/Tag"
 import InfoCard from "@/components/InfoCard"
-import Title from "@/components/Header/Title"
-import Description from "@/components/Header/Description"
+import Title, { titleVariants } from "@/components/ui/Title"
+import Description, { descriptionVariants } from "@/components/ui/Description"
 // LIBRARIES
 import { allCourses } from "@/.contentlayer/generated"
 import { compareDesc } from "date-fns"
@@ -28,13 +28,20 @@ export default async function LessonsPage() {
         headerTitle={
           <Title 
             title="All Courses"
-            className="capitalize"
+            className={cn(titleVariants({
+              variant: "secondary",
+              size: "lg",
+              className: "capitalize"
+            }))}
           />
         }
         headerDescription={
           <Description
             description="Built feature based projects and stop following step by step tutorials when coding"
-            className="capitilize"
+            className={cn(descriptionVariants({
+              variant: "neutral",
+              size: "lg"
+            }))}
           />
         }
       />

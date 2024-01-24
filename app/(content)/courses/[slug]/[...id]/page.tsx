@@ -5,13 +5,17 @@ import { notFound } from "next/navigation";
 // COMPONENTS
 import VideoContainer from "@/components/VideoContainer";
 import Header from "@/components/Header";
-import Title from "@/components/Header/Title";
-import Description from "@/components/Header/Description";
+import Title, { titleVariants } from "@/components/ui/Title";
+import Description, { descriptionVariants } from "@/components/ui/Description";
 import { Mdx } from "@/components/MDX";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
 // UTILS
 import { getSortedCourseChapters } from "../page";
+import { ToggleProgress } from "@/components/ToggleProgress";
+import { buttonVariants } from "@/components/ui/Button";
+import { cn } from "@/utils/helpers";
+import Link from "next/link";
 
 interface CoursePageProps {
   params: {
@@ -69,25 +73,60 @@ export default async function ChapterPage({ params }: CoursePageProps) {
       className="flex flex-col justify-start items-stretch gap-10"
     >
       <VideoContainer
-        chapterId={chapter?.slugAsParams}
         videoId={chapter?.vimeo ?? undefined}
         isFree={chapter?.free ?? false}
-        prevChapterLink={showPrevious && sortedChapters[chapter?.weight - 1].slugAsParams}
-        nextChapterLink={showNext && sortedChapters[chapter?.weight + 1].slugAsParams}
+        controls={(
+          <div className="flex justify-between items-stretch">
+            <div className="flex justify-center items-center gap-2.5">
+                {showPrevious && (
+                  <Link 
+                    href={`/courses/${sortedChapters[chapter?.weight - 1].slugAsParams}}`}
+                    className={cn(buttonVariants({
+                      variant: "secondaryOutlined",
+                      size: "sm"
+                    }))}
+                  >
+                    Play Previous
+                  </Link>
+                )}
+                {showNext && (
+                  <Link 
+                    href={`/courses/${sortedChapters[chapter?.weight + 1].slugAsParams}}`}
+                    className={cn(buttonVariants({
+                      variant: "secondaryOutlined",
+                      size: "sm"
+                    }))}
+                  >
+                    Play Next
+                  </Link>
+                )}
+              </div>
+            <div className="flex justify-center items-center gap-2.5">
+              <ToggleProgress  chapterId={chapter?.slugAsParams} isFree={chapter?.free ?? false} />
+            </div>
+          </div>
+        )}
       />
       
       <Header
         className="flex flex-col justify-center items-start"
         headerTitle={
           <Title 
-          title={chapter?.title}
-          className="capitalize"
+            title={chapter?.title}
+            className={cn(titleVariants({
+              variant: "secondary",
+              size: "lg",
+              className: "capitalize"
+            }))}
           />
         }
         headerDescription={
           <Description
-          description={chapter?.description || ''}
-          className="capitilize"
+            description={chapter?.description || ''}
+            className={cn(descriptionVariants({
+              variant: "neutral",
+              size: "lg"
+            }))}
           />
         }
         />
