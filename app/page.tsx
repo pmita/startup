@@ -1,5 +1,5 @@
 // COMPONENTS
-import Banner from "@/components/Banner";
+import Banner, { bannerVariants } from "@/components/ui/Banner";
 import Title, { titleVariants } from "@/components/ui/Title";
 import Description, { descriptionVariants } from "@/components/ui/Description";
 import LandingBanner from "@/components/Banners/LandingBanner";
@@ -15,7 +15,11 @@ export default async function Home() {
     <div>
       <LandingBanner />
       <Banner 
-        className="container flex flex-col justify-start items-stretch gap-16 h-[100vh]"
+        className={cn(bannerVariants({
+          variant: "fullHeight",
+          size: "default",
+          className: "container flex flex-col justify-start items-stretch gap-16"
+        }))}
         bannerTitle={
           <Header
             className="flex flex-col justify-center items-center gap-6"
@@ -33,15 +37,15 @@ export default async function Home() {
               <Description
                 description="Learn the latest web development trends with feature based project. We cover everything from authentication, UI/UX, database configuration, and many more"
                 className={cn(descriptionVariants({
-                  variant: "neutral",
-                  size: "lg"
+                  variant: "secondary",
+                  size: "default"
                 }))}
               />
             }
           />
         }
         bannerDescription={
-          <section className="grid grid-cols-[repeat(auto-fit,minmax(240px,300px))] auto-rows-[185px] gap-8 mx-0 my-4 p-4 justify-center">
+          <section className="grid grid-cols-[repeat(auto-fit, minmax(240px,300px))] auto-rows-[185px] gap-8 mx-0 my-4 p-4 justify-center">
             {features.map((feature) => (
               <div key={feature.id} className="w-full border-[5px] border-solid border-primary-black columnCenterLeft gap-1 rounded-[12px] bg-primary-white p-2.5">
                 <InfoCard 

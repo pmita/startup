@@ -1,7 +1,7 @@
 // COMPONENTS
 import Header from "@/components/Header"
-import Title from "@/components/Header/Title"
-import Description from "@/components/Header/Description"
+import Title, { titleVariants } from "@/components/ui/Title"
+import Description, { descriptionVariants } from "@/components/ui/Description"
 import AuthCheck from "@/components/AuthCheck"
 import { CheckoutButton } from "@/components/Buttons"
 import Subscriptioncheck from "@/components/SubscriptionCheck"
@@ -30,13 +30,20 @@ export default async function ProMembersPage() {
           headerTitle={
             <Title 
               title="Become a Pro Member"
-              className="capitalize"
+              className={cn(titleVariants({
+                variant: "secondary",
+                size: "lg",
+                className: "capitalize"
+              }))}
             />
           }
           headerDescription={
             <Description
               description="Learn the essential skills for modern FullStack web and app development"
-              className="capitilize"
+              className={cn(descriptionVariants({
+                variant: "secondary",
+                size: "default"
+              }))}
             />
           }
         />

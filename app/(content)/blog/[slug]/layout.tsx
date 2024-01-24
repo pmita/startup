@@ -1,5 +1,5 @@
 // COMPONENTS
-import Banner from "@/components/Banner";
+import Banner, { bannerVariants } from "@/components/ui/Banner";
 import Title, { titleVariants } from "@/components/ui/Title";
 import { tagVariants, Tag } from "@/components/ui/Tag";
 // LIBRARIES
@@ -22,8 +22,10 @@ export default function BlogPageLayout({ children, params }: BlogPageLayoutProps
   return (
     <>
       <Banner
-        className="rounded-[12px] min-h-[505px] w-full bg-primary-black text-primary-white flex flex-col justify-center items-start gap-10 p-10"
-        bannerTags={
+      className={cn(bannerVariants({
+        className: "rounded-[12px] min-h-[505px] w-full bg-primary-black text-primary-white flex flex-col justify-center items-start gap-10 p-10"
+      }))}
+        tags={
           <div className="flex justify-start items-center gap-1">
           {blog?.tags?.map(({ title, variant}) => (
             <Tag 

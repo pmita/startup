@@ -40,8 +40,8 @@ export default async function LandingBanner() {
                 <Description
                   description="Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua"
                   className={cn(descriptionVariants({
-                    variant: "neutral",
-                    size: "lg"
+                    variant: "secondary",
+                    size: "default"
                   }))}
                 />
               }

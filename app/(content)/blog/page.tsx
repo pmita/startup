@@ -2,7 +2,7 @@
 import { type Metadata } from "next";
 import Link from "next/link";
 // COMPONENTS
-import Banner from "@/components/Banner";
+import Banner, { bannerVariants } from "@/components/ui/Banner";
 import Header from "@/components/Header";
 import Title, { titleVariants } from "@/components/ui/Title";
 import Description, { descriptionVariants } from "@/components/ui/Description";
@@ -29,7 +29,10 @@ export default async function BlogPage() {
   return (
     <>
       <Banner
-        className="rounded-[12px] min-h-[505px] w-full bg-primary-black text-primary-white flex flex-col justify-center items-start gap-10 p-10"
+        className={cn(bannerVariants({
+          size: "default",
+          className: "rounded-[12px] min-h-[505px] w-full bg-primary-black text-primary-white flex flex-col justify-center items-start gap-10 p-10"
+        }))}
         bannerTitle={(
           <h3 className="text-2xl font-bold tracking-tight text-primary-white">👋 Hello</h3>
         )}
