@@ -1,7 +1,7 @@
 // COMPONENTS
 import Banner from "@/components/Banner";
 import Title, { titleVariants } from "@/components/ui/Title";
-import Description from "@/components/Header/Description";
+import Description, { descriptionVariants } from "@/components/ui/Description";
 import LandingBanner from "@/components/Banners/LandingBanner";
 import Header from "@/components/Header";
 import InfoCard from "@/components/InfoCard";
@@ -66,7 +66,10 @@ export default async function Home() {
             headerDescription={
               <Description
                 description="Learn the latest web development trends with feature based project. We cover everything from authentication, UI/UX, database configuration, and many more"
-                className="capitilize"
+                className={cn(descriptionVariants({
+                  variant: "neutral",
+                  size: "lg"
+                }))}
               />
             }
           />

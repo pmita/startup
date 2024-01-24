@@ -5,7 +5,7 @@ import Link from "next/link";
 import Banner from "@/components/Banner";
 import Header from "@/components/Header";
 import Title, { titleVariants } from "@/components/ui/Title";
-import Description from "@/components/Header/Description";
+import Description, { descriptionVariants } from "@/components/ui/Description";
 import ImageWithFallback from "@/components/ImageWithFallback";
 // LIBARIRES
 import { allBlogs } from "@/.contentlayer/generated";
@@ -58,7 +58,10 @@ export default async function BlogPage() {
         headerDescription={
           <Description
             description="What's on our mind currently"
-            className="capitilize"
+            className={cn(descriptionVariants({
+              variant: "neutral",
+              size: "lg"
+            }))}
           />
         }
       />
