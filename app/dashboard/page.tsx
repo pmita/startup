@@ -10,7 +10,7 @@ import { buttonVariants, Button } from '@/components/ui/Button';
 // HOOKS
 import { useSignOut } from '@/hooks/useSignOut';
 // UTILS
-import { cn } from '@/utils/helpers';
+import { cn, fetchFromApi } from '@/utils/helpers';
 
 export const MetaData: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://example.com'),
@@ -22,6 +22,15 @@ export default function DashboardPage(){
   // HOOKS
   const { user } = useAuthState();
   const { signOut, isLoading } = useSignOut();
+
+  const handleClick = async () => {
+    const invoices = await fetchFromApi('/api/database/invoices', {
+      method: 'GET',
+      cache: 'no-cache'
+    });
+
+    console.log(invoices);
+  }
 
   return (
     <section className="grid place-items-center gap-2">
@@ -38,6 +47,13 @@ export default function DashboardPage(){
         disabled={isLoading}
       >
         {isLoading ? 'Loading...' : 'Sign Out'}
+      </Button>
+
+      <Button
+        className={cn(buttonVariants({ variant: "primary" }))}
+        onClick={handleClick}
+      >
+        Get Invoices
       </Button>
     </section>
   );

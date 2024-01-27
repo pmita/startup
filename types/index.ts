@@ -68,4 +68,5 @@ export interface UserData {
 export interface FetchFromApiOptions {
   method?: string;
   body?: any;
+  cache?: string;
 }
