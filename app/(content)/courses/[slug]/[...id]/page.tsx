@@ -124,7 +124,7 @@ export default async function ChapterPage({ params }: CoursePageProps) {
           <Description
             description={chapter?.description || ''}
             className={cn(descriptionVariants({
-              variant: "neutral",
+              variant: "secondary",
               size: "lg"
             }))}
           />

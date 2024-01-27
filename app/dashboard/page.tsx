@@ -11,6 +11,7 @@ import { buttonVariants, Button } from '@/components/ui/Button';
 import { useSignOut } from '@/hooks/useSignOut';
 // UTILS
 import { cn, fetchFromApi } from '@/utils/helpers';
+import { useCollection } from '@/hooks/useCollection';
 
 export const MetaData: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://example.com'),
@@ -18,19 +19,28 @@ export const MetaData: Metadata = {
   description: 'Welcome to your dashboard, manage your account here'
 }
 
+const LIMIT = 1;
+
 export default function DashboardPage(){
   // HOOKS
   const { user } = useAuthState();
   const { signOut, isLoading } = useSignOut();
+  const { documents: invoices, isLoading: loadingExample, error } = useCollection(
+    `/users/${user?.uid}/invoices`,
+    // ["paid", "==", true],
+    // ['createdAt', 'desc'],
+  )
 
-  const handleClick = async () => {
-    const invoices = await fetchFromApi('/api/database/invoices', {
-      method: 'GET',
-      cache: 'no-cache'
-    });
 
-    console.log(invoices);
-  }
+  // const handleClick = async () => {
+  //   // we can't have a body sent to our get request
+  //   const body = { limit: LIMIT, _orderBy: ['createdAt', 'desc'] };
+  //   const invoices = await fetchFromApi('/api/database/invoices', {
+  //     method: 'GET',
+  //     body,
+  //     cache: 'no-cache'
+  //   });
+  // }
 
   return (
     <section className="grid place-items-center gap-2">
@@ -47,13 +57,6 @@ export default function DashboardPage(){
         disabled={isLoading}
       >
         {isLoading ? 'Loading...' : 'Sign Out'}
-      </Button>
-
-      <Button
-        className={cn(buttonVariants({ variant: "primary" }))}
-        onClick={handleClick}
-      >
-        Get Invoices
       </Button>
     </section>
   );

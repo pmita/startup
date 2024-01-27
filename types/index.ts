@@ -38,6 +38,11 @@ export enum StripeWebhookSubscirptionEvents {
 }
 
 // FIREBASE
+export type FirestoreOperator = '<' | '<=' | '==' | '>=' | '>' | 'array-contains';
+export type FirestoreOrderByDirection = 'asc' | 'desc';
+export type FirestoreOrderBy = [string, FirestoreOrderByDirection];
+export type FirestoreQuery = [string, FirestoreOperator, any];
+
 export enum PRO_STATUS {
   LIFE_TIME = 'lifetime',
   ACTIVE = 'active',
