@@ -5,13 +5,17 @@ import { type Metadata } from 'next';
 // HOOKS
 import { useAuthState } from '@/hooks/useAuthState';
 // COMPONENTS
-import Avatar from '@/components/Avatar';
-import { buttonVariants, Button } from '@/components/ui/Button';
+import Header from '@/components/Header';
+import Title, { titleVariants } from '@/components/ui/Title';
+import { UpdatePassword } from '@/components/update-password';
+import { UpdateAddress } from '@/components/update-address';
+import { DeleteAccount } from '@/components/delete-account';
+import { UpdateAvatar } from '@/components/update-avatar';
 // HOOKS
 import { useSignOut } from '@/hooks/useSignOut';
+import { useCollection } from '@/hooks/useCollection';
 // UTILS
 import { cn, fetchFromApi } from '@/utils/helpers';
-import { useCollection } from '@/hooks/useCollection';
 
 export const MetaData: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://example.com'),
@@ -43,21 +47,35 @@ export default function DashboardPage(){
   // }
 
   return (
-    <section className="grid place-items-center gap-2">
-      <h1>Welcome to you dashboard, {user?.displayName}</h1>
-      <Avatar
-        src={'/${user?.photoURL}'}
-        width={250}
-        height={250}
-        altText={user?.displayName ?? 'John Doe'}
-      />
-      <Button
-        className={cn(buttonVariants({ variant: "primary" }))}
-        onClick={signOut}
-        disabled={isLoading}
-      >
-        {isLoading ? 'Loading...' : 'Sign Out'}
-      </Button>
+    <section className="flex flex-col justify-start items-stretch gap-5">
+      {/* The following are server components and cannot be rendered here*/}
+      {/* <Header
+        className="flex flex-col justify-start items-start gap-6 pl-5"
+        headerTitle={
+          <Title 
+            title="Account"
+            className={cn(titleVariants({ 
+              variant: "secondary", 
+              size: "lg",
+              className: "capitalize" 
+            }))}
+          />
+        }
+        headerDescription={
+          <Description
+            description="Manage your account settings"
+            className={cn(descriptionVariants({
+              variant: "secondary",
+              size: "default"
+            }))}
+          />
+        }
+      /> */}
+      <UpdateAvatar />
+
+      <UpdatePassword />
+      <UpdateAddress />
+      <DeleteAccount />
     </section>
   );
 }
