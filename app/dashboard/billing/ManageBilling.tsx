@@ -1,15 +1,26 @@
 "use client" 
 
 // NEXT
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 // REACT
 import { useCallback } from "react";
 // COMPONENTS
 import { ManageSubscriptionButton } from "@/components/Buttons";
+import { 
+  Card, 
+  CardContent, 
+  CardDescription, 
+  CardHeader, 
+  CardTitle 
+} from "@/components/ui/Card";
+import { buttonVariants } from "@/components/ui/Button";
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
 // TYPES
 import { PRO_STATUS } from "@/types/index";
+// UTILS
+import { cn } from "@/utils/helpers";
 
 export default function ManageBilling() {
   // STATE
@@ -17,65 +28,72 @@ export default function ManageBilling() {
   const router = useRouter();
 
   // FUNCTIONS
-  const renderContent = useCallback(() => {
+  const renderTitle = () => {
     switch(proStatus) {
       case PRO_STATUS.LIFE_TIME:
-        return (
-          <>
-            <h3>You are currently on the Life Time Plan, enjoy this platform till the death of time</h3>
-            <p>Manage your subscription and billing information here ... coming soon</p>
-          </>
-        )
+        return "You are currently on the Life Time Plan, enjoy this platform till the death of time"
       case PRO_STATUS.ACTIVE:
-        return (
-          <>
-            <h3>You are currently on the PRO Plan</h3>
-            <p>Manage your subscription and billing information here ... coming soon</p>
-            <ManageSubscriptionButton />
-          </>
-        );
+        return "You are currently on the PRO Plan"
       case PRO_STATUS.CANCELED:
-        return (
-          <>
-            <h3>We miss you</h3>
-            <p>Check the latest course with full access to PRO</p>
-            <button className="button primaryButton" onClick={() => router.push('/pro')}>
-              PRO
-            </button>
-          </>
-        )
+        return "We miss you"
       case PRO_STATUS.PAST_DUE:
-        return (
-          <>
-            <h3>Your payment is now past due</h3>
-            <p>Please update your payment menthod below</p>
-            <ManageSubscriptionButton />
-          </>
-        )
+        return "Your payment is now past due"
       case PRO_STATUS.UNPAID:
-        return (
-          <>
-            <h3>Your payment is now past 7 days</h3>
-            <p>We will be cancelling your subscription soon. To avoid losing access please update your payment method below</p>
-            <ManageSubscriptionButton />
-          </>
-        )
+        return "Your payment is now past 7 days"
+      default:
+        return "You are currently on the BASIC Plan"
+    }
+  };
+
+  const renderDescription = () => {
+    switch(proStatus) {
+      case PRO_STATUS.LIFE_TIME:
+        case PRO_STATUS.ACTIVE:
+        return "Manage your subscription and billing information here ... coming soon"
+      case PRO_STATUS.CANCELED:
+        return "Check the latest course with full access to PRO"
+      case PRO_STATUS.PAST_DUE:
+        return "Please update your payment menthod below"
+      case PRO_STATUS.UNPAID:
+        return "We will be cancelling your subscription soon. To avoid losing access please update your payment method below"
+      default:
+        return "Upgrade your status today with PRO"
+    }
+  };
+
+  const renderCTA = useCallback(() => {
+    switch(proStatus) {
+      case PRO_STATUS.LIFE_TIME:
+        case PRO_STATUS.ACTIVE:
+        case PRO_STATUS.PAST_DUE:
+        case PRO_STATUS.UNPAID:
+        return <ManageSubscriptionButton />
+      case PRO_STATUS.CANCELED:
       default:
         return (
-          <>
-            <h3>You are currently on the BASIC Plan</h3>
-            <p>Upgrade your status today with PRO</p>
-            <button className="button primaryButton" onClick={() => router.push('/pro')}>
-              PRO
-            </button>
-          </>
-        );
+          <Link 
+            href="/pro"
+            className={cn(buttonVariants({ variant: "primary" }))}
+          >
+            Get Pro
+          </Link>
+        )
     }
-  }, [proStatus, router]);
+  }, [proStatus]);
 
   return (
     <>
-      {renderContent()}
+      <Card>
+        <CardHeader>
+          <CardTitle className="font-semibold">{renderTitle()}</CardTitle>
+          <CardDescription>
+            {renderDescription()}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {renderCTA()}
+        </CardContent>
+      </Card>
     </>
   )
 }

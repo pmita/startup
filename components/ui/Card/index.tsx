@@ -12,7 +12,7 @@ export const Card = React.forwardRef<HTMLDivElement, ICard>(({ className, ...pro
     <div
       ref={ref}
       className={cn(
-        "rounded-[6px] border bg-secondary-black text-secondary shadow-sm",
+        "rounded-[6px] border bg-neutral text-secondary shadow-sm",
         className
       )}
       {...props}
@@ -26,7 +26,7 @@ export const CardHeader = React.forwardRef<HTMLDivElement, ICard>(({ className, 
     <div
       ref={ref}
       className={cn(
-        "flex flex-col space-y-1.5 p-6",
+        "flex flex-col gap-5 p-6",
         className
       )}
       {...props}
@@ -49,7 +49,35 @@ export const CardTitle = React.forwardRef<HTMLHeadingElement, ICard>(({ classNam
 })
 CardTitle.displayName = "CardTitle";
 
+export const CardDescription = React.forwardRef<HTMLHeadingElement, ICard>(({ className, ...props}, ref) => {
+  return (
+    <h2
+      ref={ref}
+      className={cn(
+        "text-sm text-secondary font-normal",
+        className
+      )}
+      {...props}
+    />
+  );
+})
+CardDescription.displayName = "CardDescription";
+
 export const CardContent = React.forwardRef<HTMLDivElement, ICard>(({ className, ...props}, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "p-6 pt-0",
+        className
+      )}
+      {...props}
+    />
+  );
+})
+CardContent.displayName = "CardContent";
+
+export const CardFooter = React.forwardRef<HTMLDivElement, ICard>(({ className, ...props}, ref) => {
   return (
     <div
       ref={ref}
@@ -61,4 +89,4 @@ export const CardContent = React.forwardRef<HTMLDivElement, ICard>(({ className,
     />
   );
 })
-CardContent.displayName = "CardContent";
+CardFooter.displayName = "CardFooter";
