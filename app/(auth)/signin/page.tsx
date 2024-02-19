@@ -1,7 +1,8 @@
 // NEXT
 import { type Metadata } from 'next';
 // COMPONENTS
-import PasswordlessSignInForm from './PasswordlessSignInForm';
+import { SignInForm } from '@/components/signin-form';
+
 
 export const metadata: Metadata = {
     metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://example.com/signin'),
@@ -10,5 +11,9 @@ export const metadata: Metadata = {
 }
 
 export default async function SignInPage(){
-  return <PasswordlessSignInForm />;
+  return (
+    <>
+      <SignInForm />
+    </>
+  )
 }

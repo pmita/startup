@@ -3,11 +3,14 @@
 //REACT
 import { createContext, useReducer, type FC, useEffect } from 'react';
 // TYPES
-import { type AuthReducerInitialState, AuthActionTypes, type AuthReducerActionsType, type AuthReducerState } from '@/types/AuthContextTypes';
+import { 
+  type AuthReducerInitialState, 
+  AuthActionTypes,
+  type AuthReducerActionsType, 
+  type AuthReducerState 
+} from '@/types/AuthContextTypes';
 // UTILS
 import { firebaseAuth, firestore } from '@/utils/firebase';
-// TYPES
-import { fromMillis } from '@/utils/firebase';
 
 export const AuthContext = createContext<AuthReducerState | undefined | null>(null);
 
@@ -25,7 +28,7 @@ const reducer = (state: AuthReducerInitialState, action: AuthReducerActionsType)
     case AuthActionTypes.SIGN_IN_SUCCESS:
     case AuthActionTypes.SIGN_UP_SUCCESS:
     case AuthActionTypes.AUTH_HAS_CHANGED_SUCCESS:
-      return { ...state, user:action.payload }
+      return { ...state, user: action.payload }
     case AuthActionTypes.SIGN_OUT_SUCCESS:
       return { ...state, user: null, isPro: false, proStatus: null, expires: null}
     case AuthActionTypes.FETCH_USER_PROGRESS:
