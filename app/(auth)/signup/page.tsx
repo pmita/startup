@@ -2,6 +2,11 @@
 import { type Metadata } from 'next';
 // COMPONENTS
 import { SignUpForm } from '@/components/signup-form';
+import Header from '@/components/Header';
+import Title, { titleVariants } from '@/components/ui/Title';
+import Description, { descriptionVariants } from '@/components/ui/Description';
+// UTILS
+import { cn } from '@/utils/helpers';
 
 
 export const metadata: Metadata = {
@@ -13,7 +18,32 @@ export const metadata: Metadata = {
 export default async function SignInPage(){
   return (
     <>
-      <SignUpForm />
+      <SignUpForm 
+        formTitle={
+          <Header
+            className="flex flex-col justify-start items-center gap-5 pl-5"
+            headerTitle={
+              <Title 
+                title="Welcome to the team"
+                className={cn(titleVariants({ 
+                  variant: "secondary", 
+                  size: "lg",
+                  className: "capitalize" 
+                }))}
+              />
+            }
+            headerDescription={
+              <Description
+                description="Please enter your details to sign up"
+                className={cn(descriptionVariants({
+                  variant: "secondary",
+                  size: "default"
+                }))}
+              />
+            }
+          />
+        }
+      />
     </>
   )
 }

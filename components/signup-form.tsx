@@ -15,6 +15,10 @@ import { Button, buttonVariants } from '@/components/ui/Button';
 // CONFIG
 import { signUpInputs } from '@/config/forms';
 
+export type SignUpFormProps = {
+  formTitle?: React.ReactNode;
+}
+
 interface ISignUpForm {
   email: string;
   password: string;
@@ -27,7 +31,7 @@ type ISignUpFormErrors = {
   username: string;
 }
 
-export function SignUpForm(){
+export function SignUpForm({ formTitle }: SignUpFormProps){
   // HOOKS 
   const router = useRouter();
   const { signUp, isLoading } = useSignUp();
@@ -59,7 +63,8 @@ export function SignUpForm(){
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-xl sm:w-lg flex flex-col justify-center items-stretch gap-5 text-center">
-      <h1 className="w-full">Welcome, please sign up!</h1>
+      {formTitle && formTitle}
+      
       {signUpInputs && signUpInputs.map((input) => (
         <InputField
           key={input.id}

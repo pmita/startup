@@ -1,6 +1,7 @@
 "use client" 
 
 // NEXT]
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 // REACT
 import { useEffect } from 'react';
@@ -15,6 +16,10 @@ import { Button, buttonVariants } from '@/components/ui/Button';
 // CONFIG
 import { signInInputs } from '@/config/forms';
 
+export type SignUpFormProps = {
+  formTitle?: React.ReactNode;
+}
+
 interface ISignInForm {
   email: string;
   password: string;
@@ -25,7 +30,7 @@ type ISignInFormErrors = {
   password: string;
 }
 
-export function SignInForm(){
+export function SignInForm({ formTitle }: SignUpFormProps){
   // STATE & HOOKS 
   const router = useRouter();
   const { user } = useAuthState();
@@ -56,7 +61,8 @@ export function SignInForm(){
       onSubmit={handleSubmit(onSubmit)} 
       className="w-[350] p-2 flex flex-col justify-center items-stretch gap-5 text-center"
     >
-      <h1 className="w-full">Welcome, please sign in!</h1>
+      {formTitle && formTitle}
+      
       {signInInputs && signInInputs.map((input) => (
         <InputField
           key={input.id}
@@ -70,12 +76,27 @@ export function SignInForm(){
       ))}
 
       <Button
-        className={buttonVariants({ variant: "primary" })}
+        className={buttonVariants({ variant: "secondary" })}
         disabled={isLoading}
         type="submit"
       >
         {isLoading ? 'Loading...' : 'Sign In'}
       </Button>
+
+      <p>- OR CONTINUE WITH -</p>
+
+      <Button
+        className={buttonVariants({ variant: "secondaryOutlined" })}
+        >
+        Sign in with Google
+      </Button>
+      
+      <Link 
+        href="/signup" 
+        className="font-semibold underline"
+      >
+        Not a member? Sign Up
+      </Link>
     </form>
   );
 }
