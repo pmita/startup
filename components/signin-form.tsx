@@ -6,8 +6,9 @@ import { useRouter } from 'next/navigation';
 // REACT
 import { useEffect } from 'react';
 // HOOKS
-import { useSignIn } from '@/hooks/useSignIn';
 import { useAuthState } from '@/hooks/useAuthState';
+import { useSignIn } from '@/hooks/useSignIn';
+import { useGoogleSignIn } from '@/hooks/useGoogleSignIn';
 // LIBRARIES
 import { SubmitHandler, useForm } from 'react-hook-form';
 // COMPONENTS
@@ -15,6 +16,8 @@ import InputField from '@/components/InputField';
 import { Button, buttonVariants } from '@/components/ui/Button';
 // CONFIG
 import { signInInputs } from '@/config/forms';
+// UTILS
+import { cn } from '@/utils/helpers';
 
 export type SignUpFormProps = {
   formTitle?: React.ReactNode;
@@ -35,6 +38,7 @@ export function SignInForm({ formTitle }: SignUpFormProps){
   const router = useRouter();
   const { user } = useAuthState();
   const { signIn, isLoading } = useSignIn();
+  const { signInWithGoogle } = useGoogleSignIn();
   const { register, handleSubmit, formState: {errors } } = useForm<ISignInForm>({
     mode: 'onBlur',
     reValidateMode: 'onChange',
@@ -86,8 +90,10 @@ export function SignInForm({ formTitle }: SignUpFormProps){
       <p>- OR CONTINUE WITH -</p>
 
       <Button
-        className={buttonVariants({ variant: "secondaryOutlined" })}
-        >
+        className={cn(buttonVariants({ variant: "secondaryOutlined", size: "default" }))}
+        onClick={signInWithGoogle}
+        type="button"
+      >
         Sign in with Google
       </Button>
       
