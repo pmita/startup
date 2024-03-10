@@ -11,6 +11,7 @@ import {
 } from '@/types/AuthContextTypes';
 // UTILS
 import { firebaseAuth, firestore } from '@/utils/firebase';
+import { removeAuthToken, setAuthToken } from '@/lib/cookies';
 
 export const AuthContext = createContext<AuthReducerState | undefined | null>(null);
 
@@ -48,7 +49,11 @@ export const AuthContextProvider: FC<{children: React.ReactNode}> = ({ children 
     let unsubscribeStatus: () => void;
     const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
       if(user) {
+        // save auth state locally
         dispatch({ type: AuthActionTypes.AUTH_HAS_CHANGED_SUCCESS, payload: user })
+        // also save the token with cookies
+        user.getIdToken().then((token) => setAuthToken(token));
+        // setAuthToken(token);
 
         unsubscribeProgress = firestore.collection('progression').doc(user.uid)
           .onSnapshot((snapshot) => {
@@ -64,6 +69,9 @@ export const AuthContextProvider: FC<{children: React.ReactNode}> = ({ children 
             dispatch({ type: AuthActionTypes.FETCH_USER_STATUS, payload: docs })
           })
       } else {
+        // if user doesn't exist, remove token and reset state
+        dispatch({ type: AuthActionTypes.SIGN_OUT_SUCCESS })
+        removeAuthToken();
         unsubscribeProgress && unsubscribeProgress();
         unsubscribeStatus && unsubscribeStatus();
       }
