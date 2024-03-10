@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase-admin/firestore";
+
 // SVG
 export type SVGPropType = {
   width?: string | number;
@@ -67,6 +69,14 @@ export interface UserData {
   courses?: {
     [key: string]: string;
   }
+}
+
+export interface UserInvoiceData {
+  id: string;
+  amount_paid?: number;
+  paid?: boolean;
+  status?: string;
+  createdAt?: Timestamp;
 }
 
 // API
