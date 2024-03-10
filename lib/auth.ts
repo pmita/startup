@@ -2,6 +2,8 @@
 import { firebaseAuth, firestore } from "@/utils/firebase-admin";
 // STRIPE
 import { stripe } from "@/utils/stripe";
+// PACKAGES
+import Cookies from 'js-cookie';
 // TYPES
 import Stripe from "stripe";
 
@@ -44,3 +46,22 @@ export async function getOrCreateCustomer(uid: string, params?: Stripe.CustomerC
     return await stripe.customers.retrieve(stripeCustomerId);
   }
 }
+
+export function getAuthToken(): string | undefined {
+  return Cookies.get('__session');
+}
+
+export function removeAuthToken(): void {
+  return Cookies.remove('__session');
+}
+
+export function setAuthToken(token: string): string | undefined {
+  const expiresIn = 60 * 60 * 24 * 5 * 1000; // expire cookies after 5 days
+
+  return Cookies.set('__session', token, {
+    expires: expiresIn,
+    secure: true,
+    http: true,
+  });
+}
+
