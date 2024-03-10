@@ -7,11 +7,11 @@ import Header from "@/components/Header";
 import Title, { titleVariants } from "@/components/ui/Title";
 import Description, { descriptionVariants } from "@/components/ui/Description";
 import ImageWithFallback from "@/components/ImageWithFallback";
-// LIBARIRES
+import { tagVariants, Tag } from "@/components/ui/Tag";
+// PACKAGES
 import { allBlogs } from "@/.contentlayer/generated";
 import { compareDesc, parseISO } from "date-fns";
 import { format } from "date-fns/fp";
-import { tagVariants, Tag } from "@/components/ui/Tag";
 // UTILS
 import { cn } from "@/utils/helpers";
 
