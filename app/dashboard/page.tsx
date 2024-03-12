@@ -29,11 +29,11 @@ export default function DashboardPage(){
   // HOOKS
   const { user } = useAuthState();
   const { signOut, isLoading } = useSignOut();
-  const { documents: invoices, isLoading: loadingExample, error } = useCollection(
-    `/users/${user?.uid}/invoices`,
-    // ["paid", "==", true],
-    // ['createdAt', 'desc'],
-  )
+  // const { documents: invoices, isLoading: loadingExample, error } = useCollection(
+  //   `/users/${user?.uid}/invoices`,
+  //   // ["paid", "==", true],
+  //   // ['createdAt', 'desc'],
+  // )
 
 
   // const handleClick = async () => {

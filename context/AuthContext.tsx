@@ -52,7 +52,9 @@ export const AuthContextProvider: FC<{children: React.ReactNode}> = ({ children 
         // save auth state locally
         dispatch({ type: AuthActionTypes.AUTH_HAS_CHANGED_SUCCESS, payload: user })
         // also save the token with cookies
-        user.getIdToken().then((token) => setAuthToken(token));
+        // user.getIdToken(true).then((token) => setAuthToken(token));
+        firebaseAuth.currentUser?.getIdToken(true).then((token) => setAuthToken(token));
+
         // setAuthToken(token);
 
         unsubscribeProgress = firestore.collection('progression').doc(user.uid)
