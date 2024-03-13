@@ -2,24 +2,24 @@
 import { cookies } from 'next/headers';
 // FIREBASE ADMIN
 import { firebaseAuth, firestore } from "@/utils/firebase-admin";
+// TYPES
+import { UserInvoiceDocument } from '@/types';
 
 export async function isUserAuthed() {
   const nextCookies = cookies();
   const authToken = nextCookies.get('__session');
-  // return authToken;
 
   let user = null;
 
-  if(!authToken) {
-    return user;
-  } else {
+  if(authToken) {
     try {
       user = await firebaseAuth.verifyIdToken(authToken?.value);
-      return user;
     } catch (error) {
-      return user;
+      throw new Error('User not authenticated');
     }
   }
+
+  return user;
 }
 
 export const getInvoices = async () => {
@@ -28,7 +28,6 @@ export const getInvoices = async () => {
   let data= null;
 
   if (user) {
-    console.log('we are here')
     const testData = await firestore.collection('users').doc(user.uid).collection('invoices').get();
     data =  testData.docs.map((doc) => ({
       id: doc.id,
@@ -37,5 +36,5 @@ export const getInvoices = async () => {
     }))
   }
 
-  return data;
+  return data as UserInvoiceDocument[] | null;
 }
