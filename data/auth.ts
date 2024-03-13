@@ -22,19 +22,52 @@ export async function isUserAuthed() {
   return user;
 }
 
-export const getInvoices = async () => {
+export const getInvoices = async (LIMIT: number) => {
   const user = await isUserAuthed();
 
-  let data= null;
+  let docData= null;
 
   if (user) {
-    const testData = await firestore.collection('users').doc(user.uid).collection('invoices').get();
-    data =  testData.docs.map((doc) => ({
-      id: doc.id,
-      created: doc.data().created.toMillis(),
-      ...doc.data()
-    }))
+    const docRef = firestore.collection(`users/${user.uid}/invoices`).limit(LIMIT);
+    docData = (await docRef.get()).docs.map((doc) => ({ 
+      id: doc.id, 
+      created: doc.data().created.toMillis(), 
+      ...doc.data() 
+    }));
   }
 
-  return data as UserInvoiceDocument[] | null;
+  return docData as UserInvoiceDocument[] | null;
+  
+}
+
+// this is a working progress
+
+export const getCollectionDocuments = async (
+  collection: string,
+  startAfter: string | null = null, 
+  LIMIT: number | null = null
+) => {
+  const user = await isUserAuthed();
+
+  let docData= null;
+
+  if (user) {
+    const docRef = firestore.collection(collection)
+  
+    if (startAfter) {
+      docRef.startAfter(startAfter);
+    }
+  
+    if (LIMIT) {
+      docRef.limit(LIMIT);
+    }
+
+    docData = (await docRef.get()).docs.map((doc) => ({ 
+      id: doc.id, 
+      created: doc.data().created.toMillis(), 
+      ...doc.data() 
+    }));
+  }
+
+  return docData;
 }

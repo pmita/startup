@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default async function InvoicesPage() {
   // SERVER LAND
-  const invoices = await getInvoices();
+  const invoices = await getInvoices(5);
 
   return (
     <>
