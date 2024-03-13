@@ -71,12 +71,12 @@ export interface UserData {
   }
 }
 
-export interface UserInvoiceData {
+export interface UserInvoiceDocument {
   id: string;
   amount_paid?: number;
   paid?: boolean;
   status?: string;
-  createdAt?: Timestamp;
+  created?: Timestamp;
 }
 
 // API

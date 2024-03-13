@@ -6,6 +6,7 @@ import { getInvoices } from '@/data/auth';
 import Header from '@/components/Header';
 import Title, { titleVariants } from '@/components/ui/Title';
 import Description, { descriptionVariants } from '@/components/ui/Description';
+import { InvoicesList } from './_components/invoices-lits';
 // UTILS
 import { cn } from '@/utils/helpers';
 
@@ -16,9 +17,8 @@ export const metadata: Metadata = {
 
 export default async function InvoicesPage() {
   // SERVER LAND
-  const testingDataFunction = await getInvoices();
+  const invoices = await getInvoices();
 
-  console.log('testingDataFunction', testingDataFunction);
   return (
     <>
       <section className="flex flex-col justify-start items-stretch gap-5 ">
@@ -44,6 +44,7 @@ export default async function InvoicesPage() {
             />
           }
         />
+        <InvoicesList invoices={invoices} />
       </section>
     </>
   );
