@@ -5,12 +5,12 @@ import Link from "next/link";
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
 // COMPONENTS
-import Avatar from "../Avatar";
-import { buttonVariants } from "../ui/Button";
+import Avatar from "../../../components/Avatar";
+import { buttonVariants } from "../../../components/ui/Button";
 // UTILS
 import { cn } from "@/utils/helpers";
 
-export default function NavbarAvatar() {
+export function NavbarAvatar() {
   const { user } = useAuthState();
 
   return (

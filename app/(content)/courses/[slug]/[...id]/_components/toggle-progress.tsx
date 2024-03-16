@@ -8,7 +8,7 @@ import { useUpdateProgress } from "@/hooks/useUpdateProgress";
 import { useCheckProgress } from "@/hooks/useCheckProgress";
 import { useIsSubscriptionValid } from "@/hooks/useIsSubscriptionValid";
 // COMPONENTS
-import { LockSVG } from "../SVGs";
+import { LockSVG } from "../../../../../../components/SVGs";
 // UTILS
 import { cn } from "@/utils/helpers";
 

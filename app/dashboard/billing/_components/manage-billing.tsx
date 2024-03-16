@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 // REACT
 import { useCallback } from "react";
 // COMPONENTS
-import { ManageSubscriptionButton } from "@/components/Buttons";
+import { ManageSubscriptionButton } from "./manage-subscription-button";
 import { 
   Card, 
   CardContent, 
@@ -22,7 +22,7 @@ import { PRO_STATUS } from "@/types/index";
 // UTILS
 import { cn } from "@/utils/helpers";
 
-export default function ManageBilling() {
+export function ManageBilling() {
   // STATE
   const { proStatus } = useAuthState();
   const router = useRouter();

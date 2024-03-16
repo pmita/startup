@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { useIsSubscriptionValid } from "@/hooks/useIsSubscriptionValid";
 
-export default function UserNavProOption() {
+export function NavbarAuthedOptions() {
   // HOOKS
   const isUserPro = useIsSubscriptionValid();
 

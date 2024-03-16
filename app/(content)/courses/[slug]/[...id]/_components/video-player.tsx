@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 // COMPONENTS
-import { buttonVariants } from "../ui/Button";
+import { buttonVariants } from "../../../../../../components/ui/Button";
 // UTILS
 import { cn } from "@/utils/helpers";
 import Link from "next/link";

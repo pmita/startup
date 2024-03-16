@@ -4,7 +4,7 @@ import { type Metadata } from 'next';
 import Header from '@/components/Header';
 import Title, { titleVariants } from '@/components/ui/Title';
 import Description, { descriptionVariants } from '@/components/ui/Description';
-import ManageBilling from './ManageBilling';
+import { ManageBilling } from './_components/manage-billing';
 // UTILS
 import { cn } from '@/utils/helpers';
 

@@ -3,7 +3,7 @@ export const revalidate = 1200;
 // NEXT
 import { notFound } from "next/navigation";
 // COMPONENTS
-import VideoContainer from "@/components/VideoContainer";
+import { VideoContainer } from './_components/video-container';
 import Header from "@/components/Header";
 import Title, { titleVariants } from "@/components/ui/Title";
 import Description, { descriptionVariants } from "@/components/ui/Description";
@@ -12,7 +12,7 @@ import { Mdx } from "@/components/MDX";
 import { allCourses } from "contentlayer/generated";
 // UTILS
 import { getSortedCourseChapters } from "../page";
-import { ToggleProgress } from "@/components/ToggleProgress";
+import { ToggleProgress } from "@/app/(content)/courses/[slug]/[...id]/_components";
 import { buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/utils/helpers";
 import Link from "next/link";

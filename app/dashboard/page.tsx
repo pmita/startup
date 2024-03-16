@@ -1,10 +1,10 @@
 // NEXT
 import { type Metadata } from 'next';
 // COMPONENTS
-import { UpdatePassword } from '@/components/update-password';
-import { UpdateAddress } from '@/components/update-address';
-import { DeleteAccount } from '@/components/delete-account';
-import { UpdateAvatar } from '@/components/update-avatar';
+import { UpdatePassword } from './_components/update-password';
+import { UpdateAddress } from './_components/update-address';
+import { DeleteAccount } from './_components/delete-account';
+import { UpdateAvatar } from './_components/update-avatar';
 
 export const MetaData: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://example.com'),

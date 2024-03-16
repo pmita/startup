@@ -1,7 +1,7 @@
 // NEXT
 import { type Metadata } from 'next';
 // COMPONENTS
-import { SignInForm } from '@/components/signin-form';
+import { SignInForm } from './_components/signin-form';
 import Header from '@/components/Header';
 import Title, { titleVariants } from '@/components/ui/Title';
 import Description, { descriptionVariants } from '@/components/ui/Description';

@@ -2,7 +2,7 @@
 import Banner, { bannerVariants } from "@/components/ui/Banner";
 import Title, { titleVariants } from "@/components/ui/Title";
 import Description, { descriptionVariants } from "@/components/ui/Description";
-import LandingBanner from "@/components/Banners/LandingBanner";
+import LandingBanner from "./_components/landing-banner";
 import Header from "@/components/Header";
 import InfoCard from "@/components/InfoCard";
 // CONFIG

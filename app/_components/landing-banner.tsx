@@ -1,10 +1,10 @@
 // COMPONENTS
-import Header from '../Header';
-import Title, { titleVariants } from '../ui/Title';
-import Description, { descriptionVariants } from '../ui/Description';
-import { CylinderSVG } from '../SVGs';
+import Header from '../../components/Header';
+import Title, { titleVariants } from '../../components/ui/Title';
+import Description, { descriptionVariants } from '../../components/ui/Description';
+import { CylinderSVG } from '../../components/SVGs';
 import Link from 'next/link';
-import { buttonVariants } from '../ui/Button';
+import { buttonVariants } from '../../components/ui/Button';
 // UTILS
 import { cn } from '@/utils/helpers';
 

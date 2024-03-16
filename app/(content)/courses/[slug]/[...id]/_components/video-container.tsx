@@ -1,7 +1,7 @@
 "use client"
 
 // COMPONENTS
-import { VideoPlayer } from "../VideoPlayer";
+import { VideoPlayer } from "./video-player";
 // HOOKS
 import { useIsSubscriptionValid } from "@/hooks/useIsSubscriptionValid";
 
@@ -10,7 +10,7 @@ interface VideoContainerProps {
   isFree?: boolean
   controls?: React.ReactNode
 } 
-const VideoContainer = ({
+export const VideoContainer = ({
   videoId,
   isFree,
   controls
@@ -29,5 +29,3 @@ const VideoContainer = ({
     </section>
   )
 }
-
-export default VideoContainer;
