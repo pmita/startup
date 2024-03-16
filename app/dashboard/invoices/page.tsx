@@ -15,9 +15,12 @@ export const metadata: Metadata = {
   description: 'Manage your profile settings here'
 }
 
+const LIMIT = 1;
+
 export default async function InvoicesPage() {
   // SERVER LAND
-  const invoices = await getInvoices(5);
+  const invoices = await getInvoices(LIMIT);
+
 
   return (
     <>

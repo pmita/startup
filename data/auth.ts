@@ -28,11 +28,11 @@ export const getInvoices = async (LIMIT: number) => {
   let docData= null;
 
   if (user) {
-    const docRef = firestore.collection(`users/${user.uid}/invoices`).limit(LIMIT);
+    const docRef = firestore.collection(`users/${user.uid}/invoices`).orderBy('created', 'desc').limit(LIMIT);
     docData = (await docRef.get()).docs.map((doc) => ({ 
+      ...doc.data(), 
       id: doc.id, 
-      created: doc.data().created.toMillis(), 
-      ...doc.data() 
+      created: doc.data()?.created.toMillis() || 0, 
     }));
   }
 
