@@ -6,9 +6,9 @@ import {
   CardDescription, 
   CardHeader, 
   CardTitle 
-} from "@/components/ui/Card";
-import { Button, buttonVariants } from "@/components/ui/Button";
-import Avatar from '@/components/Avatar';
+} from "@/components/ui/card";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Avatar } from '@/components/avatar';
 // UTILS
 import { cn } from "@/utils/helpers";
 import { useAuthState } from "@/hooks/useAuthState";

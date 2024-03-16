@@ -5,8 +5,8 @@ import Link from "next/link";
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
 // COMPONENTS
-import Avatar from "../../../components/Avatar";
-import { buttonVariants } from "../../../components/ui/Button";
+import Avatar from "../../../components/avatar";
+import { buttonVariants } from "../../../components/ui/button";
 // UTILS
 import { cn } from "@/utils/helpers";
 

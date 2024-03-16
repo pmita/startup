@@ -6,7 +6,7 @@ interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   headerDescription?: React.ReactNode;
 }
 
-export default async function Header({ headerTitle, headerDescription, className, ...props }: HeaderProps) {
+export function Header({ headerTitle, headerDescription, className, ...props }: HeaderProps) {
   return (
     <div 
       className={cn(

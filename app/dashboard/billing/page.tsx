@@ -1,9 +1,9 @@
 // NEXT
 import { type Metadata } from 'next';
 // COMPONENTS
-import Header from '@/components/Header';
-import Title, { titleVariants } from '@/components/ui/Title';
-import Description, { descriptionVariants } from '@/components/ui/Description';
+import { Header } from "@/components/ui/header";
+import { Title, titleVariants } from '@/components/ui/title';
+import { Description, descriptionVariants } from "@/components/ui/description";
 import { ManageBilling } from './_components/manage-billing';
 // UTILS
 import { cn } from '@/utils/helpers';

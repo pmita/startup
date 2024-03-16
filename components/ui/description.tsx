@@ -29,7 +29,7 @@ export interface DescriptionProps extends React.HTMLAttributes<HTMLHeadingElemen
   description?: string
 }
 
-export default async function Description({ description, className, variant, size, ...props }: DescriptionProps) {
+export function Description({ description, className, variant, size, ...props }: DescriptionProps) {
   if (!description) return null;
 
   return (

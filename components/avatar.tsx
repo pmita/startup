@@ -1,11 +1,11 @@
 "use client"
 
 // COMPONENTS
-import ImageWithFallback from "../ImageWithFallback";
+import { ImageWithFallback } from "./image-with-fallback";
 // TYPES
-import { AvatarProps } from "./types";
+import { AvatarProps } from "@/types";
 
-export default function Avatar({src, ...rest}: AvatarProps) {
+export function Avatar({src, ...rest}: AvatarProps) {
   return (
     <div className="rounded-full">
       <ImageWithFallback

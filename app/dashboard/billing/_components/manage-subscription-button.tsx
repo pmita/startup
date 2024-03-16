@@ -3,7 +3,7 @@
 // REACT
 import { useCallback } from "react";
 // COMPONENTS
-import { ButtonProps, buttonVariants } from "../../../../components/ui/Button";
+import { ButtonProps, buttonVariants } from "../../../../components/ui/button";
 // UTITLS
 import { cn, fetchFromApi } from "@/utils/helpers";
 

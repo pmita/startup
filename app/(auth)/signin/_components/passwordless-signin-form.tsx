@@ -8,8 +8,8 @@ import { useConfirmPasswordlessSignIn } from '@/hooks/useConfirmPasswordlessSign
 import { useGoogleSignIn } from '@/hooks/useGoogleSignIn';
 import { usePasswordlessSignIn } from '@/hooks/usePasswordlessSignIn';
 // COMPONENTS
-import InputField from '@/components/InputField';
-import { buttonVariants } from '@/components/ui/Button';
+import { InputField } from '@/components/input-field';
+import { buttonVariants } from '@/components/ui/button';
 // LIBRARIES
 import { SubmitHandler, useForm } from 'react-hook-form';
 // UTILS

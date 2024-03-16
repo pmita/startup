@@ -7,8 +7,8 @@ import {
   Card,
   CardContent,
   CardFooter 
-} from "@/components/ui/Card"
-import { Button, buttonVariants } from "@/components/ui/Button"
+} from "@/components/ui/card"
+import { Button, buttonVariants } from "@/components/ui/button"
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState"
 // FIREBASE

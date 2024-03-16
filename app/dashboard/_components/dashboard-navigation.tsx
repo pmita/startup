@@ -8,7 +8,7 @@ import { cn } from "@/utils/helpers"
 // TYPES
 import type { NavItem } from "@/types"
 
-export default function DashboardList({ items }: { items: NavItem[] }) {
+export function DashboardNavigation({ items }: { items: NavItem[] }) {
   // HOOKS
   const pathname = usePathname();
 

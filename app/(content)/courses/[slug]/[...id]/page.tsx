@@ -4,16 +4,16 @@ export const revalidate = 1200;
 import { notFound } from "next/navigation";
 // COMPONENTS
 import { VideoContainer } from './_components/video-container';
-import Header from "@/components/Header";
-import Title, { titleVariants } from "@/components/ui/Title";
-import Description, { descriptionVariants } from "@/components/ui/Description";
+import { Header } from "@/components/ui/header";
+import { Title, titleVariants } from '@/components/ui/title';
+import { Description, descriptionVariants } from "@/components/ui/description";
 import { Mdx } from "@/components/MDX";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
 // UTILS
 import { getSortedCourseChapters } from "../page";
-import { ToggleProgress } from "@/app/(content)/courses/[slug]/[...id]/_components";
-import { buttonVariants } from "@/components/ui/Button";
+import { ToggleProgress } from "./_components/toggle-progress";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/utils/helpers";
 import Link from "next/link";
 

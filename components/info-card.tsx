@@ -2,7 +2,7 @@
 import { Tag as TagType } from "@/.contentlayer/generated";
 // UTILS
 import { cn } from "@/utils/helpers";
-import { tagVariants, Tag } from "../ui/Tag";
+import { tagVariants, Tag } from "./ui/tag";
 
 type InfoCardProps = {
   hastags?: TagType[];
@@ -11,7 +11,7 @@ type InfoCardProps = {
   className?: string;
 }
 
-export default async function InfoCard({ 
+export async function InfoCard({ 
   hastags, 
   title, 
   description, 

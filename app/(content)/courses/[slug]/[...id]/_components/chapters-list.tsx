@@ -1,10 +1,10 @@
 // NEXT
 import Link from "next/link"
 // COMPONENTS
-import AuthCheck from "../AuthCheck"
-import ChapterProgress from "./ChapterProgress"
-import { Tag } from "../ui/Tag"
-import { LockSVG } from "../SVGs"
+import { AuthCheck } from "../../../../../../components/auth-check"
+import { ChapterProgress } from "./chapter-progress"
+import { Tag } from "../../../../../../components/ui/tag"
+import { LockSVG } from "../../../../../../components/SVGs"
 // TYPES
 import { Courses } from "@/.contentlayer/generated"
 

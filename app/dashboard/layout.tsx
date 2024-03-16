@@ -3,9 +3,9 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 // COMPONENTS
-import DashboardList from "@/components/DashboardList";
-import AuthCheck from "@/components/AuthCheck";
-import { buttonVariants } from "@/components/ui/Button";
+import { DashboardNavigation } from "./_components/dashboard-navigation";
+import { AuthCheck } from "@/components/auth-check";
+import { buttonVariants } from "@/components/ui/button";
 // UTILS
 import { cn } from "@/utils/helpers";
 // CONFIG
@@ -35,7 +35,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </>
       )}>
         <aside className="flex-[1_1_300px] self-stretch flex flex-col flex-start items-between gap-2 w-full h-[auto] scroll-auto p-5">
-          <DashboardList items={dashboardConfig.sideNav} />
+          <DashboardNavigation items={dashboardConfig.sideNav} />
         </aside>
         <section className="p-5 flex-[4_1_670px] self-stretch w-full order-1 lg:order-2">
           {children}

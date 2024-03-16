@@ -6,8 +6,8 @@ import {
   CardDescription, 
   CardHeader, 
   CardTitle 
-} from "@/components/ui/Card";
-import { Button, buttonVariants } from "@/components/ui/Button";
+} from "@/components/ui/card";
+import { Button, buttonVariants } from "@/components/ui/button";
 // UTILS
 import { cn } from "@/utils/helpers";
 

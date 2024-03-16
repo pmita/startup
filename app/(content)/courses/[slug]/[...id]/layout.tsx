@@ -1,5 +1,5 @@
 //COMPONENTS
-import ChaptersList from "@/components/ChaptersList";
+import ChaptersList from "./_components/chapters-list";
 // LIBRARIES
 import { allCourses } from "@/.contentlayer/generated";
 import { compareAsc } from "date-fns";

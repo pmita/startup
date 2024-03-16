@@ -1,10 +1,10 @@
 // COMPONENTS
-import Banner, { bannerVariants } from "@/components/ui/Banner";
-import Title, { titleVariants } from "@/components/ui/Title";
-import Description, { descriptionVariants } from "@/components/ui/Description";
+import { Banner, bannerVariants } from "@/components/ui/banner";
+import { Title, titleVariants } from '@/components/ui/title';
+import { Description, descriptionVariants } from "@/components/ui/description";
 import LandingBanner from "./_components/landing-banner";
-import Header from "@/components/Header";
-import InfoCard from "@/components/InfoCard";
+import { Header } from "@/components/ui/header";
+import { InfoCard } from "@/components/info-card";
 // CONFIG
 import { features } from "@/config/features";
 // UTILS

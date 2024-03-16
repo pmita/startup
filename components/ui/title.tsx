@@ -27,7 +27,7 @@ export const titleVariants = cva(
 
 export interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement>, VariantProps<typeof titleVariants> {}
 
-export default async function Title({ 
+export function Title({ 
   title, 
   className, 
   variant, 

@@ -27,7 +27,7 @@ export interface BannerProps extends React.HTMLAttributes<HTMLDivElement>, Varia
   bannerDescription?: React.ReactNode;
 }
 
-export default async function Banner({ bannerTitle, tags, bannerDescription, variant, size, className, ...props}: BannerProps) {
+export function Banner({ bannerTitle, tags, bannerDescription, variant, size, className, ...props}: BannerProps) {
   return (
     <section 
       className={cn(bannerVariants({ variant, size, className }))}

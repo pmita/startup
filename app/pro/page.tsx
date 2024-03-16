@@ -1,15 +1,17 @@
-// COMPONENTS
-import Header from "@/components/Header"
-import Title, { titleVariants } from "@/components/ui/Title"
-import Description, { descriptionVariants } from "@/components/ui/Description"
-import AuthCheck from "@/components/AuthCheck"
-import { CheckoutButton } from "@/components/Buttons"
-import Subscriptioncheck from "@/components/SubscriptionCheck"
-// LIB
-import { pricing } from "@/config/pricing"
+//
 import Link from "next/link"
-import { buttonVariants } from "@/components/ui/Button"
+// COMPONENTS
+import { Header } from "@/components/ui/header"
+import { Title, titleVariants } from '@/components/ui/title';
+import { Description, descriptionVariants } from "@/components/ui/description";
+import { AuthCheck } from "@/components/auth-check"
+import { CheckoutButton } from "./_components/checkout-button"
+import { Subscriptioncheck } from "@/components/subscription-check"
+import { buttonVariants } from "@/components/ui/button"
+// UTILS
 import { cn } from "@/utils/helpers"
+// CONFIG
+import { pricing } from "@/config/pricing"
 
 export default async function ProMembersPage() {
   return (

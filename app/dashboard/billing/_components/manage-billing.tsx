@@ -13,8 +13,8 @@ import {
   CardDescription, 
   CardHeader, 
   CardTitle 
-} from "@/components/ui/Card";
-import { buttonVariants } from "@/components/ui/Button";
+} from "@/components/ui/card";
+import { buttonVariants } from "@/components/ui/button";
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
 // TYPES

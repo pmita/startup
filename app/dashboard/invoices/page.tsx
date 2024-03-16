@@ -5,9 +5,9 @@ import { type Metadata } from 'next';
 // DATA
 import { getInvoices } from '@/data/auth';
 // COMPONENTS
-import Header from '@/components/Header';
-import Title, { titleVariants } from '@/components/ui/Title';
-import Description, { descriptionVariants } from '@/components/ui/Description';
+import { Header } from "@/components/ui/header";
+import { Title, titleVariants } from '@/components/ui/title';
+import { Description, descriptionVariants } from "@/components/ui/description";
 import { InvoicesList } from './_components/invoices-lits';
 // UTILS
 import { cn } from '@/utils/helpers';

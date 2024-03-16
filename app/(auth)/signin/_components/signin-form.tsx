@@ -12,8 +12,8 @@ import { useGoogleSignIn } from '@/hooks/useGoogleSignIn';
 // LIBRARIES
 import { SubmitHandler, useForm } from 'react-hook-form';
 // COMPONENTS
-import InputField from '@/components/InputField';
-import { Button, buttonVariants } from '@/components/ui/Button';
+import { InputField } from '@/components/input-field';
+import { Button, buttonVariants } from '@/components/ui/button';
 // CONFIG
 import { signInInputs } from '@/config/forms';
 // UTILS

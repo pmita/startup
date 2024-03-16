@@ -1,7 +1,7 @@
 "use client";
 
 // COMPONENTS
-import { LockSVG } from "../SVGs";
+import { LockSVG } from "../../../../../../components/SVGs";
 // HOOKS
 import { useCheckProgress } from "@/hooks/useCheckProgress";
 import { useIsSubscriptionValid } from "@/hooks/useIsSubscriptionValid";
@@ -11,10 +11,7 @@ export type ChapterProgressProps = {
   isFree?: boolean;
 };
 
-export default function ChapterProgress({ 
-  chapterId,
-  isFree
-}: ChapterProgressProps) {
+export function ChapterProgress({ chapterId, isFree }: ChapterProgressProps) {
   // HOOKS
   const { isCompleted } = useCheckProgress();
   const canAccess = useIsSubscriptionValid();

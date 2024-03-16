@@ -2,9 +2,9 @@
 import { type Metadata } from 'next';
 // COMPONENTS
 import { SignInForm } from './_components/signin-form';
-import Header from '@/components/Header';
-import Title, { titleVariants } from '@/components/ui/Title';
-import Description, { descriptionVariants } from '@/components/ui/Description';
+import { Header } from "@/components/ui/header";
+import { Title, titleVariants } from '@/components/ui/title';
+import { Description, descriptionVariants } from "@/components/ui/description";
 // UTILS
 import { cn } from '@/utils/helpers';
 

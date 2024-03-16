@@ -4,7 +4,7 @@
 // REACT
 import { useCallback, useState, useEffect } from "react";
 // COMPONENTS
-import { ButtonProps, buttonVariants } from "../ui/Button";
+import { ButtonProps, buttonVariants } from "../../../components/ui/button";
 // UTILS
 import { cn, fetchFromApi } from "@/utils/helpers";
 import { getStripe } from "@/utils/stripe-client";

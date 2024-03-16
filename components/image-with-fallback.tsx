@@ -3,9 +3,9 @@
 import Image from "next/image"
 import { useState } from "react"
 // TYPES
-import { ImageWithFallbackProps } from "./types"
+import { ImageWithFallbackProps } from "./ImageWithFallback/types"
 
-export default function ImageWithFallback({
+export function ImageWithFallback({
   src,
   fallbackSrc,
   altText,
