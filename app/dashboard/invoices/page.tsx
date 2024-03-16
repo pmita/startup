@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // NEXT
 import { type Metadata } from 'next';
 // DATA
@@ -9,13 +11,14 @@ import Description, { descriptionVariants } from '@/components/ui/Description';
 import { InvoicesList } from './_components/invoices-lits';
 // UTILS
 import { cn } from '@/utils/helpers';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Settings',
   description: 'Manage your profile settings here'
 }
 
-const LIMIT = 1;
+const LIMIT = 5;
 
 export default async function InvoicesPage() {
   // SERVER LAND
@@ -47,7 +50,9 @@ export default async function InvoicesPage() {
             />
           }
         />
-        <InvoicesList invoices={invoices} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <InvoicesList invoices={invoices} />
+        </Suspense>
       </section>
     </>
   );

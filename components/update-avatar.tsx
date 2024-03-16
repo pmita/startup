@@ -17,6 +17,7 @@ import { useSignOut } from "@/hooks/useSignOut";
 export function UpdateAvatar() {
   // STATE & HOOKS
   const { user } = useAuthState();
+  
   return (
     <>
     <Card className="flex flex-col justify-center items-center">

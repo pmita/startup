@@ -1,5 +1,3 @@
-"use client" 
-
 // NEXT
 import { type Metadata } from 'next';
 // COMPONENTS
@@ -14,7 +12,7 @@ export const MetaData: Metadata = {
   description: 'Welcome to your dashboard, manage your account here'
 }
 
-export default function DashboardPage(){
+export default async function DashboardPage(){
   return (
     <section className="flex flex-col justify-start items-stretch gap-5">
       <UpdateAvatar />
