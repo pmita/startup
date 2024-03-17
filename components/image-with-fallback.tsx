@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useState } from "react"
 // TYPES
-import { ImageWithFallbackProps } from "./ImageWithFallback/types"
+import { ImageWithFallbackProps } from "@/types";
 
 export function ImageWithFallback({
   src,
