@@ -18,25 +18,21 @@ import { cn } from "@/utils/helpers"
 // TYPES
 import { UserInvoiceDocument } from "@/types"
 
+const LIMIT = 5;
 
 type UserInvoiceData = {
   invoices: UserInvoiceDocument[] | null;
 }
-
-const LIMIT = 5;
- 
 
 export function InvoicesList({ invoices }: UserInvoiceData) {
   // STATE && VARIABLES
   const [items, setItems] = useState<UserInvoiceDocument[] | null>(invoices);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [itemsEnded, setItemsEnded] = useState<boolean>(false);
+  const [itemsEnded, setItemsEnded] = useState<boolean | undefined>(false);
   const { user } = useAuthState();  
   
   if (!items) return null;
-  
-  console.log(items);
   
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const loadMore = useCallback(async () => {
@@ -80,7 +76,9 @@ export function InvoicesList({ invoices }: UserInvoiceData) {
       </CardContent>
       <CardFooter>
         {error && <p>{error}</p>}
-        {itemsEnded && (
+        {itemsEnded ? (
+          <p>No more invoices</p>
+        ): (
           <Button 
             className={cn(buttonVariants({ variant: "secondary" }))}
             onClick={loadMore}

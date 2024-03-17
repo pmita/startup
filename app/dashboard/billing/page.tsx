@@ -7,6 +7,7 @@ import { Description, descriptionVariants } from "@/components/ui/description";
 import { ManageBilling } from './_components/manage-billing';
 // UTILS
 import { cn } from '@/utils/helpers';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Billing',
@@ -39,7 +40,7 @@ export default async function BillingPage() {
               />
             }
           />
-        <ManageBilling />
+          <ManageBilling />
       </section>
     </>
   );

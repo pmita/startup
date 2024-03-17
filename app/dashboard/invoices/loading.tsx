@@ -1,29 +1,13 @@
-export const dynamic = 'force-dynamic';
-
-// NEXT
-import { type Metadata } from 'next';
-// DATA
-import { getInvoices } from '@/data/firestore';
 // COMPONENTS
 import { Header } from "@/components/ui/header";
 import { Title, titleVariants } from '@/components/ui/title';
 import { Description, descriptionVariants } from "@/components/ui/description";
-import { InvoicesList } from './_components/invoices-lits';
+import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";  
 // UTILS
 import { cn } from '@/utils/helpers';
 
-export const metadata: Metadata = {
-  title: 'Settings',
-  description: 'Manage your profile settings here'
-}
-
-const LIMIT = 5;
-
-export default async function InvoicesPage() {
-  // SERVER LAND
-  const invoices = await getInvoices(LIMIT);
-
-
+export default function InvoicesPageLoading() {
   return (
     <>
       <section className="flex flex-col justify-start items-stretch gap-5 ">
@@ -49,7 +33,13 @@ export default async function InvoicesPage() {
             />
           }
         />
-        <InvoicesList invoices={invoices} />
+        <Card className="flex flex-col justify-center gap-5 p-6 items-start min-h-[150px]">
+            <Skeleton className="h-4 w-3/5" />
+            <Skeleton className="h-4 w-3/5" />
+            <Skeleton className="h-4 w-3/5" />
+            <Skeleton className="h-4 w-3/5" />
+            <Skeleton className="h-5 w-1/5" />
+        </Card>
       </section>
     </>
   );
