@@ -1,5 +1,5 @@
 // NEXT
-import { type Metadata } from 'next';
+import type { Metadata } from 'next'
 // COMPONENTS
 import { Header } from "@/components/ui/header";
 import { Title, titleVariants } from '@/components/ui/title';

@@ -1,5 +1,5 @@
 // NEXT
-import { type Metadata } from 'next';
+import type { Metadata } from 'next'
 // COMPONENTS
 import { UpdatePassword } from './_components/update-password';
 import { UpdateAddress } from './_components/update-address';

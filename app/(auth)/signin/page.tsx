@@ -1,5 +1,5 @@
 // NEXT
-import { type Metadata } from 'next';
+import type { Metadata } from 'next'
 // COMPONENTS
 import { SignInForm } from './_components/signin-form';
 import { Header } from "@/components/ui/header";
