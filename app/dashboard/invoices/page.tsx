@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 // NEXT
-import { type Metadata } from 'next';
+import type { Metadata } from 'next'
 // DATA
 import { getInvoices } from '@/data/firestore';
 // COMPONENTS
