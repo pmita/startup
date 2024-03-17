@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
 
-export default async function DashboardPageLoading(){
+export default function DashboardPageLoading(){
   return (
     <section className="flex flex-col justify-start items-stretch gap-5">
       <Card className="flex flex-col justify-center gap-5 p-6 items-center min-h-[150px]">

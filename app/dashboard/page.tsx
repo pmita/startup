@@ -6,7 +6,7 @@ import { UpdateAddress } from './_components/update-address';
 import { DeleteAccount } from './_components/delete-account';
 import { UpdateAvatar } from './_components/update-avatar';
 
-export const MetaData: Metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://example.com'),
   title: 'Dashboard',
   description: 'Welcome to your dashboard, manage your account here'
