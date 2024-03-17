@@ -5,7 +5,7 @@ import Link from "next/link";
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
 // COMPONENTS
-import Avatar from "../../../components/avatar";
+import { Avatar } from "@/components/avatar";
 import { buttonVariants } from "../../../components/ui/button";
 // UTILS
 import { cn } from "@/utils/helpers";

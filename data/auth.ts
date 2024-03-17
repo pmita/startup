@@ -1,11 +1,9 @@
 // NEXT
 import { cookies } from 'next/headers';
-// FIREBASE ADMIN
-import { firebaseAuth, firestore } from "@/utils/firebase-admin";
-// TYPES
-import { UserInvoiceDocument } from '@/types';
+// FIREBASE
+import { firebaseAuth } from "@/utils/firebase-admin";
 
-export async function isUserAuthed() {
+export async function getCurrentUser() {
   const nextCookies = cookies();
   const authToken = nextCookies.get('__session');
 
@@ -20,54 +18,4 @@ export async function isUserAuthed() {
   }
 
   return user;
-}
-
-export const getInvoices = async (LIMIT: number) => {
-  const user = await isUserAuthed();
-
-  let docData= null;
-
-  if (user) {
-    const docRef = firestore.collection(`users/${user.uid}/invoices`).orderBy('created', 'desc').limit(LIMIT);
-    docData = (await docRef.get()).docs.map((doc) => ({ 
-      ...doc.data(), 
-      id: doc.id, 
-      created: doc.data()?.created.toMillis() || 0, 
-    }));
-  }
-
-  return docData as UserInvoiceDocument[] | null;
-  
-}
-
-// this is a working progress
-
-export const getCollectionDocuments = async (
-  collection: string,
-  startAfter: string | null = null, 
-  LIMIT: number | null = null
-) => {
-  const user = await isUserAuthed();
-
-  let docData= null;
-
-  if (user) {
-    const docRef = firestore.collection(collection)
-  
-    if (startAfter) {
-      docRef.startAfter(startAfter);
-    }
-  
-    if (LIMIT) {
-      docRef.limit(LIMIT);
-    }
-
-    docData = (await docRef.get()).docs.map((doc) => ({ 
-      id: doc.id, 
-      created: doc.data().created.toMillis(), 
-      ...doc.data() 
-    }));
-  }
-
-  return docData;
 }
