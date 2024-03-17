@@ -3,17 +3,17 @@ export const revalidate = 1200;
 // NEXT
 import { notFound } from "next/navigation";
 // COMPONENTS
-import VideoContainer from "@/components/VideoContainer";
-import Header from "@/components/Header";
-import Title, { titleVariants } from "@/components/ui/Title";
-import Description, { descriptionVariants } from "@/components/ui/Description";
+import { VideoContainer } from './_components/video-container';
+import { Header } from "@/components/ui/header";
+import { Title, titleVariants } from '@/components/ui/title';
+import { Description, descriptionVariants } from "@/components/ui/description";
 import { Mdx } from "@/components/MDX";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
 // UTILS
 import { getSortedCourseChapters } from "../page";
-import { ToggleProgress } from "@/components/ToggleProgress";
-import { buttonVariants } from "@/components/ui/Button";
+import { ToggleProgress } from "./_components/toggle-progress";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/utils/helpers";
 import Link from "next/link";
 
@@ -124,7 +124,7 @@ export default async function ChapterPage({ params }: CoursePageProps) {
           <Description
             description={chapter?.description || ''}
             className={cn(descriptionVariants({
-              variant: "neutral",
+              variant: "secondary",
               size: "lg"
             }))}
           />

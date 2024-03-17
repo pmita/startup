@@ -2,16 +2,16 @@
 import { type Metadata } from "next";
 import Link from "next/link";
 // COMPONENTS
-import Banner, { bannerVariants } from "@/components/ui/Banner";
-import Header from "@/components/Header";
-import Title, { titleVariants } from "@/components/ui/Title";
-import Description, { descriptionVariants } from "@/components/ui/Description";
-import ImageWithFallback from "@/components/ImageWithFallback";
-// LIBARIRES
+import { Banner, bannerVariants } from "@/components/ui/banner";
+import { Header } from "@/components/ui/header";
+import { Title, titleVariants } from '@/components/ui/title';
+import { Description, descriptionVariants } from "@/components/ui/description";
+import { ImageWithFallback } from "@/components/image-with-fallback";
+import { tagVariants, Tag } from "@/components/ui/tag";
+// PACKAGES
 import { allBlogs } from "@/.contentlayer/generated";
 import { compareDesc, parseISO } from "date-fns";
 import { format } from "date-fns/fp";
-import { tagVariants, Tag } from "@/components/ui/Tag";
 // UTILS
 import { cn } from "@/utils/helpers";
 

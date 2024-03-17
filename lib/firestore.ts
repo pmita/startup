@@ -21,7 +21,7 @@ export async function updateInvoice(invoice: Stripe.Invoice) {
     .set({
       id: invoice.id,
       amount_paid: invoice.amount_paid,
-      created: invoice.created
+      createdAt: invoice.created
         ? fromMillis(invoice.created * 1000)
         : null,
       paid: invoice.paid,

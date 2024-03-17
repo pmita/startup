@@ -1,13 +1,13 @@
 // NEXT
 import Link from "next/link"
 // COMPONENTS
-import Header from "@/components/Header"
+import { Header } from "@/components/ui/header";
 import CourseCard from "@/components/CourseCard"
-import ImageWithFallback from "@/components/ImageWithFallback"
-import { Tag, tagVariants } from "@/components/ui/Tag"
-import InfoCard from "@/components/InfoCard"
-import Title, { titleVariants } from "@/components/ui/Title"
-import Description, { descriptionVariants } from "@/components/ui/Description"
+import { ImageWithFallback } from "@/components/image-with-fallback"
+import { Tag, tagVariants } from "@/components/ui/tag"
+import { InfoCard } from "@/components/info-card"
+import { Title, titleVariants } from '@/components/ui/title';
+import { Description, descriptionVariants } from "@/components/ui/description";
 // LIBRARIES
 import { allCourses } from "@/.contentlayer/generated"
 import { compareDesc } from "date-fns"

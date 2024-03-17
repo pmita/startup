@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase-admin/firestore";
+
 // SVG
 export type SVGPropType = {
   width?: string | number;
@@ -38,6 +40,11 @@ export enum StripeWebhookSubscirptionEvents {
 }
 
 // FIREBASE
+export type FirestoreOperator = '<' | '<=' | '==' | '>=' | '>' | 'array-contains';
+export type FirestoreOrderByDirection = 'asc' | 'desc';
+export type FirestoreOrderBy = [string, FirestoreOrderByDirection];
+export type FirestoreQuery = [string, FirestoreOperator, any];
+
 export enum PRO_STATUS {
   LIFE_TIME = 'lifetime',
   ACTIVE = 'active',
@@ -64,8 +71,36 @@ export interface UserData {
   }
 }
 
+export interface UserInvoiceDocument {
+  id: string;
+  amount_paid?: number;
+  paid?: boolean;
+  status?: string;
+  created?: Timestamp;
+}
+
 // API
 export interface FetchFromApiOptions {
   method?: string;
   body?: any;
+  cache?: string;
+}
+
+export interface AvatarProps {
+  src: string | undefined | null;
+  width: number;
+  height: number;
+  altText?: string;
+}
+
+export interface ImageWithFallbackProps {
+  src: string | null | undefined;
+  fallbackSrc: string;
+  width?: number;
+  height?: number;
+  altText?: string;
+  layout?: "fixed" | "intrinsic" | "responsive" | "fill";
+  objectFit?: "fill" | "contain" | "cover" | "none" | "scale-down";
+  sizes?: string;
+  style?: React.CSSProperties;
 }

@@ -4,10 +4,10 @@ export const revalidate = 1200;
 import Link from "next/link"
 import { notFound } from "next/navigation";
 // COMPONENTS
-import Header from "@/components/Header";
-import Title, { titleVariants} from "@/components/ui/Title";
-import Description, { descriptionVariants } from "@/components/ui/Description";
-import InfoCard from "@/components/InfoCard";
+import { Header } from "@/components/ui/header";
+import { Title, titleVariants } from '@/components/ui/title';
+import { Description, descriptionVariants } from "@/components/ui/description";
+import { InfoCard } from "@/components/info-card";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
 import { compareAsc } from "date-fns";

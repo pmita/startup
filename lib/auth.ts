@@ -44,3 +44,4 @@ export async function getOrCreateCustomer(uid: string, params?: Stripe.CustomerC
     return await stripe.customers.retrieve(stripeCustomerId);
   }
 }
+

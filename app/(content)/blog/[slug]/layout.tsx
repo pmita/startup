@@ -1,7 +1,7 @@
 // COMPONENTS
-import Banner, { bannerVariants } from "@/components/ui/Banner";
-import Title, { titleVariants } from "@/components/ui/Title";
-import { tagVariants, Tag } from "@/components/ui/Tag";
+import { Banner, bannerVariants } from "@/components/ui/banner";
+import { Title, titleVariants } from '@/components/ui/title';
+import { tagVariants, Tag } from "@/components/ui/tag";
 // LIBRARIES
 import { allBlogs } from "@/.contentlayer/generated";
 import { parseISO } from "date-fns";

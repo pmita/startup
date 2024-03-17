@@ -39,7 +39,7 @@ module.exports = {
       alternateTwo: "rgb(var(--alternate-two))",
       danger: "rgb(var(--danger))",
       neutral: "rgb(var(--neutral))",
-
+      muted: "rgb(var(--muted))",
     },
     keyframes: {
       left: {
