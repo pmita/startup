@@ -46,7 +46,6 @@ export default async function DashboardLayout({ children }: { children: React.Re
         <section className="p-5 flex-[4_1_670px] self-stretch w-full order-1 lg:order-2">
           {children}
         </section>
-
       </AuthCheck>
     </div>
   )
