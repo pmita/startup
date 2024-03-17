@@ -192,6 +192,7 @@ input::placeholder {
     --alternate-two: 131 18 209; /* Purple */
     --danger: 183 43 26; /* Red */
     --neutral: 255 255 255; /* White */
+    --muted: 241 245 249; /* gray */
 
     --transition: all 0.3s ease-in-out;
   }
