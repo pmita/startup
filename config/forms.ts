@@ -50,3 +50,41 @@ export const signUpInputs = [
       }
     }}
 ];
+
+export const updatePasswordInputs = [
+  {
+    id: 1,
+    name: 'currentPassword',
+    type: 'text',
+    placeholder: 'Current Password',
+    validationSchema: {
+      required: "Current Password is required"
+    }
+  },
+  {
+    id: 2,
+    name: 'newPassword',
+    type: 'text',
+    placeholder: 'New Password',
+    validationSchema: {
+      required: "New Password is required",
+      pattern: {
+        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        message: "Password must contain at least one uppercase letter, one lowercase letter and one number",
+      }
+    }
+  },
+  {
+    id: 3,
+    name: 'confirmPassword',
+    type: 'text',
+    placeholder: 'Confirm Password',
+    validationSchema: {
+      required: "Confirm Password is required",
+      pattern: {
+        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        message: "Password must contain at least one uppercase letter, one lowercase letter and one number",
+      }
+    }
+  },
+] 
