@@ -18,6 +18,7 @@ if (!firebase.apps.length) {
 
 // AUTHENTICATION
 export const firebaseAuth = firebase.auth();
+export const EmailAuthProvider = firebase.auth.EmailAuthProvider;
 export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
 export const GithubAuthProvider = new firebase.auth.GithubAuthProvider();
 
