@@ -3,7 +3,8 @@ import { useState } from "react";
 // HOOKS
 import { useAuthState } from "./useAuthState";
 // UTILS
-import { EmailAuthProvider, firebaseAuth } from "@/utils/firebase";
+import { firebaseAuth } from "@/utils/firebase";
+import { reauthenticate } from "@/utils/helpers";
 
 export const useUpdatePassword = () => {
     // STATE && VARIABLES
@@ -29,10 +30,4 @@ export const useUpdatePassword = () => {
     };
 
     return { error, isLoading, updatePassword };
-}
-
-export const reauthenticate = (userEmail: string, currentPassword: string) => {
-    const credentials = EmailAuthProvider.credential(userEmail, currentPassword);
-
-    return firebaseAuth.currentUser?.reauthenticateWithCredential(credentials);
-}
+};
