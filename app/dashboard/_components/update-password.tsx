@@ -99,8 +99,8 @@ interface IUpdatePasswordFormErrors {
 }
 
 export const UpdatePasswordForm = () => {
+  // STATE && VARIABLES
   const { updatePassword, isLoading, error } = useUpdatePassword();
-  
   const { register, handleSubmit, formState: { errors } } = useForm({
     mode: 'onBlur',
     reValidateMode: 'onChange',
