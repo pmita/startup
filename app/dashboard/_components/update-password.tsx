@@ -17,9 +17,15 @@ import {
   DialogFooter
 } from "@/components/ui/dialog";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { InputField } from "@/components/input-field";
+// HOOKS
+import { useUpdatePassword } from "@/hooks/useUpdatePassword";
+// PACKAGES
+import { useForm, SubmitHandler } from "react-hook-form";
+// CONFIG
+import { updatePasswordInputs } from "@/config/forms";
 // UTILS
 import { cn } from "@/utils/helpers";
-import { set } from "date-fns";
 
 export function UpdatePassword() {
   // STATE && VARIABLES
@@ -34,7 +40,12 @@ export function UpdatePassword() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <UpdatePasswordButton onClick={() => setIsOpen(true)} />
+        <Button
+          className={cn(buttonVariants({ variant: "secondary" }))}
+          onClick={() => setIsOpen(true)}
+        >
+          Update Password
+        </Button>
       </CardContent>
     </Card>
     
@@ -47,17 +58,6 @@ export function UpdatePassword() {
   )
 }
 
-export function UpdatePasswordButton({ onClick }: { onClick: () => void }) {
-  return (
-    <Button
-      className={cn(buttonVariants({ variant: "secondary" }))}
-      onClick={onClick}
-    >
-      Update Password
-    </Button>
-  )
-}
-
 export function UpdatePasswordDialog({ onClick }: { onClick: () => void }) {
   return (
     <DialogContent>
@@ -65,6 +65,7 @@ export function UpdatePasswordDialog({ onClick }: { onClick: () => void }) {
         <DialogTitle>Update Password</DialogTitle>
         <DialogDescription>
           Update your password. This will only affect email and password login
+          <UpdatePasswordForm />
         </DialogDescription>
       </DialogHeader>
       <DialogFooter>
@@ -76,11 +77,72 @@ export function UpdatePasswordDialog({ onClick }: { onClick: () => void }) {
         </Button>
         <Button
           className={cn(buttonVariants({ variant: "secondary" }))}
-          onClick={onClick}
+          type="submit"
         >
           Update Password
         </Button>
       </DialogFooter>
     </DialogContent>
+  )
+}
+
+interface IUpdatePasswordForm {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+interface IUpdatePasswordFormErrors {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+export const UpdatePasswordForm = () => {
+  const { updatePassword, isLoading, error } = useUpdatePassword();
+  
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    defaultValues: {
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    }
+  });
+
+  const onSubmit: SubmitHandler<IUpdatePasswordForm> = ({ currentPassword, newPassword, confirmPassword }) => {
+    updatePassword(currentPassword, newPassword, confirmPassword);
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      {updatePasswordInputs && updatePasswordInputs.map((input) => (
+        <InputField
+          key={input.id}
+          name={input.name}
+          type={input.type}
+          placeholder={input.placeholder}
+          register={register}
+          validationSchema={input.validationSchema}
+          error={errors[input.name as keyof IUpdatePasswordFormErrors]?.message}
+        />
+      ))}
+
+      {error && (
+        <span className="text-primary-error">{error}</span>
+      )}
+
+      {/* TODO: Extract this form directly into the Dialog component */}
+      <Button
+        className={cn(buttonVariants({ variant: "secondary" }))}
+        disabled={isLoading}
+        type="submit"
+      >
+        {isLoading ? 'Updating...' : 'Update Password'}
+      </Button>
+    </form>
   )
 }
