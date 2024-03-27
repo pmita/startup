@@ -12,6 +12,7 @@ export const buttonVariants = cva(
         primaryOutlined: "bg-neutral text-primary border-[0.3rem] border-solid border-primary hover:bg-primary hover:text-neutral",
         secondaryOutlined: "bg-neutral text-secondary border-[0.3rem] border-solid border-secondary hover:bg-secondary hover:text-neutral",
         danger: "bg-danger text-neutral border-[0.3rem] border-solid border-danger hover:bg-neutral hover:text-danger",
+        dangerOutlined: "bg-neutral text-danger border-[0.3rem] border-solid border-danger hover:bg-danger hover:text-neutral",
       },
       size: {
         default: "py-[0.5rem] px-[1rem]",
