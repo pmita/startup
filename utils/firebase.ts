@@ -34,3 +34,7 @@ export const serverTimestamp = firebase.firestore.Timestamp;
 export const createTimeStamp = firebase.firestore.Timestamp.now;
 export const fieldValue = firebase.firestore.FieldValue;
 
+// STORAGE
+export const firebaseStorage = firebase.storage();
+export const STATE_CHANGED = firebase.storage.TaskEvent.STATE_CHANGED;
+

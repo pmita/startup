@@ -9,6 +9,7 @@ export interface InputFieldProps {
   type?: string;
   placeholder?: string;
   register: UseFormRegister<any>;
+  onChange?: (e: any) => void;
   validationSchema?: {
     required?: string;
     minLength?: { value: number; message: string };
