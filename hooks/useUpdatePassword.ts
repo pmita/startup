@@ -12,21 +12,26 @@ export const useUpdatePassword = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const { user } = useAuthState();
 
-    const updatePassword = (currentPassword: string, newPassword: string, confirmPassword: string) => {
-        reauthenticate(user?.email || '', currentPassword)?.then(() => {
+    const updatePassword = async (currentPassword: string, newPassword: string, confirmPassword: string) => {
+        try {
+            await reauthenticate(user?.email || '', currentPassword);
+                
             if (newPassword !== confirmPassword) {
                 setError("Passwords do not match");
             } else {
-                setIsLoading(true);
-                setError(null);
-                firebaseAuth.currentUser?.updatePassword(newPassword).then(() => {
-                }).catch((error) => {
+                try {
+                    setIsLoading(true);
+                    setError(null);
+                    await firebaseAuth.currentUser?.updatePassword(newPassword);
+                } catch(error) {
                     setError((error as Error).message);
-                }).finally(() => {
+                } finally {
                     setIsLoading(false);
-                });
+                }
             }
-        });
+        } catch(error) {
+            setError('Current Password is incorrect');
+        }
     };
 
     return { error, isLoading, updatePassword };

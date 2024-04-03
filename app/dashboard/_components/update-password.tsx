@@ -1,7 +1,7 @@
 "use client" 
 
 // REACT
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { 
   Card, 
   CardContent, 
@@ -26,6 +26,18 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { updatePasswordInputs } from "@/config/forms";
 // UTILS
 import { cn } from "@/utils/helpers";
+
+interface IUpdatePasswordForm {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+interface IUpdatePasswordFormErrors {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
 
 export function UpdatePassword() {
   // STATE && VARIABLES
@@ -59,90 +71,77 @@ export function UpdatePassword() {
 }
 
 export function UpdatePasswordDialog({ onClick }: { onClick: () => void }) {
+    // STATE && VARIABLES
+    const { updatePassword, isLoading, error } = useUpdatePassword();
+    const { register, handleSubmit, formState: { errors } } = useForm({
+      mode: 'onBlur',
+      reValidateMode: 'onChange',
+      defaultValues: {
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+      }
+    });
+  
+    const onSubmit: SubmitHandler<IUpdatePasswordForm> = useCallback(async ({ currentPassword, newPassword, confirmPassword }) => {
+      await updatePassword(currentPassword, newPassword, confirmPassword);
+
+      if(!error && !isLoading) {
+        onClick();
+      }
+    }, [error, isLoading, onClick, updatePassword]);
+
   return (
     <DialogContent>
       <DialogHeader>
         <DialogTitle>Update Password</DialogTitle>
+        <p>Update your password. This will only affect email and password login</p>
         <DialogDescription>
-          Update your password. This will only affect email and password login
-          <UpdatePasswordForm />
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col justify-start gap-2.5"
+          >
+            {updatePasswordInputs && updatePasswordInputs.map((input) => (
+              <InputField
+                key={input.id}
+                name={input.name}
+                type={input.type}
+                placeholder={input.placeholder}
+                register={register}
+                validationSchema={input.validationSchema}
+                error={errors[input.name as keyof IUpdatePasswordFormErrors]?.message}
+              />
+            ))}
+
+            {error && (
+              <span className="text-primary-error">{error}</span>
+            )}
+
+            <DialogFooter>
+                <CancelUpdatePassword onClick={onClick} />
+                <Button
+                className={cn(buttonVariants({ variant: "secondary" }))}
+                disabled={isLoading}
+                type="submit"
+              >
+                {isLoading ? 'Updating...' : 'Update Password'}
+              </Button>
+            </DialogFooter>
+          </form>
         </DialogDescription>
       </DialogHeader>
-      <DialogFooter>
-        <Button
-          className={cn(buttonVariants({ variant: "secondaryOutlined" }))}
-          onClick={onClick}
-        >
-          Cancel
-        </Button>
-        <Button
-          className={cn(buttonVariants({ variant: "secondary" }))}
-          type="submit"
-        >
-          Update Password
-        </Button>
-      </DialogFooter>
     </DialogContent>
   )
 }
 
-interface IUpdatePasswordForm {
-  currentPassword: string;
-  newPassword: string;
-  confirmPassword: string;
-}
-
-interface IUpdatePasswordFormErrors {
-  currentPassword: string;
-  newPassword: string;
-  confirmPassword: string;
-}
-
-export const UpdatePasswordForm = () => {
-  // STATE && VARIABLES
-  const { updatePassword, isLoading, error } = useUpdatePassword();
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    mode: 'onBlur',
-    reValidateMode: 'onChange',
-    defaultValues: {
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: ''
-    }
-  });
-
-  const onSubmit: SubmitHandler<IUpdatePasswordForm> = ({ currentPassword, newPassword, confirmPassword }) => {
-    updatePassword(currentPassword, newPassword, confirmPassword);
-  }
-
+const CancelUpdatePassword = ({ onClick }: { onClick: () => void}) => {
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
+    <Button
+      className={cn(buttonVariants({ variant: "secondaryOutlined" }))}
+      onClick={onClick}
+      type="button"
     >
-      {updatePasswordInputs && updatePasswordInputs.map((input) => (
-        <InputField
-          key={input.id}
-          name={input.name}
-          type={input.type}
-          placeholder={input.placeholder}
-          register={register}
-          validationSchema={input.validationSchema}
-          error={errors[input.name as keyof IUpdatePasswordFormErrors]?.message}
-        />
-      ))}
-
-      {error && (
-        <span className="text-primary-error">{error}</span>
-      )}
-
-      {/* TODO: Extract this form directly into the Dialog component */}
-      <Button
-        className={cn(buttonVariants({ variant: "secondary" }))}
-        disabled={isLoading}
-        type="submit"
-      >
-        {isLoading ? 'Updating...' : 'Update Password'}
-      </Button>
-    </form>
-  )
+      Cancel
+    </Button>
+  );
 }
