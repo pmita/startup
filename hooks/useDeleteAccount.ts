@@ -14,11 +14,15 @@ export const useDeleteAccount = () => {
 
     // FUNCTIONS
     const deleteAccount = async (currentPassword:string) => {
-        reauthenticate(user?.email || '', currentPassword)?.then(() => {
-            setIsLoading(true);
-            setError(null);
+        try {
+            await reauthenticate(user?.email || '', currentPassword);
+            
+            try {
+                setIsLoading(true);
+                setError(null);
 
-            firebaseAuth.currentUser?.delete().then(() => {
+                await firebaseAuth.currentUser?.delete();
+
                 const userDocRef = firestore.collection('users').doc(user?.uid);
                 const progressionDocRef = firestore.collection('progression').doc(user?.uid);
 
@@ -27,19 +31,15 @@ export const useDeleteAccount = () => {
                 batch.delete(userDocRef);
                 batch.delete(progressionDocRef);
 
-                batch.commit().then(() => {
-                    console.log("User and progression deleted");
-                }).catch((error) => {
-                    setError((error as Error).message);
-                }).finally(() => {
-                    setIsLoading(false);
-                })
-            }).catch((error) => {
+                await batch.commit();
+            } catch(error) {
                 setError((error as Error).message);
-            }).finally(() => {
+            } finally {
                 setIsLoading(false);
-            });
-        });
+            }
+        } catch(error) {
+            setError('Current Password is incorrect');
+        }
 
     }
 
