@@ -1,7 +1,7 @@
 "use client" 
 
 // REACT
-import { useState } from "react";
+import { useState, useCallback } from "react";
 // COMPONENTS
 import { 
   Card, 
@@ -25,6 +25,11 @@ import { useDeleteAccount } from "@/hooks/useDeleteAccount";
 import { useForm, SubmitHandler} from "react-hook-form";
 // UTILS
 import { cn } from "@/utils/helpers";
+
+interface IDeleteAccountForm {
+  currentPassword: string;
+}
+
 
 export function DeleteAccount() {
   // STATE && VARIABLES
@@ -60,84 +65,74 @@ export function DeleteAccount() {
 }
 
 export function DeleteAccountDialog({ onClick }: { onClick: () => void }) {
+    // STATE && VARIABLES
+    const { deleteAccount, error, isLoading } = useDeleteAccount();
+    const { register, handleSubmit, formState: { errors } } = useForm<IDeleteAccountForm>({
+      mode: "onBlur",
+      reValidateMode: "onChange",
+      defaultValues: {
+        currentPassword: ""
+      }
+    });
+  
+    const onSubmit: SubmitHandler<IDeleteAccountForm> = useCallback(async ({ currentPassword }) => {
+      await deleteAccount(currentPassword);
+
+      if(!error && !isLoading) {
+        onClick();
+      }
+    }, [deleteAccount, error, isLoading, onClick]);
+
   return (
     <DialogContent>
       <DialogHeader>
         <DialogTitle>Delete Account</DialogTitle>
+        <p>Danger Zone! This will remove all of your details and invoice records from our database</p>
         <DialogDescription>
-          Danger Zone! This will remove all of your details and invoice records from our database
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col justify-start gap-2.5"
+          >
+            <InputField
+              name="currentPassword"
+              type="password"
+              placeholder="Current Password"
+              register={register}
+              error={errors["currentPassword"]?.message}
+              validationSchema={{
+                required: "Password is required",
+              }}
+            />
+
+            {error && (
+              <span className="text-primary-error">{error}</span>
+            )}
+
+            <DialogFooter>
+              <CanceDeleteAccount onClick={onClick}/>
+              <Button
+                className={cn(buttonVariants({ variant: "danger" }))}
+                disabled={isLoading}
+                type="submit"
+              >
+                {isLoading ? 'Deleting...' : 'Delete Account'}
+              </Button>
+            </DialogFooter>
+          </form>
         </DialogDescription>
       </DialogHeader>
-      <DialogFooter>
-        <Button
-          className={cn(buttonVariants({ variant: "dangerOutlined" }))}
-          onClick={onClick}
-        >
-          Cancel
-        </Button>
-        <Button
-          className={cn(buttonVariants({ variant: "danger" }))}
-          type="submit"
-        >
-          Delete Account
-        </Button>
-      </DialogFooter>
     </DialogContent>
   )
 }
 
-interface IDeleteAccountForm {
-  currentPassword: string;
-}
-interface IDeleteAccountFormErrors {
-  currentPassword: string;
-}
-
-export const DeleteAccountForm = () => {
-  // STATE && VARIABLES
-  const { deleteAccount, error, isLoading } = useDeleteAccount();
-  const { register, handleSubmit, formState: { errors } } = useForm<IDeleteAccountForm>({
-    mode: "onBlur",
-    reValidateMode: "onChange",
-    defaultValues: {
-      currentPassword: ""
-    }
-  });
-
-  const onSubmit: SubmitHandler<IDeleteAccountForm> = ({ currentPassword }) => {
-    deleteAccount(currentPassword);
-  }
-
+const CanceDeleteAccount = ({ onClick }: { onClick: () => void}) => {
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
+    <Button
+      className={cn(buttonVariants({ variant: "secondaryOutlined" }))}
+      onClick={onClick}
+      type="button"
     >
-      <InputField
-        name="currentPassword"
-        type="password"
-        placeholder="Enter your password to confirm deletion"
-        register={register}
-        error={errors["currentPassword"]?.message}
-        validationSchema={{
-          required: "Password is required",
-          pattern: {
-            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-            message: "Password must contain at least one uppercase letter, one lowercase letter and one number",
-          }
-        }}
-      />
-
-      {error && (
-        <span className="text-primary-error">{error}</span>
-      )}
-
-      <Button
-        className={cn(buttonVariants({ variant: "danger" }))}
-        disabled={isLoading}
-        type="submit"
-      >
-        {isLoading ? 'Deleting...' : 'Delete Account'}
-      </Button>
-    </form>
-  )
+      Cancel
+    </Button>
+  );
 }
