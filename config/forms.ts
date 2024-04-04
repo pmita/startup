@@ -55,7 +55,7 @@ export const updatePasswordInputs = [
   {
     id: 1,
     name: 'currentPassword',
-    type: 'text',
+    type: 'password',
     placeholder: 'Current Password',
     validationSchema: {
       required: "Current Password is required"
@@ -64,7 +64,7 @@ export const updatePasswordInputs = [
   {
     id: 2,
     name: 'newPassword',
-    type: 'text',
+    type: 'password',
     placeholder: 'New Password',
     validationSchema: {
       required: "New Password is required",
@@ -77,7 +77,7 @@ export const updatePasswordInputs = [
   {
     id: 3,
     name: 'confirmPassword',
-    type: 'text',
+    type: 'password',
     placeholder: 'Confirm Password',
     validationSchema: {
       required: "Confirm Password is required",
