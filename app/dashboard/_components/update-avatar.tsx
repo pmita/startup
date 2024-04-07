@@ -1,87 +1,103 @@
 "use client" 
 
+import Image from "next/image";
+// REACT
+import React, { useRef } from "react";
 import { 
   Card, 
   CardContent, 
   CardDescription, 
   CardFooter, 
   CardHeader, 
-  CardTitle 
 } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Avatar } from '@/components/avatar';
-// UTILS
-import { cn } from "@/utils/helpers";
+// HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
 import { useSignOut } from "@/hooks/useSignOut";
-import { useForm } from "react-hook-form";
 import { useStorage } from "@/hooks/useStorage";
-import { Input } from "postcss";
-import { InputField } from "@/components/input-field";
+// UTILS
+import { cn } from "@/utils/helpers";
+import { firebaseAuth } from "@/utils/firebase";
+import { AuthActionTypes } from "@/types/AuthContextTypes";
 
 export function UpdateAvatar() {
   // STATE & HOOKS
   const { user } = useAuthState();
+  const [avatarUrl, setAvatarUrl] = React.useState<string | undefined | null>(user?.photoURL);
+  const { uploadFile, uploadProgress, downloadURL, isUploading } = useStorage();
+  const fileUploadRef = useRef<HTMLInputElement>(null);
+  const { dispatch } = useAuthState();
+
+  const handleClick = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    fileUploadRef.current?.click();
+  }
+
+  const progress = uploadProgress.toFixed(0);
+
+  const onChange = async (e: { target: { files: any[]; }; }) => {
+    const file = e.target.files;
+    if (file) {
+      await uploadFile(file, `users/${user?.uid}/avatar`)
+      
+      setAvatarUrl(user?.photoURL);
+      dispatch({ type: AuthActionTypes.FETCH_UPDATED_USER, payload: firebaseAuth.currentUser })
+    }
+  }
   
   return (
     <>
     <Card className="flex flex-col justify-center items-center">
       <CardHeader>
         <CardDescription>
-          <Avatar
-            src={'/${user?.photoURL}'}
+          <Image
+            className="rounded-[50%]"
+            src={avatarUrl ?? '/images/hacker.png'}
             width={250}
             height={250}
-            altText={user?.displayName ?? 'John Doe'}
+            alt={"test"}
           />
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <SignOutButton />
       </CardContent>
-      <CardFooter>
-        
+      <CardFooter className="gap-5">
+        <>
+          <FileInput
+            onChange={onChange}
+            ref={fileUploadRef}
+          />
+          <Button
+            className={cn(buttonVariants({ variant: "primary" }))}
+            disabled={isUploading}
+            onClick={handleClick}
+          >
+            {progress !== '100' ? `Progress: ${uploadProgress.toFixed(0)}%` : 'Upload Avatar'}
+          </Button>
+        </>
+        <SignOutButton />
       </CardFooter>
     </Card>
     </>
   )
 }
 
-export const UploadNewAvatarImg = () => {
-  // STATE && VARIABLES
-  const { user } = useAuthState();
-  const { uploadFile, uploadProgress, downloadURL, isUploading } = useStorage();
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      avatar: null
-    }
-  });
-
-  const onChange = (e: { target: { files: any[]; }; }) => {
-    const file = e.target.files[0];
-    if (file) {
-      uploadFile(file, `users/${user?.uid}/avatar`);
-    }
-  }
-
-  return (
-    <form>
-      <InputField
-        name="avatar"
-        type="file"
-        register={register}
-        onChange={onChange}
-      />  
-      <Button
-        className={cn(buttonVariants({ variant: "primary" }))}
-        disabled={isUploading}
-        type="submit"
-      >
-        {isUploading ? 'Uploading...' : 'Upload Avatar'}
-      </Button>
-    </form>
-  )
+interface FileInputProps {
+  onChange: (e: any) => void;
 }
+
+const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(({ onChange}, ref ) => {
+  return (
+    <input
+      className="w-full rounded-[6px] hidden"
+      id="avatar"
+      type="file"
+      onChange={onChange}
+      ref={ref}
+    />
+  )
+})
+FileInput.displayName = "FileInput";
 
 export function SignOutButton() {
   // STATE & HOOKS
