@@ -1,18 +1,23 @@
 "use client"
 
-// COMPONENTS
-import { ImageWithFallback } from "./image-with-fallback";
+// NEXT
+import Image from "next/image";
+// REACT
+import { useState } from "react";
 // TYPES
 import { AvatarProps } from "@/types";
 
-export function Avatar({src, ...rest}: AvatarProps) {
+export function Avatar({src, altText, fallbackSrc, ...rest}: AvatarProps) {
+  // STATE && VARIABLES
+  const [imageSrc, setImageSrc] = useState(src ?? "");
+
   return (
-    <div className="rounded-full">
-      <ImageWithFallback
-        src={src}
-        fallbackSrc="/images/hacker.png"
-        {...rest}
-      />
-    </div>
+    <Image
+      className="rounded-[50%]"
+      src={imageSrc}
+      onError={() => setImageSrc(fallbackSrc)}
+      {...rest}
+      alt={altText || ""}
+    />
   )
 }

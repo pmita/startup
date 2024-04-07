@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 // FIREBASE SERVICES
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -18,6 +19,7 @@ if (!firebase.apps.length) {
 
 // AUTHENTICATION
 export const firebaseAuth = firebase.auth();
+export const EmailAuthProvider = firebase.auth.EmailAuthProvider;
 export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
 export const GithubAuthProvider = new firebase.auth.GithubAuthProvider();
 
@@ -32,4 +34,8 @@ export const fromMillis = firebase.firestore.Timestamp.fromMillis;
 export const serverTimestamp = firebase.firestore.Timestamp;
 export const createTimeStamp = firebase.firestore.Timestamp.now;
 export const fieldValue = firebase.firestore.FieldValue;
+
+// STORAGE
+export const firebaseStorage = firebase.storage();
+export const STATE_CHANGED = firebase.storage.TaskEvent.STATE_CHANGED;
 

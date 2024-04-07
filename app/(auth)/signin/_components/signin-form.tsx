@@ -28,7 +28,7 @@ interface ISignInForm {
   password: string;
 }
 
-type ISignInFormErrors = {
+interface ISignInFormErrors {
   email: string;
   password: string;
 }

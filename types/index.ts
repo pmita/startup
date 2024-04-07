@@ -88,6 +88,7 @@ export interface FetchFromApiOptions {
 
 export interface AvatarProps {
   src: string | undefined | null;
+  fallbackSrc: string;
   width: number;
   height: number;
   altText?: string;

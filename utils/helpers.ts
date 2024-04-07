@@ -2,7 +2,7 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge' ;
 // UTILS
-import { firebaseAuth } from './firebase';
+import { EmailAuthProvider, firebaseAuth } from './firebase';
 // TYPES
 import { FetchFromApiOptions } from '@/types/index';
 
@@ -35,4 +35,10 @@ export function calculateDaysPassed(date: number) {
   const difference = today - date;
   const daysPast = Math.floor(difference / (1000 * 3600 * 24));
   return daysPast;
+}
+
+export const reauthenticate = (userEmail: string, currentPassword: string) => {
+  const credentials = EmailAuthProvider.credential(userEmail, currentPassword);
+
+  return firebaseAuth.currentUser?.reauthenticateWithCredential(credentials);
 }

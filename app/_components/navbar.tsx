@@ -1,9 +1,8 @@
 import Link from "next/link"
 // COMPONENTS
-import { NavbarAvatar } from "./navbar-avatar"
-import { NavbarAuthedOptions } from "./navbar-authed-options";
+import { ShouldShowProLink, ShouldShowDashboardLink } from './authed-options';
 
-export default async function Navbar() {
+export async function Navbar() {
   return (
     <nav className="min-h-10 w-screen p-10 md:p-8 flex justify-between items-center bg-white">
       <div className="flex justify-center items-center">
@@ -16,7 +15,7 @@ export default async function Navbar() {
         </Link>
       </div>
       <ul className="flex-1 flex justify-end items-center gap-10 content-between">
-        <NavbarAuthedOptions />
+        <ShouldShowProLink />
         <li className="hover:scale-105 hover:opacity-75 font-semibold">
           <Link href={"/blog"}>
             Blog
@@ -27,7 +26,7 @@ export default async function Navbar() {
             Courses
           </Link>
         </li>
-        <NavbarAvatar />
+        <ShouldShowDashboardLink />
       </ul>
     </nav>
   )

@@ -15,6 +15,7 @@ export function ImageWithFallback({
 
   return (
     <Image
+      className="rounded-[50%]"
       src={imageSrc}
       onError={() => setImageSrc(fallbackSrc)}
       {...rest}
