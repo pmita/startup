@@ -34,6 +34,8 @@ const reducer = (state: AuthReducerInitialState, action: AuthReducerActionsType)
       return { ...state, user: null, isPro: false, proStatus: null, expires: null}
     case AuthActionTypes.FETCH_USER_PROGRESS:
       return { ...state, userProgress: action.payload }
+    case AuthActionTypes.FETCH_UPDATED_USER:
+      return { ...state, user: action.payload }
     case AuthActionTypes.FETCH_USER_STATUS:
       return { ...state, proStatus: action.payload?.proStatus || null, isPro: action.payload?.isPro || false, expires: action.payload?.expires || null }
     default: 
