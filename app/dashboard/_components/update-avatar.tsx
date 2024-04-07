@@ -11,14 +11,15 @@ import {
   CardHeader, 
 } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { SignOutButton } from "@/components/sign-out";
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
 import { useStorage } from "@/hooks/useStorage";
 // UTILS
 import { cn } from "@/utils/helpers";
 import { firebaseAuth } from "@/utils/firebase";
+// TYPES
 import { AuthActionTypes } from "@/types/AuthContextTypes";
-import { SignOutButton } from "@/components/sign-out";
 
 export function UpdateAvatar() {
   // STATE & HOOKS
