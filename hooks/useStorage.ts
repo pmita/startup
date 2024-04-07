@@ -1,14 +1,18 @@
 // REACT 
 import { useState, useEffect } from "react";
 // UTILS
-import { STATE_CHANGED, firebaseStorage } from "@/utils/firebase";
+import { STATE_CHANGED, firebaseAuth, firebaseStorage } from "@/utils/firebase";
+import { useAuthState } from "./useAuthState";
+import { AuthActionTypes } from "@/types/AuthContextTypes";
 
 export const useStorage = () => {
     // STATE && VARIABLES
     const [uploadProgress, setUploadProgress] = useState(0);
     const [downloadURL, setDownloadURL] = useState<string | null>(null);
     const [isUploading, setIsUploading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const [isCancelled, setIsCancelled] = useState(false);
+    const { dispatch } = useAuthState();
 
     const uploadFile = async (files: any, filePath: string) => {
         const file = Array.from(files)[0] as File;
@@ -22,23 +26,29 @@ export const useStorage = () => {
 
         task.on(STATE_CHANGED, (snapshot) => {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            if (!isCancelled) {
-                setUploadProgress(progress);
-            }
+            setUploadProgress(progress);
+            // if (!isCancelled) {
+            // }
+        }, (error) => {
+            setError(error.message);
         })
 
-        task.then(async () => {
-            const url = await storageRef.getDownloadURL();
-            if (!isCancelled) {
-                setDownloadURL(url);
-                setIsUploading(false);
-            }
+
+        const url = await storageRef.getDownloadURL();
+
+        await firebaseAuth.currentUser?.updateProfile({
+            photoURL: url
         });
+        
+        dispatch({ type: AuthActionTypes.FETCH_UPDATED_USER, payload: firebaseAuth.currentUser })
+
+        setDownloadURL(url);
+        setIsUploading(false);
     };
 
     useEffect(() => {
         return () => setIsCancelled(true);
     }, []);
 
-    return { uploadFile, uploadProgress, downloadURL, isUploading };
+    return { uploadFile, uploadProgress, downloadURL, isUploading, error };
 }
