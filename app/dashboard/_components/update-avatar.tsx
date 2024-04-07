@@ -13,18 +13,18 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button";
 // HOOKS
 import { useAuthState } from "@/hooks/useAuthState";
-import { useSignOut } from "@/hooks/useSignOut";
 import { useStorage } from "@/hooks/useStorage";
 // UTILS
 import { cn } from "@/utils/helpers";
 import { firebaseAuth } from "@/utils/firebase";
 import { AuthActionTypes } from "@/types/AuthContextTypes";
+import { SignOutButton } from "@/components/sign-out";
 
 export function UpdateAvatar() {
   // STATE & HOOKS
   const { user } = useAuthState();
   const [avatarUrl, setAvatarUrl] = React.useState<string | undefined | null>(user?.photoURL);
-  const { uploadFile, uploadProgress, downloadURL, isUploading } = useStorage();
+  const { uploadFile, uploadProgress, isUploading } = useStorage();
   const fileUploadRef = useRef<HTMLInputElement>(null);
   const { dispatch } = useAuthState();
 
@@ -38,7 +38,11 @@ export function UpdateAvatar() {
   const onChange = async (e: { target: { files: any[]; }; }) => {
     const file = e.target.files;
     if (file) {
-      await uploadFile(file, `users/${user?.uid}/avatar`)
+      const storageRef = await uploadFile(file, `users/${user?.uid}/avatar`)
+
+      await firebaseAuth.currentUser?.updateProfile({
+        photoURL: await storageRef.getDownloadURL()
+      })
       
       setAvatarUrl(user?.photoURL);
       dispatch({ type: AuthActionTypes.FETCH_UPDATED_USER, payload: firebaseAuth.currentUser })
@@ -72,7 +76,7 @@ export function UpdateAvatar() {
             disabled={isUploading}
             onClick={handleClick}
           >
-            {progress !== '100' ? `Progress: ${uploadProgress.toFixed(0)}%` : 'Upload Avatar'}
+            {isUploading || progress !== '100' ? `Progress: ${uploadProgress.toFixed(0)}%` : 'Upload Avatar'}
           </Button>
         </>
         <SignOutButton />
@@ -98,18 +102,3 @@ const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(({ onChange
   )
 })
 FileInput.displayName = "FileInput";
-
-export function SignOutButton() {
-  // STATE & HOOKS
-  const { signOut, isLoading } = useSignOut();
-  
-  return (
-    <Button
-      className={cn(buttonVariants({ variant: "primary" }))}
-      onClick={signOut}
-      disabled={isLoading}
-    >
-      {isLoading ? 'Loading...' : 'Sign Out'}
-    </Button>
-  )
-}
