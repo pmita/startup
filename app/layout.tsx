@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 // COMPONENTS
-import Navbar from '@/app/_components/Navbar';
+import { Navbar } from '@/app/_components/navbar';
+// CONTEXT
 import { AuthContextProvider } from '@/context/AuthContext';
 // UTILS
 import { fontRoboto, fontPoppins } from '@/utils/font';
