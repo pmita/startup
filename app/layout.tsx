@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 // COMPONENTS
 import { Navbar } from '@/app/_components/navbar';
+import { Footer } from '@/app/_components/footer';
 // CONTEXT
 import { AuthContextProvider } from '@/context/AuthContext';
 // UTILS
@@ -22,10 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fontRoboto.variable} ${fontPoppins.variable}`}>
       <body>
-        <AuthContextProvider>
-          <Navbar />
-          {children}
-        </AuthContextProvider>
+      <AuthContextProvider>
+        <Navbar />
+        {children}
+        <Footer />
+      </AuthContextProvider>
       </body>
     </html>
   )
