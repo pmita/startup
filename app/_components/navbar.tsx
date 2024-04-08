@@ -4,7 +4,7 @@ import { ShouldShowProLink, ShouldShowDashboardLink } from './authed-options';
 
 export async function Navbar() {
   return (
-    <nav className="min-h-10 w-screen p-4 sm:p-10 md:p-8 flex justify-between items-center bg-white">
+    <nav className="container min-h-10 w-screen p-4 sm:p-10 md:p-8 flex justify-between items-center bg-white">
       <div className="flex justify-center items-center">
         <Link href={"/"}>
           <h2 
