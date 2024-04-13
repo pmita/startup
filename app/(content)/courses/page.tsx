@@ -24,28 +24,16 @@ export default async function LessonsPage() {
   return (
     <>
       <Header
-        className="flex flex-col justify-center items-center gap-6"
         headerTitle={
-          <Title 
-            title="All Courses"
-            className={cn(titleVariants({
-              variant: "secondary",
-              size: "lg",
-              className: "capitalize"
-            }))}
-          />
+          <Title title="All courses" />
         }
         headerDescription={
           <Description
             description="Built feature based projects and stop following step by step tutorials when coding"
-            className={cn(descriptionVariants({
-              variant: "neutral",
-              size: "lg"
-            }))}
           />
         }
       />
-      <section className="grid grid-cols-[repeat(auto-fit,minmax(416px,416px))] auto-rows-[579px] gap-4 my-4 p-4 justify-center">
+      <section className="grid grid-cols-[repeat(auto-fit,400px)] auto-rows-[580px] gap-8 mt-8 my-4 p-4 justify-center">
         {courses.map((course, index) => (
           <CourseCard
             key={index}

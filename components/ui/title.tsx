@@ -4,7 +4,7 @@ import { cn } from "@/utils/helpers";
 import { VariantProps, cva } from "class-variance-authority";
 
 export const titleVariants = cva(
-  "text-6xl font-poppins font-bold", {
+  "text-6xl font-poppins font-bold capitalize", {
   variants: {
     variant: {
       primary: "text-primary",
@@ -20,7 +20,7 @@ export const titleVariants = cva(
     },
     defaultVariants: {
       variant: "secondary",
-      size: "default"
+      size: "lg"
     }
   }
 )

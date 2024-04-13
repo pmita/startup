@@ -2,8 +2,8 @@
 import Link from "next/link"
 // COMPONENTS
 import { Header } from "@/components/ui/header"
-import { Title, titleVariants } from '@/components/ui/title';
-import { Description, descriptionVariants } from "@/components/ui/description";
+import { Title } from '@/components/ui/title';
+import { Description } from "@/components/ui/description";
 import { AuthCheck } from "@/components/auth-check"
 import { CheckoutButton } from "./_components/checkout-button"
 import { Subscriptioncheck } from "@/components/subscription-check"
@@ -28,24 +28,14 @@ export default async function ProMembersPage() {
         </>
       )}>
         <Header
-          className="flex flex-col justify-center items-center gap-6"
           headerTitle={
             <Title 
               title="Become a Pro Member"
-              className={cn(titleVariants({
-                variant: "secondary",
-                size: "lg",
-                className: "capitalize"
-              }))}
             />
           }
           headerDescription={
             <Description
               description="Learn the essential skills for modern FullStack web and app development"
-              className={cn(descriptionVariants({
-                variant: "secondary",
-                size: "default"
-              }))}
             />
           }
         />

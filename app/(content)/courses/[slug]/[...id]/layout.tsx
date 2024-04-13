@@ -20,9 +20,9 @@ export default function CourseChapterLayout({ children, params }: CourseChapterL
     .sort((a, b) => compareAsc(a.weight, b.weight));
 
   return (
-    <section className="flex flex-wrap flex-row justify-center items-stretch w-full p-5 pb-0">
+    <section className="flex flex-wrap flex-row justify-center items-stretch">
       <ChaptersList chapters={chapters} />
-      <section className="p-5 flex-[4_1_670px] self-stretch w-full order-1 lg:order-2">
+      <section className="flex-[4_1_670px] self-stretch w-full order-1 lg:order-2">
         {children}
       </section>
     </section>

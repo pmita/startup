@@ -32,7 +32,9 @@ export function InvoicesList({ invoices }: UserInvoiceData) {
   const [itemsEnded, setItemsEnded] = useState<boolean | undefined>(false);
   const { user } = useAuthState();  
   
-  if (!items) return null;
+  if (!items?.length) return null;
+
+  console.log(items);
   
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const loadMore = useCallback(async () => {

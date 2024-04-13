@@ -5,8 +5,8 @@ import Link from "next/link"
 import { notFound } from "next/navigation";
 // COMPONENTS
 import { Header } from "@/components/ui/header";
-import { Title, titleVariants } from '@/components/ui/title';
-import { Description, descriptionVariants } from "@/components/ui/description";
+import { Title } from '@/components/ui/title';
+import { Description } from "@/components/ui/description";
 import { InfoCard } from "@/components/info-card";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
@@ -63,27 +63,13 @@ export default async function LessonPage({ params }: CoursePageProps) {
       <Header
         className="flex flex-col justify-center items-center gap-6"
         headerTitle={
-          <Title 
-            title={course?.title}
-            className={cn(titleVariants({
-              variant: "secondary",
-              size: "lg",
-              className: "capitalize"
-            
-            }))}
-          />
+          <Title title={course?.title} />
         }
         headerDescription={
-          <Description
-            description={course?.description || ''}
-            className={cn(descriptionVariants({
-              variant: "neutral",
-              size: "lg"
-            }))}
-          />
+          <Description description={course?.description || ''} />
         }
       />
-      <section className="grid grid-cols-[repeat(auto-fit,minmax(240px,300px))] auto-rows-[150px] gap-8 mx-0 my-4 p-4 justify-center">
+      <section className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 auto-rows-[150px] justify-center">
         {sortedChapters.map((chapter) => (
           <div key={chapter.weight} className="w-full border-[6px] border-solid border-primary-black hover:border-primary-green flex flex-col justify-center items-start rounded-[12px] bg-primary-white p-4">
             <Link href={`/courses/${chapter.slugAsParams}`}>

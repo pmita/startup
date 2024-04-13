@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 // COMPONENTS
 import { SignInForm } from './_components/signin-form';
 import { Header } from "@/components/ui/header";
-import { Title, titleVariants } from '@/components/ui/title';
-import { Description, descriptionVariants } from "@/components/ui/description";
+import { Title } from '@/components/ui/title';
+import { Description } from "@/components/ui/description";
 // UTILS
 import { cn } from '@/utils/helpers';
 
@@ -23,23 +23,10 @@ export default async function SignInPage(){
           <Header
             className="flex flex-col justify-start items-center gap-5 pl-5"
             headerTitle={
-              <Title 
-                title="Welcome back"
-                className={cn(titleVariants({ 
-                  variant: "secondary", 
-                  size: "lg",
-                  className: "capitalize" 
-                }))}
-              />
+              <Title title="Welcome back" />
             }
             headerDescription={
-              <Description
-                description="Enter Your Email to sign in to your account"
-                className={cn(descriptionVariants({
-                  variant: "secondary",
-                  size: "default"
-                }))}
-              />
+              <Description description="Enter Your Email to sign in to your account" />
             }
           />
         }
