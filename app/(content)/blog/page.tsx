@@ -28,9 +28,9 @@ export default async function BlogPage() {
 
   return (
     <>
-      <Banner className={cn(bannerVariants({  variant: "center", size: "half", className: "flex-col bg-primary rounded-[6px]"}))}>
-      <BannerHeader className="flex flex-col justify-start items-start gap-10 max-w-[350px] sm:max-w-[600px] pt-12">
-        <h3 className="text-2xl font-bold tracking-tight text-primary-white">👋 Hello</h3>
+      <Banner className={cn(bannerVariants({  variant: "center", size: "threeQuarters", className: "flex-col bg-primary rounded-[6px]"}))}>
+        <BannerHeader className="flex flex-col justify-start items-start gap-10 max-w-[350px] sm:max-w-[600px]">
+          <h3 className="text-2xl font-bold tracking-tight text-primary-white">👋 Hello</h3>
           <Header
               className="flex flex-col justify-start items-start gap-6"
               headerTitle={
