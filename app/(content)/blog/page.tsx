@@ -55,9 +55,9 @@ export default async function BlogPage() {
             />
         </BannerHeader> 
       </ Banner>
-      <section className="grid grid-cols-[1fr] grid-auto-rows gap-4 justify-center">
+      <section className="grid grid-cols-[1fr] grid-auto-rows gap-4 justify-center m-10">
         {blogs.map((blog, index) => (
-          <div key={index} className="bg-primary-white mx-auto max-w-2xl lg:mx-0 lg:flex lg:max-w-none">
+          <div key={index} className="bg-primary-white mx-auto max-w-2xl lg:mx-0 lg:flex lg:max-w-none border-[5px] border-solid border-primary-black rounded-[12px]">
             <div className="p-8 sm:p-10 lg:flex-auto flex flex-col justify-center items-start gap-4">
               <div className="flex justify-start items-center gap-2">
                 {blog?.tags?.map(({ title, variant}) => (
@@ -77,19 +77,21 @@ export default async function BlogPage() {
               <h3 className="text-2xl font-bold tracking-tight text-gray-900">{blog.title}</h3>
               <p className="text-base leading-7 text-primary-black">{blog.description}</p>
             </div>
-            <div className="flex justify-center items-center rounded-2xl bg-primary-green-light">
-              <Link href={`/${blog?._raw.flattenedPath}`}>
-                <ImageWithFallback
-                  src={'/images/hacker.png'}
-                  fallbackSrc="/images/hacker.png"
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{ width: "100%", height: "100%" }}
-                  objectFit="cover"
-                  altText={blog?.title || ''}
-                  />
-              </Link>
+            <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+              <div className="flex justify-center items-center rounded-[8px] bg-primary-green-light">
+                <Link href={`/${blog?._raw.flattenedPath}`}>
+                  <ImageWithFallback
+                    src={'/images/hacker.png'}
+                    fallbackSrc="/images/hacker.png"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{ width: "100%", height: "100%" }}
+                    objectFit="cover"
+                    altText={blog?.title || ''}
+                    />
+                </Link>
+              </div>
             </div>
           </div>
         ))}
