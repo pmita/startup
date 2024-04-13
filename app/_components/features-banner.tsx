@@ -3,7 +3,7 @@ import { Header } from "@/components/ui/header";
 import { titleVariants, Title } from "@/components/ui/title";
 import { descriptionVariants, Description } from "@/components/ui/description";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BannerContent, BannerHeader, Banner, bannerVariants } from "@/components/ui/bannerz";
+import { BannerContent, BannerHeader, Banner, bannerVariants } from "@/components/ui/banner";
 // UTILS
 import { cn } from "@/utils/helpers";
 

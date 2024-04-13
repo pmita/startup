@@ -1,5 +1,5 @@
 // COMPONENTS
-import { Banner, bannerVariants, BannerHeader, BannerFooter } from "@/components/ui/bannerz";
+import { Banner, bannerVariants, BannerHeader, BannerFooter } from "@/components/ui/banner";
 import { Title, titleVariants } from '@/components/ui/title';
 import { tagVariants, Tag } from "@/components/ui/tag";
 import { Header } from "@/components/ui/header";

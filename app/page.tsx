@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 // COMPONENTS
-import { Banner, BannerHeader, BannerFooter, bannerVariants } from "@/components/ui/bannerz";
+import { Banner, BannerHeader, BannerFooter, bannerVariants } from "@/components/ui/banner";
 import { buttonVariants } from "@/components/ui/button";
 import { Title, titleVariants } from '@/components/ui/title';
 import { Description, descriptionVariants } from "@/components/ui/description";

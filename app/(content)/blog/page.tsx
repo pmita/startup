@@ -2,7 +2,7 @@
 import { type Metadata } from "next";
 import Link from "next/link";
 // COMPONENTS
-import { Banner, BannerHeader, bannerVariants } from "@/components/ui/bannerz";
+import { Banner, BannerHeader, bannerVariants } from "@/components/ui/banner";
 import { Header } from "@/components/ui/header";
 import { Title, titleVariants } from '@/components/ui/title';
 import { Description, descriptionVariants } from "@/components/ui/description";
