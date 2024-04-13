@@ -33,7 +33,7 @@ export default async function LessonsPage() {
           />
         }
       />
-      <section className="grid grid-cols-[repeat(auto-fit,minmax(416px,416px))] auto-rows-[579px] gap-4 my-4 p-4 justify-center">
+      <section className="grid grid-cols-[repeat(auto-fit,400px)] auto-rows-[580px] gap-8 mt-8 my-4 p-4 justify-center">
         {courses.map((course, index) => (
           <CourseCard
             key={index}
