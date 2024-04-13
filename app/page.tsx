@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 // COMPONENTS
-import { Banner, BannerHeader, BannerFooter, bannerVariants } from "@/components/ui/bannerz";
+import { Banner, BannerHeader, BannerFooter, bannerVariants } from "@/components/ui/banner";
 import { buttonVariants } from "@/components/ui/button";
 import { Title, titleVariants } from '@/components/ui/title';
 import { Description, descriptionVariants } from "@/components/ui/description";
@@ -17,8 +17,8 @@ export default async function Home() {
     <div className="px-2 pt-2 w-full">
       {/* <LandingBanner /> */}
       <Banner className={cn(bannerVariants({ variant: "center", className: "flex-col bg-primary rounded-[6px] relative p-10 overflow-hidden min-h-[90dvh]"}))}>
-      <BannerHeader className="text-center max-w-[350px] sm:max-w-[600px] pt-12">
-      <Header
+        <BannerHeader className="text-center max-w-[350px] sm:max-w-[600px] pt-12">
+          <Header
               className="flex flex-col justify-center items-center gap-6"
               headerTitle={
                 <Title 

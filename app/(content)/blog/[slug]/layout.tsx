@@ -1,7 +1,8 @@
 // COMPONENTS
-import { Banner, bannerVariants } from "@/components/ui/banner";
+import { Banner, bannerVariants, BannerHeader, BannerFooter } from "@/components/ui/banner";
 import { Title, titleVariants } from '@/components/ui/title';
 import { tagVariants, Tag } from "@/components/ui/tag";
+import { Header } from "@/components/ui/header";
 // LIBRARIES
 import { allBlogs } from "@/.contentlayer/generated";
 import { parseISO } from "date-fns";
@@ -21,38 +22,38 @@ export default function BlogPageLayout({ children, params }: BlogPageLayoutProps
 
   return (
     <>
-      <Banner
-      className={cn(bannerVariants({
-        className: "rounded-[12px] min-h-[505px] w-full bg-primary-black text-primary-white flex flex-col justify-center items-start gap-10 p-10"
-      }))}
-        tags={
-          <div className="flex justify-start items-center gap-1">
-          {blog?.tags?.map(({ title, variant}) => (
-            <Tag 
-              key={title} 
-              tag={'# ' + title}
-              className={cn(tagVariants({ variant, className:"bg-primary rounded-[6px] border-[6px] border-solid border-primary text-neutral" }))}
-            /> 
-          ))}
-          {blog?.date && (
-            <Tag
-              tag={format('dd-MMMM-yyyy', parseISO(blog.date)).split('-').join(' ')}
-              className={cn(tagVariants({ className:"bg-secondary rounded-[6px] border-[6px] border-solid border-neutral text-neutral" }))}
+      <Banner className={cn(bannerVariants({  variant: "center", size: "half", className: "flex-col items-stretch bg-primary rounded-[6px]"}))}>
+        <BannerHeader className="flex flex-col justify-start items-start gap-5 max-w-[350px] sm:max-w-[600px]">    
+          <Header
+              className="flex flex-col justify-start items-start gap-6"
+              headerTitle={
+                <Title 
+                  title={blog?.title ?? "Iconing Title"}
+                  className={cn(titleVariants({
+                    variant: "neutral",
+                    size: "lg",
+                    className: "capitalize"
+                  }))}
+                />
+              }
             />
-          )}
-        </div>
-        }
-        bannerDescription={
-          <Title 
-            title={blog?.title ?? "Iconing Title"}
-            className={cn(titleVariants({
-              variant: "primary",
-              size: "lg",
-              className: "capitalize"
-            }))}
-          />
-        }
-      />
+        </BannerHeader> 
+        <BannerFooter className="flex-row justify-start items-start gap-2.5">
+          {blog?.tags?.map(({ title, variant}) => (
+              <Tag 
+                key={title} 
+                tag={'# ' + title}
+                className={cn(tagVariants({ variant }))}
+              /> 
+            ))}
+            {blog?.date && (
+              <Tag
+                tag={format('dd-MMMM-yyyy', parseISO(blog.date)).split('-').join(' ')}
+                className={cn(tagVariants({ variant: "secondaryOutlined" }))}
+              />
+            )}
+        </BannerFooter>
+      </ Banner>
       {children}
     </>
   );

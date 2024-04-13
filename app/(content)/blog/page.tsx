@@ -2,7 +2,7 @@
 import { type Metadata } from "next";
 import Link from "next/link";
 // COMPONENTS
-import { Banner, bannerVariants } from "@/components/ui/banner";
+import { Banner, BannerHeader, bannerVariants } from "@/components/ui/banner";
 import { Header } from "@/components/ui/header";
 import { Title, titleVariants } from '@/components/ui/title';
 import { Description, descriptionVariants } from "@/components/ui/description";
@@ -28,81 +28,70 @@ export default async function BlogPage() {
 
   return (
     <>
-      <Banner
-        className={cn(bannerVariants({
-          size: "default",
-          className: "rounded-[12px] min-h-[505px] w-full bg-primary-black text-primary-white flex flex-col justify-center items-start gap-10 p-10"
-        }))}
-        bannerTitle={(
+      <Banner className={cn(bannerVariants({  variant: "center", size: "threeQuarters", className: "flex-col bg-primary rounded-[6px]"}))}>
+        <BannerHeader className="flex flex-col justify-start items-start gap-10 max-w-[350px] sm:max-w-[600px]">
           <h3 className="text-2xl font-bold tracking-tight text-primary-white">👋 Hello</h3>
-        )}
-        bannerDescription={
-          <Title 
-            title="Insights about coding, entrepreneurship, tools, and the in-betweens"
-            className={cn(titleVariants({
-              variant: "neutral",
-              size: "lg",
-            }))}
-          />
-        }
-      />
-      <Header
-        className="flex flex-col justify-center items-center gap-6"
-        headerTitle={
-          <Title 
-            title="All Blog Articles"
-            className={cn(titleVariants({
-              variant: "secondary",
-              size: "lg",
-              className: "capitalize"
-            }))}
-          />
-        }
-        headerDescription={
-          <Description
-            description="What's on our mind currently"
-            className={cn(descriptionVariants({
-              variant: "neutral",
-              size: "lg"
-            }))}
-          />
-        }
-      />
-      <section className="grid grid-cols-[1fr] grid-auto-rows gap-4 justify-center">
+          <Header
+              className="flex flex-col justify-start items-start gap-6"
+              headerTitle={
+                <Title 
+                  title="All Blog Articles"
+                  className={cn(titleVariants({
+                    variant: "neutral",
+                    size: "xl",
+                    className: "capitalize"
+                  }))}
+                />
+              }
+              headerDescription={
+                <Description
+                  description="Insights about coding, entrepreneurship, tools, and the in-betweens"
+                  className={cn(descriptionVariants({
+                    variant: "neutral",
+                    size: "default"
+                  }))}
+                />
+              }
+            />
+        </BannerHeader> 
+      </ Banner>
+      <section className="grid grid-cols-[1fr] grid-auto-rows gap-4 justify-center m-10">
         {blogs.map((blog, index) => (
-          <div key={index} className="bg-primary-white mx-auto max-w-2xl lg:mx-0 lg:flex lg:max-w-none">
+          <div key={index} className="bg-primary-white mx-auto max-w-2xl lg:mx-0 lg:flex lg:max-w-none border-[5px] border-solid border-primary-black rounded-[12px]">
             <div className="p-8 sm:p-10 lg:flex-auto flex flex-col justify-center items-start gap-4">
               <div className="flex justify-start items-center gap-2">
                 {blog?.tags?.map(({ title, variant}) => (
                   <Tag 
-                    key={title} 
-                    tag={'# ' + title}
-                    className={cn(tagVariants({ variant, size: 'lg' }))}
+                  key={title} 
+                  tag={'# ' + title}
+                  className={cn(tagVariants({ variant, size: 'lg' }))}
                   /> 
                 ))}
                 {blog?.date && (
                   <Tag
-                    tag={format('dd-MMMM-yyyy', parseISO(blog.date)).split('-').join(' ')}
-                    className={cn(tagVariants({ variant: 'secondaryOutlined', size: 'lg' }))}
+                  tag={format('dd-MMMM-yyyy', parseISO(blog.date)).split('-').join(' ')}
+                  className={cn(tagVariants({ variant: 'secondaryOutlined', size: 'lg' }))}
                   />
                 )}
               </div>
               <h3 className="text-2xl font-bold tracking-tight text-gray-900">{blog.title}</h3>
               <p className="text-base leading-7 text-primary-black">{blog.description}</p>
             </div>
-            <div className="flex justify-center items-center rounded-2xl bg-primary-green-light">
-              <Link href={`/${blog?._raw.flattenedPath}`}>
-                <ImageWithFallback
-                  src={'/images/hacker.png'}
-                  fallbackSrc="/images/hacker.png"
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{ width: "100%", height: "100%" }}
-                  objectFit="cover"
-                  altText={blog?.title || ''}
-                />
-              </Link>
+            <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+              <div className="flex justify-center items-center rounded-[8px] bg-primary-green-light">
+                <Link href={`/${blog?._raw.flattenedPath}`}>
+                  <ImageWithFallback
+                    src={'/images/hacker.png'}
+                    fallbackSrc="/images/hacker.png"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{ width: "100%", height: "100%" }}
+                    objectFit="cover"
+                    altText={blog?.title || ''}
+                    />
+                </Link>
+              </div>
             </div>
           </div>
         ))}
