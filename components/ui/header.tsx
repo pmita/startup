@@ -10,7 +10,7 @@ export function Header({ headerTitle, headerDescription, className, ...props }: 
   return (
     <div 
       className={cn(
-        "flex gap-6",
+        "flex flex-col justify-center items-center gap-6",
         className
         )}
       {...props}

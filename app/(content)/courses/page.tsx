@@ -24,24 +24,12 @@ export default async function LessonsPage() {
   return (
     <>
       <Header
-        className="flex flex-col justify-center items-center gap-6"
         headerTitle={
-          <Title 
-            title="All Courses"
-            className={cn(titleVariants({
-              variant: "secondary",
-              size: "lg",
-              className: "capitalize"
-            }))}
-          />
+          <Title title="All courses" />
         }
         headerDescription={
           <Description
             description="Built feature based projects and stop following step by step tutorials when coding"
-            className={cn(descriptionVariants({
-              variant: "neutral",
-              size: "lg"
-            }))}
           />
         }
       />

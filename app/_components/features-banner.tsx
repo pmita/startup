@@ -1,7 +1,7 @@
 // REACT
 import { Header } from "@/components/ui/header";
-import { titleVariants, Title } from "@/components/ui/title";
-import { descriptionVariants, Description } from "@/components/ui/description";
+import { Title } from "@/components/ui/title";
+import { Description } from "@/components/ui/description";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BannerContent, BannerHeader, Banner, bannerVariants } from "@/components/ui/banner";
 // UTILS
@@ -16,22 +16,11 @@ export async function FeaturesBanner() {
       <Header
           className="flex flex-col justify-center items-center gap-6"
           headerTitle={
-            <Title 
-              title="Features"
-              className={cn(titleVariants({ 
-                variant: "secondary", 
-                size: "lg",
-                className: "capitalize" 
-              }))}
-            />
+            <Title title="Features" />
           }
           headerDescription={
             <Description
               description="Learn the latest web development trends with feature based project. We cover everything from authentication, UI/UX, database configuration, and many more"
-              className={cn(descriptionVariants({
-                variant: "secondary",
-                size: "default"
-              }))}
             />
           }
         />

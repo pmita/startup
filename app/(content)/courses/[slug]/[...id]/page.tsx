@@ -5,8 +5,8 @@ import { notFound } from "next/navigation";
 // COMPONENTS
 import { VideoContainer } from './_components/video-container';
 import { Header } from "@/components/ui/header";
-import { Title, titleVariants } from '@/components/ui/title';
-import { Description, descriptionVariants } from "@/components/ui/description";
+import { Title } from '@/components/ui/title';
+import { Description } from "@/components/ui/description";
 import { Mdx } from "@/components/MDX";
 // LIBRARIES
 import { allCourses } from "contentlayer/generated";
@@ -111,23 +111,10 @@ export default async function ChapterPage({ params }: CoursePageProps) {
       <Header
         className="flex flex-col justify-center items-start"
         headerTitle={
-          <Title 
-            title={chapter?.title}
-            className={cn(titleVariants({
-              variant: "secondary",
-              size: "lg",
-              className: "capitalize"
-            }))}
-          />
+          <Title title={chapter?.title} />
         }
         headerDescription={
-          <Description
-            description={chapter?.description || ''}
-            className={cn(descriptionVariants({
-              variant: "secondary",
-              size: "lg"
-            }))}
-          />
+          <Description description={chapter?.description || ''} />
         }
         />
       </section>

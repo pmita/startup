@@ -6,8 +6,8 @@ import type { Metadata } from 'next'
 import { getInvoices } from '@/data/firestore';
 // COMPONENTS
 import { Header } from "@/components/ui/header";
-import { Title, titleVariants } from '@/components/ui/title';
-import { Description, descriptionVariants } from "@/components/ui/description";
+import { Title } from '@/components/ui/title';
+import { Description } from "@/components/ui/description";
 import { InvoicesList } from './_components/invoices-lits';
 // UTILS
 import { cn } from '@/utils/helpers';
@@ -32,20 +32,11 @@ export default async function InvoicesPage() {
           headerTitle={
             <Title
               title='Invoices'
-              className={cn(titleVariants({
-                variant: 'secondary',
-                size: 'lg',
-                className: 'capitalize'
-              }))}
             />
           }
           headerDescription={
             <Description
               description='Manage your invoices'
-              className={cn(descriptionVariants({
-                variant: 'secondary',
-                size: 'default'
-              }))}
             />
           }
         />

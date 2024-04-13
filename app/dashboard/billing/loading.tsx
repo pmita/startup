@@ -1,7 +1,7 @@
 // COMPONENTS
 import { Header } from "@/components/ui/header";
-import { Title, titleVariants } from '@/components/ui/title';
-import { Description, descriptionVariants } from "@/components/ui/description";
+import { Title } from '@/components/ui/title';
+import { Description } from "@/components/ui/description";
 import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 // UTILS
@@ -13,23 +13,10 @@ export default function BillingPageLoading() {
       <Header
           className="flex flex-col justify-start items-start gap-6 pl-5"
           headerTitle={
-            <Title 
-              title="Billing"
-              className={cn(titleVariants({ 
-                variant: "secondary", 
-                size: "lg",
-                className: "capitalize" 
-              }))}
-            />
+            <Title title="Billing" />
           }
           headerDescription={
-            <Description
-              description="Manage your billing detail"
-              className={cn(descriptionVariants({
-                variant: "secondary",
-                size: "default"
-              }))}
-            />
+            <Description description="Manage your billing detail" />
           }
         />
         <Card className="flex flex-col justify-center gap-5 p-6 items-start min-h-[150px]">
