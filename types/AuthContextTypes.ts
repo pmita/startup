@@ -9,6 +9,7 @@ export type AuthReducerInitialState = {
   expires: any;
   isPro: boolean;
   proStatus: PRO_STATUS | null;
+  photoURL: string | null;
 }
 
 export type userProgressType = {
@@ -22,7 +23,12 @@ export enum AuthActionTypes {
   AUTH_HAS_CHANGED_SUCCESS = 'AUTH_HAS_CHANGED_SUCCESS',
   FETCH_USER_PROGRESS="FETCH_USER_PROGRESS",
   FETCH_USER_STATUS="FETCH_USER_STATUS",
-  FETCH_UPDATED_USER="FETCH_UPDATED_USER"
+  FETCH_UPDATED_USER="FETCH_UPDATED_USER",
+  UPDATE_USER_AVATAR="UPDATE_USER_AVATAR"
+}
+export type UPDATE_USER_AVATAR_ACTION = {
+  type: AuthActionTypes.UPDATE_USER_AVATAR;
+  payload: string | null;
 }
 
 export type FETCH_UPDATED_USER_ACTION = {
@@ -67,6 +73,7 @@ export type AuthReducerActionsType =
   | FETCH_USER_PROGRESS_ACTION
   | FETCH_USER_STATUS_ACTION
   | FETCH_UPDATED_USER_ACTION
+  | UPDATE_USER_AVATAR_ACTION
   
 
 export type AuthReducerState = {
@@ -76,5 +83,6 @@ export type AuthReducerState = {
   expires: any,
   isPro: boolean,
   proStatus: PRO_STATUS | null,
+  photoURL: string | null,
   dispatch: React.Dispatch<any>
 }

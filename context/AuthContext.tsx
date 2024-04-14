@@ -22,6 +22,7 @@ const initialState: AuthReducerInitialState = {
   expires: null,
   isPro: false,
   proStatus: null,
+  photoURL: null,
 }
 
 const reducer = (state: AuthReducerInitialState, action: AuthReducerActionsType): AuthReducerInitialState => {
@@ -36,6 +37,8 @@ const reducer = (state: AuthReducerInitialState, action: AuthReducerActionsType)
       return { ...state, userProgress: action.payload }
     case AuthActionTypes.FETCH_UPDATED_USER:
       return { ...state, user: action.payload }
+    case AuthActionTypes.UPDATE_USER_AVATAR:
+      return { ...state, photoURL: action.payload }
     case AuthActionTypes.FETCH_USER_STATUS:
       return { ...state, proStatus: action.payload?.proStatus || null, isPro: action.payload?.isPro || false, expires: action.payload?.expires || null }
     default: 
