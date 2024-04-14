@@ -6,7 +6,7 @@ import { STATE_CHANGED, firebaseStorage } from "@/utils/firebase";
 export const useStorage = () => {
     // STATE && VARIABLES
     const [uploadProgress, setUploadProgress] = useState(0);
-    const [isUploading, setIsUploading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [isCancelled, setIsCancelled] = useState(false);
 
@@ -16,7 +16,7 @@ export const useStorage = () => {
 
         const storageRef = firebaseStorage.ref(`${filePath}.${extension}`);
 
-        setIsUploading(true);
+        setIsLoading(true);
 
         const task = storageRef.put(file);
 
@@ -27,7 +27,7 @@ export const useStorage = () => {
             setError(error.message);
         })
 
-        setIsUploading(false);
+        setIsLoading(false);
 
         return storageRef;
     };
@@ -36,5 +36,5 @@ export const useStorage = () => {
         return () => setIsCancelled(true);
     }, []);
 
-    return { uploadFile, uploadProgress, isUploading, error };
+    return { uploadFile, uploadProgress, isLoading, error };
 }
