@@ -1,12 +1,9 @@
 // UTILS
 import { cn } from "@/utils/helpers";
+// TYPES
+import { LayoutContainerProps } from "@/types/layouts";
 
-export type ContainerLayoutProps = {
-  className?: string;
-  children: React.ReactNode;
-};
-
-export const ContainerLayout = ({ className, children }: ContainerLayoutProps) => {
+export const ContainerLayout = ({ className, children }: LayoutContainerProps) => {
   return (
     <div className={cn("container px-2 pt-2 w-full", className )}>
       {children}

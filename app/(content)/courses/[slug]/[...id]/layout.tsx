@@ -1,5 +1,6 @@
 //COMPONENTS
 import ChaptersList from "./_components/chapters-list";
+import { AsideContainer, SectionContainer, WrapContainer } from "@/layouts/wrap-container";
 // LIBRARIES
 import { allCourses } from "@/.contentlayer/generated";
 import { compareAsc } from "date-fns";
@@ -20,13 +21,13 @@ export default function CourseChapterLayout({ children, params }: CourseChapterL
     .sort((a, b) => compareAsc(a.weight, b.weight));
 
   return (
-    <section className="flex flex-wrap flex-row justify-center items-stretch">
-      <aside className="flex-[1_1_300px] self-stretch flex flex-col flex-start items-between gap-2 order-2 lg:order-1 min-h-[90vh] overflow-scroll">
+    <WrapContainer>
+      <AsideContainer className="order-2 lg:order-1 min-h-[90vh] overflow-scroll">
         <ChaptersList chapters={chapters} />
-      </aside>
-      <section className="flex-[4_1_670px] self-stretch w-full order-1 lg:order-2">
+      </AsideContainer>
+      <SectionContainer className="w-full order-1 lg:order-2">
         {children}
-      </section>
-    </section>
+      </SectionContainer>
+    </WrapContainer>
   );
 }
