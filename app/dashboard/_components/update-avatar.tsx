@@ -1,8 +1,9 @@
 "use client" 
 
+// NEXT
 import Image from "next/image";
 // REACT
-import React, { useRef } from "react";
+import React, { useRef, useCallback } from "react";
 import { 
   Card, 
   CardContent, 
@@ -30,26 +31,27 @@ export function UpdateAvatar() {
   const fileUploadRef = useRef<HTMLInputElement>(null);
   const { dispatch } = useAuthState();
 
-  const handleClick = (e: { preventDefault: () => void; }) => {
+  // EVENTS
+  const onClick = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     fileUploadRef.current?.click();
   }
 
-  const progress = uploadProgress.toFixed(0);
-
-  const onChange = async (e: { target: { files: any[]; }; }) => {
+  const onChange = useCallback(async (e: { target: { files: any[]; }; }) => {
     const file = e.target.files;
     if (file) {
       const storageRef = await uploadFile(file, `users/${user?.uid}/avatar`)
 
+      const photoURL = await storageRef.getDownloadURL();
+
       await firebaseAuth.currentUser?.updateProfile({
-        photoURL: await storageRef.getDownloadURL()
+        photoURL
       })
       
       setAvatarUrl(user?.photoURL);
-      dispatch({ type: AuthActionTypes.FETCH_UPDATED_USER, payload: firebaseAuth.currentUser })
+      dispatch({ type: AuthActionTypes.UPDATE_USER_AVATAR, payload: photoURL })
     }
-  }
+  }, [dispatch, uploadFile, user]);
   
   return (
     <>
@@ -80,7 +82,7 @@ export function UpdateAvatar() {
           <Button
             className={cn(buttonVariants({ variant: "primary" }))}
             disabled={isLoading || isStillUploading}
-            onClick={handleClick}
+            onClick={onClick}
           >
             Upload Avatar
           </Button>
