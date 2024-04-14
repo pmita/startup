@@ -18,6 +18,10 @@ export default async function ChaptersList({ chapters }: ChapterListProps) {
 
   return (
     <>
+      <Tag 
+        tag="Chapters"
+        className={"bg-secondary border-none rounded-[0px] p-4" }
+      />
       {chapters.map((chapter) => (
         <Link href={`/courses/${chapter.slugAsParams}`} key={chapter.weight} className="hover:text-primary-green">
           <div className="flex justify-between items-center p-2 min-h-[48px]">
