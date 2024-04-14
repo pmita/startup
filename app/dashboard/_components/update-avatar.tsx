@@ -25,7 +25,8 @@ export function UpdateAvatar() {
   // STATE & HOOKS
   const { user } = useAuthState();
   const [avatarUrl, setAvatarUrl] = React.useState<string | undefined | null>(user?.photoURL);
-  const { uploadFile, uploadProgress, isUploading } = useStorage();
+  const { uploadFile, uploadProgress, isLoading } = useStorage();
+  const isStillUploading = uploadProgress > 0 && uploadProgress !== 100;
   const fileUploadRef = useRef<HTMLInputElement>(null);
   const { dispatch } = useAuthState();
 
@@ -55,13 +56,17 @@ export function UpdateAvatar() {
     <Card className="flex flex-col justify-center items-center">
       <CardHeader>
         <CardDescription>
-          <Image
-            className="rounded-[50%]"
-            src={avatarUrl ?? '/images/hacker.png'}
-            width={250}
-            height={250}
-            alt={"test"}
-          />
+          {isStillUploading ? (
+            <h1>Loading ${uploadProgress.toFixed(0)}%</h1>
+          ): (
+            <Image
+              className="rounded-[50%]"
+              src={avatarUrl ?? '/images/hacker.png'}
+              width={250}
+              height={250}
+              alt={"test"}
+           />
+          )}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -74,10 +79,10 @@ export function UpdateAvatar() {
           />
           <Button
             className={cn(buttonVariants({ variant: "primary" }))}
-            disabled={isUploading}
+            disabled={isLoading || isStillUploading}
             onClick={handleClick}
           >
-            {isUploading || progress !== '100' ? `Progress: ${uploadProgress.toFixed(0)}%` : 'Upload Avatar'}
+            Upload Avatar
           </Button>
         </>
         <SignOutButton />
