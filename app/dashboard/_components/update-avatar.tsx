@@ -24,12 +24,11 @@ import { AuthActionTypes } from "@/types/AuthContextTypes";
 
 export function UpdateAvatar() {
   // STATE & HOOKS
-  const { user } = useAuthState();
+  const { user, dispatch } = useAuthState();
   const [avatarUrl, setAvatarUrl] = React.useState<string | undefined | null>(user?.photoURL);
   const { uploadFile, uploadProgress, isLoading } = useStorage();
   const isStillUploading = uploadProgress > 0 && uploadProgress !== 100;
   const fileUploadRef = useRef<HTMLInputElement>(null);
-  const { dispatch } = useAuthState();
 
   // EVENTS
   const onClick = (e: { preventDefault: () => void; }) => {
