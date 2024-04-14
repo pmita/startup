@@ -66,6 +66,8 @@ export default async function ChapterPage({ params }: CoursePageProps) {
 
 
   if (!chapter) notFound();
+
+  console.log(sortedChapters);
   
   return (
     <>
@@ -80,7 +82,7 @@ export default async function ChapterPage({ params }: CoursePageProps) {
             <div className="flex justify-center items-center gap-2.5">
                 {showPrevious && (
                   <Link 
-                    href={`/courses/${sortedChapters[chapter?.weight - 1].slugAsParams}}`}
+                    href={`${sortedChapters[chapter?.weight - 1].slug}`}
                     className={cn(buttonVariants({
                       variant: "secondaryOutlined",
                       size: "sm"
@@ -91,7 +93,7 @@ export default async function ChapterPage({ params }: CoursePageProps) {
                 )}
                 {showNext && (
                   <Link 
-                    href={`/courses/${sortedChapters[chapter?.weight + 1].slugAsParams}}`}
+                    href={`${sortedChapters[chapter?.weight + 1].slug}`}
                     className={cn(buttonVariants({
                       variant: "secondaryOutlined",
                       size: "sm"
