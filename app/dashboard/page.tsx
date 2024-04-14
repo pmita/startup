@@ -2,7 +2,6 @@
 import type { Metadata } from 'next'
 // COMPONENTS
 import { UpdatePassword } from './_components/update-password';
-import { UpdateAddress } from './_components/update-address';
 import { DeleteAccount } from './_components/delete-account';
 import { UpdateAvatar } from './_components/update-avatar';
 
@@ -17,7 +16,6 @@ export default async function DashboardPage(){
     <section className="flex flex-col justify-start items-stretch gap-5">
       <UpdateAvatar />
       <UpdatePassword />
-      <UpdateAddress />
       <DeleteAccount />
     </section>
   );
