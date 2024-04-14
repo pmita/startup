@@ -21,7 +21,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   }
 
   return (
-    <WrapContainer className="w-full p-5 pb-0">
+    <WrapContainer className="w-full">
       <AuthCheck fallback={(
         <Header
         className="flex flex-col justify-start items-center gap-6 pl-5"

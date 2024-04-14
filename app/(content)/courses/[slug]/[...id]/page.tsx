@@ -66,8 +66,6 @@ export default async function ChapterPage({ params }: CoursePageProps) {
 
 
   if (!chapter) notFound();
-
-  console.log(sortedChapters);
   
   return (
     <>
