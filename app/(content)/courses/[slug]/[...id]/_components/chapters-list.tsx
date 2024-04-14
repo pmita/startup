@@ -13,8 +13,11 @@ type ChapterListProps = {
 }
 
 export default async function ChaptersList({ chapters }: ChapterListProps) {
+
+  if (!chapters) return null;
+
   return (
-    <aside className="flex-[1_1_300px] self-stretch flex flex-col flex-start items-between gap-2 order-2 lg:order-1 min-h-[90vh] overflow-scroll">
+    <>
       {chapters.map((chapter) => (
         <Link href={`/courses/${chapter.slugAsParams}`} key={chapter.weight} className="hover:text-primary-green">
           <div className="flex justify-between items-center p-2 min-h-[48px]">
@@ -42,6 +45,6 @@ export default async function ChaptersList({ chapters }: ChapterListProps) {
           </div>
         </Link>
       ))}
-    </aside>
+    </>
   )
 }
