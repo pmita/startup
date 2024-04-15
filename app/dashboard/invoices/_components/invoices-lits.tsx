@@ -33,8 +33,6 @@ export function InvoicesList({ invoices }: UserInvoiceData) {
   const { user } = useAuthState();  
   
   if (!items?.length) return null;
-
-  console.log(items);
   
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const loadMore = useCallback(async () => {

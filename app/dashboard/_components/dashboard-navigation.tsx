@@ -9,7 +9,7 @@ import { cn } from "@/utils/helpers"
 import type { NavItem } from "@/types"
 
 export function DashboardNavigation({ items }: { items: NavItem[] }) {
-  // HOOKS
+  // STATE && HOOKS
   const pathname = usePathname();
 
   if(!items) return null;
